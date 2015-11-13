@@ -6,3 +6,23 @@ body {
 a {
   color: #00B7FF;
 }
+
+/* Top Navbar */
+.navbar .container-fluid {
+  background-color: #222;
+  color: #ddd;
+  border-bottom: 2px solid #ffd100;
+}
+
+/* Factor Map */
+#chart svg {
+  border: 1px solid #222;
+}
+.clusterText {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.clusterCircle:hover {
+  fill:#ffd02f;
+}
