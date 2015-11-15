@@ -28,20 +28,43 @@ script.
     });
   var path = marker.append('path')
     .attr('d', 'M 0 0 L 10 5 L 0 10 z');
-  
-  //- Load data and draw chart
-  d3.json('/data/factorMap.json', function(factorData) {    
     
+  //- Load data and draw chart
+  d3.json('/data/factorMap.json', function(factorData) {
+          
+    //- Define scales
+    var padding = 20;
+    
+    var cxMax = d3.max(factorData.clusters, function(d) { return Number(d.cx); });
+    var fxMax = d3.max(factorData.factors, function(d) { return Number(d.x2); });
+    var xMax = Math.max(cxMax, fxMax);
+    var cxMin = d3.min(factorData.clusters, function(d) { return Number(d.cx); });
+    var fxMin = d3.min(factorData.factors, function(d) { return Number(d.x2); });
+    var xMin = Math.min(cxMin, fxMin);        
+    var xScale = d3.scale.linear()
+      .domain([xMin - padding, xMax + padding])
+      .range([0, w]);
+    
+    var cyMax = d3.max(factorData.clusters, function(d) { return Number(d.cy); });
+    var fyMax = d3.max(factorData.factors, function(d) { return Number(d.y2); });
+    var yMax = Math.max(cyMax, fyMax) + 100;
+    var cyMin = d3.min(factorData.clusters, function(d) { return Number(d.cy); });    
+    var fyMin = d3.min(factorData.factors, function(d) { return Number(d.y2); });    
+    var yMin = Math.min(cyMin, fyMin);    
+    var yScale = d3.scale.linear()
+      .domain([yMin - padding, yMax + padding])
+      .range([0, h]);
+  
     //- Draw Factor Arrows
     var factorArrows = svg.selectAll('line')
       .data(factorData.factors)
       .enter()
       .append('line')
       .attr({
-        x1: function(d) { return d.x1 },
-        y1: function(d) { return d.y1 },
-        x2: function(d) { return d.x2 },
-        y2: function(d) { return d.y2 },
+        x1: function(d) { return xScale(d.x1) },
+        y1: function(d) { return yScale(d.y1) },
+        x2: function(d) { return xScale(d.x2) },
+        y2: function(d) { return yScale(d.y2) },
         stroke: 'black',
         'stroke-width': 2,
         'marker-end': 'url(#triangle)'
@@ -55,8 +78,8 @@ script.
       .attr({
         class: 'clusterCircle',
         id: function(d) { return d.id; },
-        cx: function(d) { return d.cx; },
-        cy: function(d) { return d.cy; },
+        cx: function(d) { return xScale(d.cx); },
+        cy: function(d) { return yScale(d.cy); },
         r: function(d) { return d.r; }
       });
     
@@ -67,8 +90,8 @@ script.
       .append('text')
       .text(function(d) { return d.label })
       .attr({
-        x: function(d) { return d.cx },
-        y: function(d) { return d.cy - d.r - 10 },
+        x: function(d) { return xScale(d.cx) },
+        y: function(d) { return yScale(d.cy - d.r - 10) },
         'text-anchor' : 'middle'
       });
   });
