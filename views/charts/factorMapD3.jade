@@ -4,34 +4,6 @@
 script(src="//d3js.org/d3.v3.min.js" charset="utf-8")
 #chart
 script.
-  //- Define Data
-  testData = {};
-  d3.json('/data/factorMap.json', function(data) {
-    console.log(data);    
-    testData = data;
-  })
-  
-  var factorData = {
-    clusterCircles : [
-      ["techForward", 375, 150, 40],
-      ["valueSeeker", 650, 300, 28],
-      ["basicNeeds", 200, 275, 13],
-      ["fullService", 350, 475, 19]
-    ],
-    clusterText : [
-      ["Tech Forward", 375, 100],
-      ["Value Seeker", 650, 260],
-      ["Basic Needs", 200, 250],
-      ["Full Service", 350, 445]
-    ],
-    factorArrows : [
-      [400, 300, 750, 50],
-      [400, 300, 750, 475],
-      [400, 300, 100, 100],
-      [400, 300, 50, 500]
-    ]   
-  }
-  
   //- Draw SVG
   var w = 800;
   var h = 600;  
@@ -57,41 +29,46 @@ script.
   var path = marker.append('path')
     .attr('d', 'M 0 0 L 10 5 L 0 10 z');
   
-  //- Plot Factor Arrows
-  var factorArrows = svg.selectAll('line')
-    .data(factorData.factorArrows)
-    .enter()
-    .append('line')
-    .attr({
-      x1: function(d) { return d[0] },
-      y1: function(d) { return d[1] },
-      x2: function(d) { return d[2] },
-      y2: function(d) { return d[3] },
-      stroke: 'black',
-      'stroke-width': 2,
-      'marker-end': 'url(#triangle)'
-    });
-  
-  //- Plot Clusters
-  var clusterCircles = svg.selectAll('circle')
-    .data(factorData.clusterCircles)
-    .enter()
-    .append('circle')
-    .attr({
-      class: 'clusterCircle',
-      id: function(d) { return d[0]; },
-      cx: function(d) { return d[1]; },
-      cy: function(d) { return d[2]; },
-      r: function(d) { return d[3]; }
-    });
-      
-  var clusterText = svg.selectAll('text')
-    .data(factorData.clusterText)
-    .enter()
-    .append('text')
-    .text(function(d) { return d[0] })
-    .attr({
-      x: function(d) { return d[1] },
-      y: function(d) { return d[2] },
-      'text-anchor' : 'middle'
-    });
+  //- Load data and draw chart
+  d3.json('/data/factorMap.json', function(factorData) {    
+    
+    //- Draw Factor Arrows
+    var factorArrows = svg.selectAll('line')
+      .data(factorData.factors)
+      .enter()
+      .append('line')
+      .attr({
+        x1: function(d) { return d.x1 },
+        y1: function(d) { return d.y1 },
+        x2: function(d) { return d.x2 },
+        y2: function(d) { return d.y2 },
+        stroke: 'black',
+        'stroke-width': 2,
+        'marker-end': 'url(#triangle)'
+      });
+    
+    //- Draw Clusters
+    var clusterCircles = svg.selectAll('circle')
+      .data(factorData.clusters)
+      .enter()
+      .append('circle')
+      .attr({
+        class: 'clusterCircle',
+        id: function(d) { return d.id; },
+        cx: function(d) { return d.cx; },
+        cy: function(d) { return d.cy; },
+        r: function(d) { return d.r; }
+      });
+    
+    //- Draw Cluster Labels
+    var clusterText = svg.selectAll('text')
+      .data(factorData.clusters)
+      .enter()
+      .append('text')
+      .text(function(d) { return d.label })
+      .attr({
+        x: function(d) { return d.cx },
+        y: function(d) { return d.cy - d.r - 10 },
+        'text-anchor' : 'middle'
+      });
+  });

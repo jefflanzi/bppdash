@@ -1,0 +1,62 @@
+{
+  "clusters" : [
+    {
+      "id" : "techForward",
+      "label" : "Tech Forward",
+      "cx" : "375",
+      "cy" : "150",
+      "r" : "40"
+    },
+    {
+      "id" : "valueSeeker",
+      "label" : "Value Seeker",
+      "cx" : "650",
+      "cy" : "300",
+      "r" : "28"
+    },
+    {
+      "id" : "basicNeeds",
+      "label" : "Basic Needs",
+      "cx" : "200",
+      "cy" : "275",
+      "r" : "13"
+    },
+    {
+      "id" : "fullService",
+      "label" : "Full Service",
+      "cx" : "350",
+      "cy" : "475",
+      "r" : "19"
+    }
+  ],
+  "factors" : [
+    {
+      "id" : "factor1",
+      "x1" : "400",
+      "y1" : "300",
+      "x2" : "750",
+      "y2" : "50"
+    },
+    {
+      "id" : "factor2",
+      "x1" : "400",
+      "y1" : "300",
+      "x2" : "750",
+      "y2" : "475"
+    },
+    {
+      "id" : "factor3",
+      "x1" : "400",
+      "y1" : "300",
+      "x2" : "100",
+      "y2" : "100"
+    },
+    {
+      "id" : "factor4",
+      "x1" : "400",
+      "y1" : "300",
+      "x2" : "50",
+      "y2" : "500"
+    }
+  ]
+}
