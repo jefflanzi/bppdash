@@ -25,4 +25,6 @@ a {
 
 .clusterCircle:hover {
   fill:#ffd02f;
+  stroke: #222;
+  stroke-width: 3;
 }
