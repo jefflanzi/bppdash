@@ -5,7 +5,7 @@ script(src="//d3js.org/d3.v3.min.js" charset="utf-8")
 #chart
 script.
   //- Draw SVG
-  var w = 800;
+  var w = 1000;
   var h = 600;  
   var svg = d3.select('#chart')
     .append('svg')
@@ -71,10 +71,10 @@ script.
       });
     
     //- Draw Clusters
-    var clusterCircles = svg.selectAll('circle')
+    var clusterCircles = svg.selectAll('circle.test')
       .data(factorData.clusters)
-      .enter()
-      .append('circle')
+      .enter()      
+      .append('circle')      
       .attr({
         class: 'clusterCircle',
         id: function(d) { return d.id; },
@@ -96,11 +96,28 @@ script.
       });
       
       //- Axis
+      var formatPercent = d3.format(".1%");
+      
       var xAxis = d3.svg.axis()
         .scale(xScale)
-        .orient('bottom');        
+        .orient('top')
+        .ticks(10)
+        .tickFormat(formatPercent);      
         
       svg.append("g")
         .attr("class", "axis")
+        .attr("transform", "translate(0," + h + ")")
         .call(xAxis);
+        
+      var yAxis = d3.svg.axis()
+        .scale(yScale)
+        .orient("right")
+        .ticks(10);
+        
+      svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(0,0)")
+        .call(yAxis);
+        
+  //- End d3.json function
   });
