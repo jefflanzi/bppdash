@@ -28,3 +28,15 @@ a {
   stroke: #222;
   stroke-width: 3;
 }
+
+/* Chart Styles */
+.axis path,
+.axis line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+}
+.axis test {
+  font-family: sans-serif;
+  font-size: 11px;
+}

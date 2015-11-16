@@ -1,6 +1,6 @@
 //- D3 API - https://github.com/mbostock/d3/wiki/API-Reference
 //- D3 Book - http://chimera.labs.oreilly.com/books/1230000000345/index.html
-//- http://chimera.labs.oreilly.com/books/1230000000345/ch05.html#_bound_and_determined
+//- http://chimera.labs.oreilly.com/books/1230000000345/ch08.html#_cleaning_it_up
 script(src="//d3js.org/d3.v3.min.js" charset="utf-8")
 #chart
 script.
@@ -54,7 +54,7 @@ script.
     var yScale = d3.scale.linear()
       .domain([yMin - padding, yMax + padding])
       .range([0, h]);
-  
+      
     //- Draw Factor Arrows
     var factorArrows = svg.selectAll('line')
       .data(factorData.factors)
@@ -94,4 +94,13 @@ script.
         y: function(d) { return yScale(d.cy - d.r - 10) },
         'text-anchor' : 'middle'
       });
+      
+      //- Axis
+      var xAxis = d3.svg.axis()
+        .scale(xScale)
+        .orient('bottom');        
+        
+      svg.append("g")
+        .attr("class", "axis")
+        .call(xAxis);
   });
