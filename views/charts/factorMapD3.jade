@@ -63,11 +63,17 @@ script.
       .attr({
         x1: function(d) { return xScale(d.x1) },
         y1: function(d) { return yScale(d.y1) },
-        x2: function(d) { return xScale(d.x2) },
-        y2: function(d) { return yScale(d.y2) },
+        x2: function(d) { return xScale(d.x1) },
+        y2: function(d) { return yScale(d.y1) },
         stroke: 'black',
         'stroke-width': 2,
         'marker-end': 'url(#triangle)'
+      })
+      .transition()
+      .duration(750)
+      .attr({
+        x2: function(d) { return xScale(d.x2) },
+        y2: function(d) { return yScale(d.y2) }
       });
     
     //- Draw Clusters
@@ -80,19 +86,25 @@ script.
         id: function(d) { return d.id; },
         cx: function(d) { return xScale(d.cx); },
         cy: function(d) { return yScale(d.cy); },
-        r: function(d) { return d.r; }
-      });
+        r: 0
+      })
+      .transition()
+      .delay(250)
+      .duration(1000)      
+      .attr('r', function(d) { return d.r; });
     
     //- Draw Cluster Labels
     var clusterText = svg.selectAll('text')
       .data(factorData.clusters)
-      .enter()
-      .append('text')
+      .enter()      
+      .append('text') 
       .text(function(d) { return d.label })
+      .transition()      
+      .delay(1000)
       .attr({
         x: function(d) { return xScale(d.cx) },
         y: function(d) { return yScale(d.cy - d.r - 10) },
-        'text-anchor' : 'middle'
+        'text-anchor' : 'middle',        
       });
       
       //- Axis
