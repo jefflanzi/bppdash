@@ -88,9 +88,13 @@ script.
         cy: function(d) { return yScale(d.cy); },
         r: 0
       })
+      .on('mouseover', function(d) {
+        var xPosition = parseFloat(d3.select(this).attr('cx')) + xScale.rangeBand() / 2;
+        var yPosition = parseFloat(d3.select(this).attr('cy')); 
+        })
       .on("click", function(d) { console.log(d) })
-      .on("mouseover", function() { d3.select(this).attr('fill', 'red'); })
-      .on('mouseout', function() { d3.select(this).attr('fill', '#222'); })
+      //- .on("mouseover", function() { d3.select(this).attr('fill', '#ffd02f'); })
+      //- .on('mouseout', function() { d3.select(this).attr('fill', '#222'); })
       .transition()
       .delay(250)
       .duration(1000)      
