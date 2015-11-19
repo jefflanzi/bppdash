@@ -2,7 +2,12 @@
 //- D3 Book - http://chimera.labs.oreilly.com/books/1230000000345/index.html
 //- http://chimera.labs.oreilly.com/books/1230000000345/ch08.html#_cleaning_it_up
 script(src="//d3js.org/d3.v3.min.js" charset="utf-8")
-#chart
+#chart.wrapper
+  #tooltip.hidden
+    p
+      strong Important Label Heading
+    p
+      span#value 100  
 script.
   //- Draw SVG
   var w = 1000;
@@ -89,9 +94,22 @@ script.
         r: 0
       })
       .on('mouseover', function(d) {
-        var xPosition = parseFloat(d3.select(this).attr('cx')) + xScale.rangeBand() / 2;
-        var yPosition = parseFloat(d3.select(this).attr('cy')); 
-        })
+        var _this = d3.select(this)        
+        var xPosition = parseFloat(_this.attr('cx')) + d.r;
+        var yPosition = parseFloat(_this.attr('cy')) - d.r;
+        //- Update tooltip position and value
+        d3.select('#tooltip')
+          .style('left', xPosition + 'px')
+          .style('top', yPosition + 'px')
+          .select('#value')
+          .text('x = ' + xPosition + ' y = ' + yPosition);
+        //- Show the tooltip
+        d3.select('#tooltip').classed('hidden', false);
+      })
+      .on('mouseout', function() {
+        //- Hide the tooltip
+        d3.select('#tooltip').classed('hidden', true);
+      })
       .on("click", function(d) { console.log(d) })
       //- .on("mouseover", function() { d3.select(this).attr('fill', '#ffd02f'); })
       //- .on('mouseout', function() { d3.select(this).attr('fill', '#222'); })
