@@ -1,0 +1,25 @@
+#barChart.wrapper
+  #tooltip.hidden
+    p
+      strong Tooltip Heading
+    p
+      span#value Tooltip Text
+script.
+  //- Draw SVG
+  var w = 1000;
+  var h = 600;  
+  var svg = d3.select('#barChart')
+    .append('svg')
+    .attr({
+      id: 'barChart',
+      width: w,
+      height: h
+  });
+  
+  //- load data
+  d3.csv('/data/jobTitles.csv', function(data) {
+    console.log(data);
+  
+  //- End d3.csv function
+  });
+  
