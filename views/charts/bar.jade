@@ -16,10 +16,25 @@ script.
       height: h
   });
   
-  //- load data
+  //- load data and call constructor functions
+  var dataset;
   d3.csv('/data/jobTitles.csv', function(data) {
-    console.log(data);
-  
+    dataset = data;
+    console.log(dataset);
+    var bars = svg.selectAll('rect')
+      .data(dataset)
+      .enter()
+      .append('rect')
+      .attr({
+        x: 0,
+        y: function(d, i) { return i * 21 },
+        width: function(d) { return d.Percent * 1000 },
+        height: 20
+      });
+      
   //- End d3.csv function
   });
+  
+  //- Create scale
+  
   
