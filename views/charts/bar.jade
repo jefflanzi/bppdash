@@ -21,20 +21,57 @@ script.
   d3.csv('/data/jobTitles.csv', function(data) {
     dataset = data;
     console.log(dataset);
+    
+    //- Create scales
+    var padding = 20;
+    
+    var xMax = d3.max(dataset, function(d) { return d.Percent });
+      var xScale = d3.scale.linear()
+      .domain([0, xMax])
+      .range([0, w]);
+      
+    var yScale = d3.scale.ordinal()
+      .domain(d3.range(dataset.length))
+      .rangeRoundBands([0, h], 0.01)
+    
+    //- Draw bars
     var bars = svg.selectAll('rect')
       .data(dataset)
       .enter()
       .append('rect')
       .attr({
         x: 0,
-        y: function(d, i) { return i * 21 },
-        width: function(d) { return d.Percent * 1000 },
-        height: 20
+        y: function(d, i) { return yScale(i) },        
+        width: function(d) { return xScale(d.Percent) },        
+        height: yScale.rangeBand()
+      });
+    
+    //- Draw Value Labels
+    var valuePad = .01;
+    var values = svg.selectAll('text')
+      .data(dataset)
+      .enter()
+      .append('text')
+      .text(function(d) { return d3.format('.1%')(d.Percent) })
+      .attr({
+        x: function(d) { return xScale(d.Percent - valuePad) },
+        y: function(d, i) { return yScale(i) + yScale.rangeBand() / 2 },
+        'text-anchor' : 'end'
+      });
+      
+    //- Draw Category Labels    
+    var labels = svg.selectAll('text')
+      .data(dataset)
+      .enter()
+      .append('text')
+      .text(function(d) { return d.Title })
+      .attr({
+        x: 0,
+        y: function(d, i) { return yScale(i) + yScale.rangeBand() / 2 }
       });
       
   //- End d3.csv function
   });
   
-  //- Create scale
-  
+
   

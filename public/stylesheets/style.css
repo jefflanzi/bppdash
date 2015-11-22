@@ -16,7 +16,7 @@ a {
 
 /* Chart Styles */
 svg {
-  border: 1px solid #222;
+  /*border: 1px solid #222;*/
 }
 
 .axis path,
@@ -51,7 +51,7 @@ svg text {
 .clusterCircle:hover {
   fill:#ffd02f;
   /*stroke: #222;*/
-  stroke-width: 2;
+  /*stroke-width: 2;*/
 }
 
 #chart.wrapper {
@@ -81,4 +81,25 @@ svg text {
         font-family: sans-serif;
         font-size: 16px;
         line-height: 20px;
+}
+
+/* Bar Chart */
+rect {
+  fill: #222;
+  -moz-transition: fill 0.4s;
+  -o-transition: fill 0.4s;
+  -webkit-transition: fill 0.4s;
+  transition: fill 0.4s;
+}
+
+rect:hover {
+  fill:#ffd02f
+}
+
+#barChart text {
+  margin: 0;
+  font-family: sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  fill: #ddd;
 }
