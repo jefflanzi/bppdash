@@ -25,14 +25,24 @@ script.
     //- Create scales
     var padding = 20;
     
-    var xMax = d3.max(dataset, function(d) { return d.Percent });
-      var xScale = d3.scale.linear()
+    var xMax = d3.max(dataset, function(d) { return d.Percent });    
+    var xScale = d3.scale.linear()
       .domain([0, xMax])
-      .range([0, w]);
+      .range([0, w - 100]);
       
     var yScale = d3.scale.ordinal()
-      .domain(d3.range(dataset.length))
-      .rangeRoundBands([0, h], 0.01)
+      .domain(dataset.map(function(d) { return d.Title }))
+      .rangeRoundBands([0, h], 0.01);
+      
+    //- Create Axis
+    var yAxis = d3.svg.axis()
+      .scale(yScale)
+      .orient("left")
+      
+    svg.append("g")
+      .attr("class", "axis")
+      .attr("transform", "translate(100,0)")
+      .call(yAxis);
     
     //- Draw bars
     var bars = svg.selectAll('rect')
@@ -40,34 +50,24 @@ script.
       .enter()
       .append('rect')
       .attr({
-        x: 0,
-        y: function(d, i) { return yScale(i) },        
+        x: 100,
+        y: function(d, i) { return yScale(d.Title) },        
         width: function(d) { return xScale(d.Percent) },        
         height: yScale.rangeBand()
       });
     
     //- Draw Value Labels
     var valuePad = .01;
-    var values = svg.selectAll('text')
+    var values = svg.selectAll('text.new')      
       .data(dataset)
       .enter()
       .append('text')
       .text(function(d) { return d3.format('.1%')(d.Percent) })
+      .classed('valueLabel', true)
       .attr({
-        x: function(d) { return xScale(d.Percent - valuePad) },
-        y: function(d, i) { return yScale(i) + yScale.rangeBand() / 2 },
+        x: function(d) { return xScale(d.Percent - valuePad) + 100 },
+        y: function(d, i) { return yScale(d.Title) + yScale.rangeBand() / 2 },
         'text-anchor' : 'end'
-      });
-      
-    //- Draw Category Labels    
-    var labels = svg.selectAll('text')
-      .data(dataset)
-      .enter()
-      .append('text')
-      .text(function(d) { return d.Title })
-      .attr({
-        x: 0,
-        y: function(d, i) { return yScale(i) + yScale.rangeBand() / 2 }
       });
       
   //- End d3.csv function

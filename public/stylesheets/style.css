@@ -99,7 +99,14 @@ rect:hover {
 #barChart text {
   margin: 0;
   font-family: sans-serif;
-  font-size: 20px;
   font-weight: bold;
+}
+
+#barChart .valueLabel {
+  font-size: 16px;
   fill: #ddd;
+}
+
+#barChart .categoryLabel {
+  font-size: 12px;
 }
