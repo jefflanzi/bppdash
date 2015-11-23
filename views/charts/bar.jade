@@ -1,3 +1,4 @@
+//- http://bost.ocks.org/mike/bar/3/
 #barChart.wrapper
   #tooltip.hidden
     p
@@ -6,69 +7,87 @@
       span#value Tooltip Text
 script.
   //- Draw SVG
+  var margin = {top: 20, right: 20, bottom: 20, left: 40}
   var w = 1000;
-  var h = 600;  
-  var svg = d3.select('#barChart')
+  var h = 600;
+  
+  var chart = d3.select('#barChart')
     .append('svg')
-    .attr({
-      id: 'barChart',
+    .attr({      
       width: w,
       height: h
-  });
-  
-  //- load data and call constructor functions
+    })
+    .append('g');
+    
+  var xScale = d3.scale.linear()
+    .range([0, w - 100]);
+    
+  var yScale = d3.scale.ordinal()
+    .rangeRoundBands([0, h], 0.01);
+    
   var dataset;
-  d3.csv('/data/jobTitles.csv', function(data) {
+    
+  //- load data and call constructor functions  
+  d3.csv('/data/jobTitles.csv', function(error, data) {
     dataset = data;
     console.log(dataset);
     
-    //- Create scales
-    var padding = 20;
-    
+    //- Scales
+    var padding = 20;    
     var xMax = d3.max(dataset, function(d) { return d.Percent });    
-    var xScale = d3.scale.linear()
-      .domain([0, xMax])
-      .range([0, w - 100]);
-      
-    var yScale = d3.scale.ordinal()
-      .domain(dataset.map(function(d) { return d.Title }))
-      .rangeRoundBands([0, h], 0.01);
-      
-    //- Create Axis
-    var yAxis = d3.svg.axis()
-      .scale(yScale)
-      .orient("left")
-      
-    svg.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(100,0)")
-      .call(yAxis);
+    xScale.domain([0, xMax]);
+    yScale.domain(dataset.map(function(d) { return d.Title }));
     
-    //- Draw bars
-    var bars = svg.selectAll('rect')
+    //- Groups test
+    var bars = chart.selectAll('g')
       .data(dataset)
       .enter()
-      .append('rect')
+      .append('g')
+      .classed('bar', true);
+      
+    //- bar rects
+    bars.append('rect')
       .attr({
         x: 100,
-        y: function(d, i) { return yScale(d.Title) },        
-        width: function(d) { return xScale(d.Percent) },        
+        y: function(d) { return yScale(d.Title) },
+        width: function(d) { return xScale(d.Percent) },
         height: yScale.rangeBand()
       });
-    
-    //- Draw Value Labels
+      
+    //-  bar value Labels
     var valuePad = .01;
-    var values = svg.selectAll('text.new')      
-      .data(dataset)
-      .enter()
-      .append('text')
+    bars.append('text')
       .text(function(d) { return d3.format('.1%')(d.Percent) })
       .classed('valueLabel', true)
       .attr({
-        x: function(d) { return xScale(d.Percent - valuePad) + 100 },
+        x: function(d) { return xScale(d.Percent - valuePad) + 100},
         y: function(d, i) { return yScale(d.Title) + yScale.rangeBand() / 2 },
         'text-anchor' : 'end'
-      });
+      });      
+
+    //- //- Draw Value Labels
+    //- var valuePad = .01;
+    //- var values = chart.selectAll('text.new')      
+    //-   .data(dataset)
+    //-   .enter()
+    //-   .append('text')
+    //-   .text(function(d) { return d3.format('.1%')(d.Percent) })
+    //-   .classed('valueLabel', true)
+    //-   .attr({
+    //-     x: function(d) { return xScale(d.Percent - valuePad) + 100 },
+    //-     y: function(d, i) { return yScale(d.Title) + yScale.rangeBand() / 2 },
+    //-     'text-anchor' : 'end'
+    //-   });
+      
+      //- Create Axis
+      //- var yAxis = d3.chart.axis()
+      //-   .scale(yScale)
+      //-   .orient("left")
+      //-   
+      //- chart.append("g")
+      //-   .attr("class", "axis")
+      //-   .attr("transform", "translate(100,0)")
+      //-   .call(yAxis);
       
   //- End d3.csv function
   });
