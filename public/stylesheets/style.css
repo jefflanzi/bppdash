@@ -16,7 +16,11 @@ a {
 
 /* Chart Styles */
 svg {
-  /*border: 1px solid #222;*/
+  border: 1px solid #ccc;
+}
+
+svg text {
+  pointer-events: none;
 }
 
 .axis path,
@@ -32,10 +36,6 @@ svg {
 }
 
 /* Factor Map */
-svg text {
-  pointer-events: none;
-}
-
 .clusterText {
   font-size: 16px;
   font-weight: bold;
@@ -57,6 +57,7 @@ svg text {
 #chart.wrapper {
   position: relative;
 }
+
 #tooltip {
   position: absolute;
   width: auto;
@@ -84,7 +85,7 @@ svg text {
 }
 
 /* Bar Chart */
-rect {
+.bar * {
   fill: #222;
   -moz-transition: fill 0.4s;
   -o-transition: fill 0.4s;
@@ -92,21 +93,18 @@ rect {
   transition: fill 0.4s;
 }
 
-rect:hover {
+.bar rect:hover {
   fill:#ffd02f
 }
 
-#barChart text {
+.bar .valueLabel {
   margin: 0;
   font-family: sans-serif;
-  font-weight: bold;
-}
-
-#barChart .valueLabel {
   font-size: 16px;
-  fill: #ddd;
+  font-weight: bold;
+  fill: #fff;
 }
 
-#barChart .categoryLabel {
-  font-size: 12px;
+.bar:hover .valueLabel {
+  fill: #000;
 }
