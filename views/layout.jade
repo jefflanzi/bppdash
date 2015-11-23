@@ -3,11 +3,12 @@
 doctype html
 html
   head
-    title= title
-    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title= title    
     meta(name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+    //- Libraries
     link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css', rel='stylesheet')
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css')  
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='http://getbootstrap.com/examples/dashboard/dashboard.css')  
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='https://code.jquery.com/jquery-2.1.4.min.js')
     script(src='https://code.jquery.com/ui/1.11.4/jquery-ui.min.js')
@@ -18,5 +19,21 @@ html
       .container-fluid
         .navbar-header        
           h3 Brand Performance Platform      
-      
-    block content
+    
+    //- Body container
+    .container-fluid
+      .row
+        //- Sidebar
+        .col-sm-3.col-md-2.sidebar
+          ul.nav.nav-sidebar
+            li.active
+              a(href='#') Overview
+                span.sr-only (current)
+            li
+              a(href='#') Test 1
+            li
+              a(href='#') Test 2
+        //- Chart
+        div(class='col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main')
+          h1.page-header Dashboard    
+          block content

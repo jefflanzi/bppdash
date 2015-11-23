@@ -1,5 +1,5 @@
 //- http://bost.ocks.org/mike/bar/3/
-#barChart.wrapper
+#barChart.wrapper(width='500px')
   #tooltip.hidden
     p
       strong Tooltip Heading
@@ -8,10 +8,11 @@
 script.
   //- Draw SVG
   //- width = $('#barChart').width();
-  width = d3.select('#barChart').style('width');
+  //- width = d3.select('#barChart').style('width');
+  width = $('#barChart').width();
   height = d3.select('#barChart').style('height');
   var margin = {top: 20, right: 20, bottom: 30, left: 140}
-  var w = 1000 - margin.left - margin.right;
+  var w = width - margin.left - margin.right;
   var h = 600 - margin.top - margin.bottom;
   
   var xScale = d3.scale.linear()
