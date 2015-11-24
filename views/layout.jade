@@ -3,37 +3,62 @@
 doctype html
 html
   head
-    title= title    
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+    title= title
     //- Libraries
-    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css', rel='stylesheet')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css')
     link(rel='stylesheet', href='http://getbootstrap.com/examples/dashboard/dashboard.css')  
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    //- link(rel='stylesheet', href='/stylesheets/style.css')    
     script(src='https://code.jquery.com/jquery-2.1.4.min.js')
     script(src='https://code.jquery.com/ui/1.11.4/jquery-ui.min.js')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
   body
     //- Top Navbar
-    .navbar.navbar-default.navbar-fixed-top
+    nav(class='navbar navbar-inverse navbar-fixed-top')
       .container-fluid
-        .navbar-header        
-          h3 Brand Performance Platform      
-    
+        .navbar-header
+          button(type='button', class='navbar-toggle collapsed', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+            span.sr-only Toggle Navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#') Brand Performance Platform
+        #navbar(class='navbar-collapse collapse')
+          ul(class='nav navbar-nav navbar-right')
+            li
+              a(href='#') Dashboard
+            li
+              a(href='#') Settings
+            li
+              a(href='#') Profile
+            li
+              a(href='#') Help
+          form(class='navbar-form navbar-right')
+            input(type='text', class='form-control', placeholder='Search...')            
     //- Body container
     .container-fluid
       .row
         //- Sidebar
-        .col-sm-3.col-md-2.sidebar
-          ul.nav.nav-sidebar
+        div(class='col-sm-3 col-md-2 sidebar')
+          ul(class='nav nav-sidebar')
             li.active
               a(href='#') Overview
                 span.sr-only (current)
             li
-              a(href='#') Test 1
+              a(href='#') Analytics
             li
-              a(href='#') Test 2
-        //- Chart
+              a(href='#') Export
+          ul(class='nav nav-sidebar')
+            li
+              a(href='') More 1
+            li
+              a(href='') More 2
+            li
+              a(href='') More 3
+        //- Main content area
         div(class='col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main')
-          h1.page-header Dashboard    
-          block content
+          h1.page-header Dashboard
+          
