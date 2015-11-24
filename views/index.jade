@@ -3,4 +3,8 @@ extends layout
 block content  
   p Welcome to the #{title}
   script(src="//d3js.org/d3.v3.min.js" charset="utf-8")
-  include charts/bar.jade
+  #chart.wrapper()    
+  script
+    include charts/bar.js
+  
+    
