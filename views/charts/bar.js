@@ -1,9 +1,10 @@
 // http://bost.ocks.org/mike/chart/
-function barChart() {
+function barChart(selection) {
   //- Draw SVG
   var margin = {top: 20, right: 20, bottom: 30, left: 140};
-  var width = parseInt(d3.select('#chart').style('width')) - margin.left - margin.right;
-  var height = 600 - margin.top - margin.bottom;
+  var width = parseInt(selection.style('width')) - margin.left - margin.right;
+  // var width = 960 - margin.left - margin.right
+  var height = 500 - margin.top - margin.bottom;
 
   var xScale = d3.scale.linear()
     .range([0, width]);
@@ -19,11 +20,12 @@ function barChart() {
     .scale(yScale)
     .orient('left');
 
-  var chart = d3.select('#chart')
-    .append('svg')
+  var chart = selection.append('svg')
     .attr({
       width: width + margin.left + margin.right,
-      height: height + margin.top + margin.bottom
+      height: height + margin.top + margin.bottom,
+      // viewBox: '0 0 ' + width + ' ' + height,
+      // preserveAspectRatio: 'xMinYMin'
     })
     .append('g')
     .attr('id', 'chartArea')
@@ -73,11 +75,44 @@ function barChart() {
       .text(function(d) { return d3.format('.1%')(d.Percent) })
       .classed('valueLabel', true)
       .attr({
-        x: function(d) { return xScale(d.Percent - valuePad)},
+        x: function(d) { return xScale(d.Percent) },
+        dx: '-1em',
         y: function(d, i) { return yScale(d.Title) + yScale.rangeBand() / 2 },
+        dy: '0.35em',
         'text-anchor' : 'end'
       });
 
-  //- End d3.csv function
+    //- responsive resize
+    d3.select(window).on('resize', resize);
+    function resize() {
+      width = parseInt(selection.style('width')) - margin.left - margin.right;
+      xScale.range([0, width]);
+
+      d3.select('#chart svg')
+        .transition()
+        .duration(250)
+        .attr('width', width + margin.left + margin.right + 'px');
+
+      d3.selectAll('.bar rect')
+        .transition()
+        .duration(250)
+        .attr('width', function(d) { return xScale(+d.Percent) })
+
+      d3.selectAll('.valueLabel')
+        .transition()
+        .duration(250)
+        .attr('x', function(d) { return xScale(+d.Percent) })
+
+      d3.select('.x.axis')
+        .transition()
+        .duration(250)
+        .call(xAxis);
+      // d3.select('.y.axis').call(yAxis);
+    }
+
+  //- End d3.csv() function
   });
+
+//- End function barChart()
 };
+barChart(d3.select('#chart'));
