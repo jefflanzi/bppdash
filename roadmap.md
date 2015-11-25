@@ -1,8 +1,10 @@
 #Alpha v0.0.1
-Features: interactive charts, responsive ui
-Purpose: Technical demonstration for internal consideration
-Audience: Internal Team
-Value Proposition: Prototype
+**Features:**
+* interactive charts
+* responsive ui
+**Purpose:** Technical demonstration for internal consideration  
+**Audience:** Internal Team  
+**Value Proposition:** Prototype
 
 #Alpha v0.0.2
 Features: interactive charts, responsive ui, + animated login page
