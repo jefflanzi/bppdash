@@ -1,5 +1,4 @@
 //- http://getbootstrap.com/examples/dashboard/#
-//- http://mobiledevmemo.com/building-a-lightweight-flexible-d3-js-dashboard-part-1-of-2/
 doctype html
 html
   head
@@ -10,7 +9,7 @@ html
     //- Libraries
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css')
-    link(rel='stylesheet', href='http://getbootstrap.com/examples/dashboard/dashboard.css')  
+    link(rel='stylesheet', href='/stylesheets/dashboard.css')  
     link(rel='stylesheet', href='/stylesheets/style.css')    
     script(src='https://code.jquery.com/jquery-2.1.4.min.js')
     script(src='https://code.jquery.com/ui/1.11.4/jquery-ui.min.js')
@@ -25,7 +24,7 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href='#') Brand Performance Platform
+          a.navbar-brand(href='/') Brand Performance Platform
         #navbar(class='navbar-collapse collapse')
           ul(class='nav navbar-nav navbar-right')
             li
@@ -45,19 +44,12 @@ html
         div(class='col-sm-3 col-md-2 sidebar')
           ul(class='nav nav-sidebar')
             li.active
-              a(href='#') Sales Funnel
+              a(href='/charts/salesFunnel') Sales Funnel
                 span.sr-only (current)
             li
-              a(href='#') Market Map
+              a(href='/charts/marketMap') Market Map
             li
-              a(href='#') Demographics
-          ul(class='nav nav-sidebar')
-            li
-              a(href='') More 1
-            li
-              a(href='') More 2
-            li
-              a(href='') More 3
+              a(href='/charts/bar') Demographics
         //- Main content area
         div(class='col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main')
           h1.page-header Dashboard
