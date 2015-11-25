@@ -115,4 +115,3 @@ function barChart(selection) {
 
 //- End function barChart()
 };
-barChart(d3.select('#chart'));

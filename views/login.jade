@@ -1,0 +1,69 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+    title= title
+    //- Libraries
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='/stylesheets/dashboard.css')  
+    link(rel='stylesheet', href='/stylesheets/style.css')    
+    script(src='https://code.jquery.com/jquery-2.1.4.min.js')
+    script(src='https://code.jquery.com/ui/1.11.4/jquery-ui.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
+    script(src="//d3js.org/d3.v3.min.js" charset="utf-8")
+  body
+    script.
+      var width = window.innerWidth || document.documentElement.clientHeight;
+      var height = window.innerHeight || document.documentElement.clientHeight;
+      //- console.log(width);
+      //- console.log(height);
+      var body = d3.select('body')
+        .style('background-color', '#222')
+        .style('padding', '0');
+      
+      var chart = body.append('svg')
+        .attr({
+          width: width,
+          height: height          
+        })
+        .style('border', 'none');        
+      
+      var size = 20
+                    
+      var xScale = d3.scale.ordinal()
+        .domain(d3.range(Math.ceil(width / size)))
+        .rangeRoundBands([0, width])
+        
+      var yScale = d3.scale.ordinal()
+        .domain(d3.range(Math.ceil(height / size)))
+        .rangeRoundBands([0, height])
+      
+      xs = d3.range(Math.ceil(width/size))
+      ys = d3.range(Math.ceil(height/size))
+      
+      var ygroups = chart.selectAll('g')
+        .data(ys)
+        .enter()
+        .append('g')
+        .attr('transform', function(d, i ) {return 'translate(0, ' + i*20 + ')'});        
+      
+      ygroups.selectAll('rect')
+        .data(xs)
+        .enter()
+        .append('rect')
+        .attr('height', '20px')
+        .attr('width', '20px')
+        .attr('x', function(d, i) { return i * 20 })        
+        .classed('loginRect', true);
+      
+      //- chart.append('rect')
+      //-   .attr({
+      //-       x: 10,
+      //-       y: 10,
+      //-       width: '20px',
+      //-       height: '20px',
+      //-       fill: 'red'
+      //-   });
