@@ -41,56 +41,31 @@ html
         .domain(d3.range(Math.ceil(height / size)))
         .rangeRoundBands([0, height])
 
-      xs = d3.range(Math.ceil(width/size))
-      ys = d3.range(Math.ceil(height/size))
-  
-      //- Create matrix of coordinate objects
-      var matrix = []
-      for (var i = 0; i < ys.length; i++) {
-        matrix[i] = [];
-        for (var j = 0; j < xs.length; j++) {
-          matrix[i][j] = {};
-          matrix[i][j].x = j;
-          matrix[i][j].y = i;
-        }
+      xs = Math.ceil(width/size);
+      ys = Math.ceil(height/size);
+      
+      var dataMatrix = []
+      for(var i = 0; i < ys; i++) {
+        for(var j = 0; j < xs; j++) {
+          dataMatrix.push({x: j * 20, y: i * 20});
+        }         
       }
       
-      var matrix2 = []
-      for(var i = 0; i < ys.length; i++) {
-        for(var j = 0; j < xs.length; j++) {
-          matrix2.push({x: j, y: i});
-        }            
-      }
-
-      var ygroups = chart.selectAll('g')
-        .data(ys)
+      var grid = chart.selectAll('rect')
+        .data(dataMatrix)
         .enter()
-        .append('g')
-        .attr('transform', function(d, i) {return 'translate(0, ' + i*20 + ')'});
-
-      ygroups.selectAll('rect')
-        .data(xs)
-        .enter()
-        .append('rect')                
+        .append('rect')
         .attr({
-          x: 0,
-          height: '20px',
-          width:'0px',
+          x: function(d, i) { return d.x},
+          y: function(d, i) { return d.y},
+          width: 0,
+          height: 0,
           class: 'loginRect'
-        })        
+        })
         .transition()
-        .delay(function(d, i) { return i * Math.random() * 30 } )
-        .duration(1000)
+        .delay(function(d, i) { return i/4; })
+        .duration(750)
         .attr({
-          x: function(d, i) { return i * 20 },          
+          height: '20px',
           width: '20px'
-        });        
-
-      //- chart.append('rect')
-      //-   .attr({
-      //-       x: 10,
-      //-       y: 10,
-      //-       width: '20px',
-      //-       height: '20px',
-      //-       fill: 'red'
-      //-   });
+        });
