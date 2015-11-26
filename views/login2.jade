@@ -21,8 +21,7 @@ html
       //- console.log(width);
       //- console.log(height);
       var body = d3.select('body')
-        .style('background-color', '#222')
-        .style('padding', '0');
+        .classed('login', true);
 
       var chart = body.append('svg')
         .attr({
@@ -31,23 +30,23 @@ html
         })
         .style('border', 'none');
 
-      var size = 20
+      var squareSize = 30
 
       var xScale = d3.scale.ordinal()
-        .domain(d3.range(Math.ceil(width / size)))
+        .domain(d3.range(Math.ceil(width / squareSize)))
         .rangeRoundBands([0, width])
 
       var yScale = d3.scale.ordinal()
-        .domain(d3.range(Math.ceil(height / size)))
+        .domain(d3.range(Math.ceil(height / squareSize)))
         .rangeRoundBands([0, height])
 
-      xs = Math.ceil(width/size);
-      ys = Math.ceil(height/size);
+      xs = Math.ceil(width/squareSize);
+      ys = Math.ceil(height/squareSize);
       
       var dataMatrix = []
       for(var i = 0; i < ys; i++) {
         for(var j = 0; j < xs; j++) {
-          dataMatrix.push({x: j * 20, y: i * 20});
+          dataMatrix.push({x: j * squareSize, y: i * squareSize});
         }         
       }
       
@@ -56,16 +55,20 @@ html
         .enter()
         .append('rect')
         .attr({
-          x: function(d, i) { return d.x},
-          y: function(d, i) { return d.y},
+          x: function(d, i) { return d.x; },
+          y: function(d, i) { return d.y; },
           width: 0,
           height: 0,
           class: 'loginRect'
         })
         .transition()
-        .delay(function(d, i) { return i/4; })
-        .duration(750)
+        .delay(function(d, i) { return Math.sqrt(i) * 20})
+        .duration(1000)
         .attr({
-          height: '20px',
-          width: '20px'
+          height: squareSize,
+          width: squareSize
         });
+        
+        function sigmoid(x) {
+          return 1/(1 + Math.pow(Math.E, -x));
+        }

@@ -101,9 +101,14 @@ svg text {
 }
 
 /*Login Page*/
+body.login {
+  background-color: #000;
+  padding: 0;
+}
+
 .loginRect {
-  fill: #222;
-  stroke: #ffd02f;
+  fill: #111;
+  stroke: #777;
   stroke-width: .5;
   -moz-transition: fill 0.1s;
   -o-transition: fill 0.1s;

@@ -21,29 +21,28 @@ html
       //- console.log(width);
       //- console.log(height);
       var body = d3.select('body')
-        .style('background-color', '#222')
-        .style('padding', '0');
-
+        .classed('login', true);
+        
       var chart = body.append('svg')
         .attr({
           width: width,
           height: height
         })
         .style('border', 'none');
-
-      var size = 20
-
+        
+      var squareSize = 30
+      
       var xScale = d3.scale.ordinal()
-        .domain(d3.range(Math.ceil(width / size)))
+        .domain(d3.range(Math.ceil(width / squareSize)))
         .rangeRoundBands([0, width])
-
+        
       var yScale = d3.scale.ordinal()
-        .domain(d3.range(Math.ceil(height / size)))
+        .domain(d3.range(Math.ceil(height / squareSize)))
         .rangeRoundBands([0, height])
-
-      xs = d3.range(Math.ceil(width/size))
-      ys = d3.range(Math.ceil(height/size))
-  
+        
+      xs = d3.range(Math.ceil(width/squareSize))
+      ys = d3.range(Math.ceil(height/squareSize))
+      
       //- Create matrix of coordinate objects
       var matrix = []
       for (var i = 0; i < ys.length; i++) {
@@ -55,35 +54,28 @@ html
         }
       }
       
-      var matrix2 = []
-      for(var i = 0; i < ys.length; i++) {
-        for(var j = 0; j < xs.length; j++) {
-          matrix2.push({x: j, y: i});
-        }            
-      }
-
       var ygroups = chart.selectAll('g')
         .data(ys)
         .enter()
         .append('g')
-        .attr('transform', function(d, i) {return 'translate(0, ' + i*20 + ')'});
-
+        .attr('transform', function(d, i) {return 'translate(0, ' + i*squareSize + ')'});
+        
       ygroups.selectAll('rect')
         .data(xs)
         .enter()
         .append('rect')                
         .attr({
           x: 0,
-          height: '20px',
+          height: squareSize,
           width:'0px',
           class: 'loginRect'
         })        
         .transition()
-        .delay(function(d, i) { return i * Math.random() * 30 } )
+        .delay(function(d, i) { return (Math.sqrt(i) * 5) * Math.random() * 30 } )
         .duration(1000)
         .attr({
-          x: function(d, i) { return i * 20 },          
-          width: '20px'
+          x: function(d, i) { return i * squareSize },          
+          width: squareSize
         });        
 
       //- chart.append('rect')
