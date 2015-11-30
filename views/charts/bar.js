@@ -41,7 +41,7 @@ function barChart(selection) {
       console.log(dataset);
 
       //- Scales
-      var xMax = d3.max(dataset, function(d) { return d.Percent });
+      var xMax = d3.max(dataset, function(d) { return +d.Percent });
       xScale.domain([0, xMax]);
       yScale.domain(dataset.map(function(d) { return d.Title }));
 
@@ -74,24 +74,23 @@ function barChart(selection) {
       //-  Draw bar value Labels
       var valuePad = .01;
       bars.append('text')
-        .text(function(d) { return d3.format('.1%')(d.Percent) })
+        .text(function(d) { return d3.format('.1%')(+d.Percent) })
         .classed('valueLabel', true)
         .attr({
-          x: function(d) { return xScale(d.Percent) },
+          x: 0,
           dx: '-1em',
           y: function(d, i) { return yScale(d.Title) + yScale.rangeBand() / 2 },
           dy: '0.35em',
           'text-anchor' : 'end'
         });
 
-      chart.resize(750);
-      d3.select(window).on('resize', chart.resize);
+      chart.resize(1000);
+      d3.select(window).on('resize', function() { chart.resize(500); });
 
     //- End d3.csv() function
     });
 
-    //- responsive resize
-    // d3.select(window).on('resize', chart.resize);
+    //- responsive resize and animations
     chart.resize = function (duration) {
 
       var duration = duration || 500;
