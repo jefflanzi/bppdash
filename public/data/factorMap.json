@@ -58,5 +58,31 @@
       "x2" : 50,
       "y2" : 500
     }
+  ],
+  "companies" : [
+    {
+      "id" : "Your Brand",
+      "class" : "client",
+      "x" : 275,
+      "y" : 275
+    },
+    {
+      "id" : "Competitor A",
+      "class" : "competitor",
+      "x" : 475,
+      "y" : 275
+    },
+    {
+      "id" : "Competitor B",
+      "class" : "competitor",
+      "x" : 550,
+      "y" : 350
+    },
+    {
+      "id" : "Competitor C",
+      "class" : "competitor",
+      "x" : 400,
+      "y" : 375
+    }
   ]
 }

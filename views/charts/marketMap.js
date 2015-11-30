@@ -1,24 +1,26 @@
 function marketMap(selection) {
-  //- Define function variables
-  var margin = {top: 20, right: 20, bottom: 20, left: 20};
-  var width = 960 - margin.left - margin.right;
-  var height = 500 - margin.top - margin.bottom;
+  // Define function variables
+  var margin = { top: 20, right: 20, bottom: 30, left: 30 }
+  var width = parseInt(selection.style('width')) - margin.left - margin.right;
+  var height = 600 - margin.top - margin.bottom;
+  var markerSize = 20; // for company markers
 
   var xScale = d3.scale.linear().range([0, width]);
   var yScale = d3.scale.linear().range([0, height]);
 
-  //- Bind Data and Create Elements
+  // Create SVG elements and bind data
   function chart() {
-    //- Draw SVG
+    // Draw SVG
     var chart = selection.append('svg')
     .attr({
       width: width + margin.left + margin.right,
       height: height + margin.top + margin.bottom
     })
     .append('g')
+    .attr('id', 'chartArea')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    //- Define Triangle Line Markers
+    // Define Triangle Line Markers
     var def = chart.append('defs')
     var marker = def.append('marker')
     .attr({
@@ -32,10 +34,10 @@ function marketMap(selection) {
     });
     var path = marker.append('path').attr('d', 'M 0 0 L 10 5 L 0 10 z');
 
-    //- Load data and draw chart
+    // Load data and draw chart
     d3.json('/data/factorMap.json', function(factorData) {
 
-      //- Define scales
+      // Define scales
       var cxMax = d3.max(factorData.clusters, function(d) { return Number(d.cx); });
       var fxMax = d3.max(factorData.factors, function(d) { return Number(d.x2); });
       var xMax = Math.max(cxMax, fxMax);
@@ -46,21 +48,19 @@ function marketMap(selection) {
 
       var cyMax = d3.max(factorData.clusters, function(d) { return Number(d.cy); });
       var fyMax = d3.max(factorData.factors, function(d) { return Number(d.y2); });
-      var yMax = Math.max(cyMax, fyMax) + 100;
+      var yMax = Math.max(cyMax, fyMax);
       var cyMin = d3.min(factorData.clusters, function(d) { return Number(d.cy); });
       var fyMin = d3.min(factorData.factors, function(d) { return Number(d.y2); });
       var yMin = Math.min(cyMin, fyMin);
       yScale.domain([yMin , yMax]);
 
-      //- Draw Factor Arrows
-      var factorArrows = chart.selectAll('line')
+      // Draw Factor Arrows
+      var factorArrows = chart.selectAll('line.new')
       .data(factorData.factors)
       .enter()
       .append('line')
       .attr({
         class: 'factor',
-        x1: function(d) { return xScale(d.x1) },
-        y1: function(d) { return yScale(d.y1) },
         x2: function(d) { return xScale(d.x1) },
         y2: function(d) { return yScale(d.y1) },
         stroke: 'black',
@@ -68,89 +68,123 @@ function marketMap(selection) {
         'marker-end': 'url(#triangle)'
       });
 
-      //- Draw Clusters
-      var clusterCircles = chart.selectAll('circle')
-      .data(factorData.clusters)
-      .enter()
-      .append('circle')
-      .attr({
-        class: 'clusterCircle',
-        id: function(d) { return d.id; },
-        cx: function(d) { return xScale(d.cx); },
-        cy: function(d) { return yScale(d.cy); },
-        r: 0
-      })
-      .on('mouseover', function(d) {
-        var _this = d3.select(this)
-        var xPosition = parseFloat(_this.attr('cx')) + d.r;
-        var yPosition = parseFloat(_this.attr('cy')) - d.r;
-        //- Update tooltip position and value
-        d3.select('#tooltip')
-        .style('left', xPosition + 'px')
-        .style('top', yPosition + 'px')
-        .select('#value')
-        .text('x = ' + xPosition + ' y = ' + yPosition);
-        //- Show the tooltip
-        d3.select('#tooltip').classed('hidden', false);
-      })
-      .on('mouseout', function() {
-        //- Hide the tooltip
-        d3.select('#tooltip').classed('hidden', true);
-      })
-      .on("click", function(d) { console.log(d) })
-      //- .on("mouseover", function() { d3.select(this).attr('fill', '#ffd02f'); })
-      //- .on('mouseout', function() { d3.select(this).attr('fill', '#222'); })
-      .transition()
-      .delay(250)
-      .duration(1000)
-      .attr('r', function(d) { return d.r; });
+      // Create cluster groups
+      var clusters = chart.selectAll('g.new')
+        .data(factorData.clusters)
+        .enter()
+        .append('g')
+        .attr('class', 'cluster');
 
-      //- Draw Cluster Labels
-      var clusterText = chart.selectAll('text')
-      .data(factorData.clusters)
-      .enter()
-      .append('text')
-      .text(function(d) { return d.label })
-      .transition()
-      .delay(500)
-      .attr({
-        x: function(d) { return xScale(d.cx) },
-        y: function(d) { return yScale(d.cy - d.r - 10) },
-        'text-anchor' : 'middle',
-      });
+      clusters.append('circle')
+        .attr({
+          id: function(d) { return d.id },
+          class: 'clusterCircle',
+          r: 0
+        });
 
-      resize(250);
-      d3.select(window).on('resize', function() { resize(500); });
-      //- End d3.json function
+      clusters.append('text')
+        .text(function(d) { return d.label })
+        .attr({
+          class: 'clusterText',
+          'font-size': '0em',
+          'text-anchor': 'middle'
+        });
+
+      // Create companies
+      var companies = chart.selectAll('g.new')
+        .data(factorData.companies)
+        .enter()
+        .append('g')
+        .attr('class', 'company');
+
+      companies.append('rect')
+        .attr({
+          class: 'companyMarker',
+          height: 0, width: 0
+        });
+
+      companies.append('text')
+        .text(function(d) { return d.id })
+        .attr({
+          class: 'companyLabel',
+          'font-size': '0em',
+          'text-anchor': 'start',
+          dy: '1em'
+        });
+
+      companies.filter(function(d) { return d.class === 'client' })
+        .classed('client', true)
+
+      // Use resize for intro animation and responsive resizing
+      resize(1000, 500);
+      d3.select(window).on('resize', function() { resize(500, 0); });
+      // End d3.json function
     });
 
-    //- Variable sizing and transitions
-
-    //- Responsive Resizing
-    function resize(duration) {
+    // Responsive Resizing
+    function resize(duration, delay) {
       var duration = duration || 500;
+      var delay = delay || 0;
 
       width = parseInt(selection.style('width')) - margin.left - margin.right;
       xScale.range([0, width]);
 
-      d3.select('#chart svg')
-        .transition()
+      d3.select('#chart svg').transition()
         .duration(duration)
         .attr('width', width + margin.left + margin.right + 'px');
 
-      d3.selectAll('.factor')
-        .transition()
-        .duration(750)
+      d3.selectAll('.factor').transition()
+        .duration(duration)
         .attr({
+          x1: function(d) { return xScale(d.x1) },
           x2: function(d) { return xScale(d.x2) },
+          y1: function(d) { return yScale(d.y1) },
           y2: function(d) { return yScale(d.y2) }
         });
 
+      d3.selectAll('.clusterCircle').transition()
+        .delay(delay * 1)
+        .duration(duration)
+        .attr({
+          cx: function(d) { return xScale(d.cx) },
+          cy: function(d) { return yScale(d.cy) },
+          r: function(d) { return d.r }
+        });
+
+      d3.selectAll('.clusterText').transition()
+        .delay(delay * 1)
+        .duration(duration)
+        .attr({
+          x: function(d) { return xScale(d.cx) },
+          y: function(d) { return yScale(d.cy - d.r - 15) },
+          'font-size': '1.2em'
+        });
+
+      d3.selectAll('.companyMarker').transition()
+        .delay(delay * 2)
+        .duration(duration)
+        .attr({
+          x: function(d) { return xScale(d.x) },
+          y: function(d) { return yScale(d.y) },
+          height: markerSize + 'px',
+          width: markerSize + 'px'
+        });
+
+      d3.selectAll('.companyLabel').transition()
+        .delay(delay * 2)
+        .duration(duration)
+        .attr({
+          class: 'companyLabel',
+          'font-size': '1em',
+          x: function(d) { return xScale(d.x + markerSize * 1.1) },
+          y: function(d) { return yScale(d.y) }
+        });
+    // End resize()
     }
 
-  //- End function chart()
+  // End chart()
   }
 
   return chart;
-  // End function marketMap()
+  // End marketMap()
 }

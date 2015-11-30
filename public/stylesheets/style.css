@@ -1,4 +1,4 @@
-/* Chart Styles */
+/* Global Styles */
 svg {
   border: 1px solid #ccc;
 }
@@ -14,35 +14,75 @@ svg text {
   stroke-width: 1;
   shape-rendering: crispEdges;
 }
+
 .axis text {
   font-family: sans-serif;
   font-size: 11px;
 }
 
+/*Login Page*/
+body.login {
+  background-color: #000;
+  padding: 0;
+}
+
+.loginRect {
+  fill: #111;
+  stroke: #777;
+  stroke-width: .5;
+  -moz-transition: fill 0.1s;
+  -o-transition: fill 0.1s;
+  -webkit-transition: fill 0.1s;
+  transition: fill 0.1s;
+}
+
+.loginRect:hover {
+  fill: #ffd02f;
+}
+
+/* Bar Chart */
+.bar * {
+  fill: #222;
+  -moz-transition: fill 0.3s;
+  -o-transition: fill 0.3s;
+  -webkit-transition: fill 0.3s;
+  transition: fill 0.3s;
+}
+
+.bar rect:hover {
+  fill:#ffd02f
+}
+
+.bar .valueLabel {
+  margin: 0;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  fill: #fff;
+}
+
+.bar:hover .valueLabel {
+  fill: #000;
+}
+
 /* Factor Map */
 .clusterCircle {
-  -moz-transition: fill 0.4s;
-  -o-transition: fill 0.4s;
-  -webkit-transition: fill 0.4s;
-  transition: fill 0.4s;
+  -moz-transition: fill 0.3s;
+  -o-transition: fill 0.3s;
+  -webkit-transition: fill 0.3s;
+  transition: fill 0.3s;
 }
 
 .clusterText {
-  font-size: 16px;
   font-weight: bold;
-}
-
-.clusterCircle {
-  -moz-transition: fill 0.4s;
-  -o-transition: fill 0.4s;
-  -webkit-transition: fill 0.4s;
-  transition: fill 0.4s;
 }
 
 .clusterCircle:hover {
   fill:#ffd02f;
-  /*stroke: #222;*/
-  /*stroke-width: 2;*/
+}
+
+.client {
+  fill: #DA291C;
 }
 
 #chart.wrapper {
@@ -73,49 +113,4 @@ svg text {
         font-family: sans-serif;
         font-size: 16px;
         line-height: 20px;
-}
-
-/* Bar Chart */
-.bar * {
-  fill: #222;
-  -moz-transition: fill 0.3s;
-  -o-transition: fill 0.3s;
-  -webkit-transition: fill 0.3s;
-  transition: fill 0.3s;
-}
-
-.bar rect:hover {
-  fill:#ffd02f
-}
-
-.bar .valueLabel {
-  margin: 0;
-  font-family: sans-serif;
-  font-size: 16px;
-  font-weight: bold;
-  fill: #fff;
-}
-
-.bar:hover .valueLabel {
-  fill: #000;
-}
-
-/*Login Page*/
-body.login {
-  background-color: #000;
-  padding: 0;
-}
-
-.loginRect {
-  fill: #111;
-  stroke: #777;
-  stroke-width: .5;
-  -moz-transition: fill 0.1s;
-  -o-transition: fill 0.1s;
-  -webkit-transition: fill 0.1s;
-  transition: fill 0.1s;
-}
-
-.loginRect:hover {
-  fill: #ffd02f;
 }
