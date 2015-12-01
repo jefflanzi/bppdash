@@ -1,10 +1,10 @@
 // http://bost.ocks.org/mike/chart/
 function barChart(selection) {
 
-  return function chart() {
+  function chart() {
     //- Draw SVG
     var margin = {top: 20, right: 20, bottom: 30, left: 140};
-    var width = parseInt(selection.style('width')) - margin.left - margin.right;    
+    var width = parseInt(selection.style('width')) - margin.left - margin.right;
     var height = 500 - margin.top - margin.bottom;
 
     var xScale = d3.scale.linear()
@@ -32,17 +32,13 @@ function barChart(selection) {
       .attr('id', 'chartArea')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    var dataset;
-
     //- load data and call constructor functions
     d3.csv('/data/jobTitles.csv', function(error, data) {
-      dataset = data;
-      console.log(dataset);
 
       //- Scales
-      var xMax = d3.max(dataset, function(d) { return +d.Percent });
+      var xMax = d3.max(data, function(d) { return +d.Percent });
       xScale.domain([0, xMax]);
-      yScale.domain(dataset.map(function(d) { return d.Title }));
+      yScale.domain(data.map(function(d) { return d.Title }));
 
       //- Draw Axis
       chart.append('g')
@@ -56,7 +52,7 @@ function barChart(selection) {
 
       //- Create bar group elements
       var bars = chart.selectAll('g.new')
-        .data(dataset)
+        .data(data)
         .enter()
         .append('g')
         .classed('bar', true);
@@ -83,14 +79,14 @@ function barChart(selection) {
           'text-anchor' : 'end'
         });
 
-      chart.resize(1000);
-      d3.select(window).on('resize', function() { chart.resize(500); });
+      resize(1000);
+      d3.select(window).on('resize', function() { resize(500); });
 
     //- End d3.csv() function
     });
 
     //- responsive resize and animations
-    chart.resize = function (duration) {
+    function resize(duration) {
 
       var duration = duration || 500;
 
@@ -122,5 +118,6 @@ function barChart(selection) {
   //- End function chart()
   }
 
+  return chart;
   //- End function barChart()
   };
