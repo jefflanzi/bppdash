@@ -35,28 +35,28 @@ function marketMap(selection) {
     var path = marker.append('path').attr('d', 'M 0 0 L 10 5 L 0 10 z');
 
     // Load data and draw chart
-    d3.json('/data/factorMap.json', function(factorData) {
+    d3.json('/data/factorMap.json', function(data) {
 
       // Define scales
-      var cxMax = d3.max(factorData.clusters, function(d) { return Number(d.cx); });
-      var fxMax = d3.max(factorData.factors, function(d) { return Number(d.x2); });
+      var cxMax = d3.max(data.clusters, function(d) { return Number(d.cx); });
+      var fxMax = d3.max(data.factors, function(d) { return Number(d.x2); });
       var xMax = Math.max(cxMax, fxMax);
-      var cxMin = d3.min(factorData.clusters, function(d) { return Number(d.cx); });
-      var fxMin = d3.min(factorData.factors, function(d) { return Number(d.x2); });
+      var cxMin = d3.min(data.clusters, function(d) { return Number(d.cx); });
+      var fxMin = d3.min(data.factors, function(d) { return Number(d.x2); });
       var xMin = Math.min(cxMin, fxMin);
       xScale.domain([xMin, xMax]);
 
-      var cyMax = d3.max(factorData.clusters, function(d) { return Number(d.cy); });
-      var fyMax = d3.max(factorData.factors, function(d) { return Number(d.y2); });
+      var cyMax = d3.max(data.clusters, function(d) { return Number(d.cy); });
+      var fyMax = d3.max(data.factors, function(d) { return Number(d.y2); });
       var yMax = Math.max(cyMax, fyMax);
-      var cyMin = d3.min(factorData.clusters, function(d) { return Number(d.cy); });
-      var fyMin = d3.min(factorData.factors, function(d) { return Number(d.y2); });
+      var cyMin = d3.min(data.clusters, function(d) { return Number(d.cy); });
+      var fyMin = d3.min(data.factors, function(d) { return Number(d.y2); });
       var yMin = Math.min(cyMin, fyMin);
       yScale.domain([yMin , yMax]);
 
       // Draw Factor Arrows
       var factorArrows = chart.selectAll('line.new')
-      .data(factorData.factors)
+      .data(data.factors)
       .enter()
       .append('line')
       .attr({
@@ -70,7 +70,7 @@ function marketMap(selection) {
 
       // Create cluster groups
       var clusters = chart.selectAll('g.new')
-        .data(factorData.clusters)
+        .data(data.clusters)
         .enter()
         .append('g')
         .attr('class', 'cluster');
@@ -92,7 +92,7 @@ function marketMap(selection) {
 
       // Create companies
       var companies = chart.selectAll('g.new')
-        .data(factorData.companies)
+        .data(data.companies)
         .enter()
         .append('g')
         .attr('class', 'company');
