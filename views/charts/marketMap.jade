@@ -6,6 +6,8 @@ block content
   #chart.wrapper()
   script
     include marketMap.js
-  script.    
-    var chart = marketMap(d3.select('#chart'));
-    chart();
+  script.
+    $(document).ready(function () {
+      var chart = marketMap(d3.select('#chart'));
+      chart();
+    });

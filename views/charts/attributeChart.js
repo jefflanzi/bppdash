@@ -2,7 +2,9 @@ function attributeChart(selection) {
   // Function global variables
   var margin = { top: 20, right: 20, bottom: 20, left: 20 };
   var width = parseInt(selection.style('width')) - margin.left - margin.right;
-  var height = window.innerWidth - parseInt(d3.select('.navbar').style('height')) - margin.top - margin.bottom;
+  // var height = window.innerWidth - parseInt(d3.select('.navbar').style('height')) - margin.top - margin.bottom;
+  var height = parseInt(selection.style('height')) - margin.top - margin.bottom;
+  console.log('d3 height = ' + height);
 
   var xScale = d3.scale.linear().range([0, width]);
   var yScale = d3.scale.ordinal().rangeRoundBands([0, height]);
@@ -10,7 +12,7 @@ function attributeChart(selection) {
   var chartArea = selection.append('svg')
     .attr({
       width: width + margin.left + margin.right,
-      height: width + margin.top + margin.bottom
+      height: height + margin.top + margin.bottom
     })
     .append('g')
     .attr('id', 'chartArea')

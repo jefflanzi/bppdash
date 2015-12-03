@@ -1,12 +1,20 @@
 extends ../layout
 
 block content  
-  p Welcome to the #{title}
-  script(src="//d3js.org/d3.v3.min.js" charset="utf-8")
   #chart.wrapper()
   script
     include attributeChart.js
   script.
-    attributeChart(d3.select('#chart'));
+    $(document).ready( function() {
+      var height = $('.sidebar').height();
+      $('#chart').height(height);      
+      attributeChart(d3.select('#chart'));
+    });
+    //- $(window).on('resize', function() {
+    //-   var height = $('.sidebar').height();
+    //-   $('#chart').height(height);
+    //-   d3.select('#chart svg').remove();
+    //-   attributeChart(d3.select('#chart'));
+    //- });
     //- var chart = attributeChart(d3.select('#chart'));
     //- chart();

@@ -100,7 +100,8 @@ function marketMap(selection) {
       companies.append('rect')
         .attr({
           class: 'companyMarker',
-          height: 0, width: 0
+          height: 0,
+          width: 0
         });
 
       companies.append('text')
@@ -109,6 +110,7 @@ function marketMap(selection) {
           class: 'companyLabel',
           'font-size': '0em',
           'text-anchor': 'start',
+          dx: '0.5em',
           dy: '1em'
         });
 
@@ -162,7 +164,7 @@ function marketMap(selection) {
 
       d3.selectAll('.companyMarker').transition()
         .delay(delay * 2)
-        .duration(duration)
+        .duration(duration * 0.75)
         .attr({
           x: function(d) { return xScale(d.x) },
           y: function(d) { return yScale(d.y) },
@@ -172,11 +174,11 @@ function marketMap(selection) {
 
       d3.selectAll('.companyLabel').transition()
         .delay(delay * 2)
-        .duration(duration)
+        .duration(duration * 0.75)
         .attr({
           class: 'companyLabel',
           'font-size': '1em',
-          x: function(d) { return xScale(d.x + markerSize * 1.1) },
+          x: function(d) { return xScale(d.x) + markerSize},
           y: function(d) { return yScale(d.y) }
         });
     // End resize()
