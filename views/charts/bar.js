@@ -5,7 +5,7 @@ function barChart(selection) {
     //- Draw SVG
     var margin = {top: 20, right: 20, bottom: 30, left: 140};
     var width = parseInt(selection.style('width')) - margin.left - margin.right;
-    var height = 500 - margin.top - margin.bottom;
+    var height = parseInt(selection.style('height')) - margin.top - margin.bottom;
 
     var xScale = d3.scale.linear()
       .range([0, width]);
