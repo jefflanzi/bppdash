@@ -103,10 +103,3 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
-
-/* Attribute Line Chart */
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}

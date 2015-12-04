@@ -114,3 +114,10 @@ body.login {
         font-size: 16px;
         line-height: 20px;
 }
+
+/* Attribute Line Chart */
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2.5px;
+}
