@@ -60,35 +60,21 @@ function attributeChart(selection) {
       .style('stroke', function(d) { return color(d.name); });
 
     // Dots
-    var points = chartArea.selectAll('.dots')
-      .data(companies)
-      .enter()
-      .append('g')
-      .attr('class', 'dots')
-
-    points.selectAll('.dot')
+    company.selectAll('.dot')
       .data(function(d, index) {
         var a = [];
         d.values.forEach(function(point, i) {
-          a.push({'index': index, 'point': point});
+          a.push({'name': d.name, 'point': point});
         });
         return a;
       })
       .enter()
       .append('circle')
       .attr('class', 'dot')
-      .attr('r', 5)
+      .attr('r', 8)
       .attr('cx', function(d) { return xScale(d.point.rating) })
-      .attr('cy', function(d) { return yScale(d.point.attribute) });
-
-    // company.append('circle')
-    //   .attr({
-    //     cx: function(d) { xScale(d.values.rating) },
-    //     cy: function(d) { yScale(d.values.attribute) },
-    //     r: 5
-    //   });
-
-
+      .attr('cy', function(d) { return yScale(d.point.attribute) })
+      .style('fill', function(d) { return color(d.name); });
 
   // End d3.csv()
   });
