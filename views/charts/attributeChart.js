@@ -1,5 +1,6 @@
 // Reference:
 // http://bl.ocks.org/mbostock/3884955
+// http://codepen.io/brantwills/pen/igsoc?editors=001
 function attributeChart(selection) {
   // Function global variables
   var margin = { top: 20, right: 20, bottom: 20, left: 20 };
@@ -43,6 +44,7 @@ function attributeChart(selection) {
     });
 
     var line = d3.svg.line()
+      .interpolate('linear')
       .x(function(d) { return xScale(d.rating) })
       .y(function(d) { return yScale(d.attribute) })
 
@@ -58,6 +60,27 @@ function attributeChart(selection) {
       .style('stroke', function(d) { return color(d.name); });
 
     // Dots
+    var points = chartArea.selectAll('.dots')
+      .data(companies)
+      .enter()
+      .append('g')
+      .attr('class', 'dots')
+
+    points.selectAll('.dot')
+      .data(function(d, index) {
+        var a = [];
+        d.values.forEach(function(point, i) {
+          a.push({'index': index, 'point': point});
+        });
+        return a;
+      })
+      .enter()
+      .append('circle')
+      .attr('class', 'dot')
+      .attr('r', 5)
+      .attr('cx', function(d) { return xScale(d.point.rating) })
+      .attr('cy', function(d) { return yScale(d.point.attribute) });
+
     // company.append('circle')
     //   .attr({
     //     cx: function(d) { xScale(d.values.rating) },
