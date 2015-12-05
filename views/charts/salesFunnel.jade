@@ -1,4 +1,21 @@
-extends ../index.jade
+extends ../layout
 
-block chart
-  h1 Sales Funnel Chart goes here
+block content  
+  #chart.wrapper()
+  script
+    include salesFunnel.js
+  //- script.
+  //-   $(document).ready( function() {
+  //-     var height = window.innerHeight - $('.navbar').height() - 50;          
+  //-     $('#chart').height(height);      
+  //-     awarenessChart(d3.select('#chart'));
+  //-     
+  //-     $(window).on('resize', function() {
+  //-       var height = window.innerHeight - $('.navbar').height() - 50;
+  //-       $('#chart').height(height);
+  //-       d3.select('#chart svg').remove();
+  //-       awarenessChart(d3.select('#chart'));
+  //-     });
+  //-   });
+
+    

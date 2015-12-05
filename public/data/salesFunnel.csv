@@ -1,1 +1,16 @@
-Company,Awareness,Consideration,Preference,Purchase IntentSkillsoft,62%,60%,48%,38%IBM/Kenexa,42%,40%,34%,28%Oracle TM/HCM solutions,38%,36%,29%,23%Lynda.com,32%,30%,25%,18%SumTotal Systems,29%,28%,24%,19%TED,27%,26%,19%,14%SuccessFactors/SAP,25%,23%,18%,13%SilkRoad,24%,23%,18%,13%Saba,24%,22%,17%,13%Cornerstone OnDemand,21%,20%,15%,10%PeopleFluent,19%,18%,13%,10%Harvard ManageMentor,19%,18%,14%,11%BizLibrary,18%,17%,13%,9%NetDimensions,18%,17%,14%,10%Open Sesame,18%,17%,13%,9%
+Company,Awareness,Consideration,Preference,Purchase Intent
+Skillsoft,0.62,0.6,0.48,0.38
+IBM/Kenexa,0.42,0.4,0.34,0.28
+Oracle TM/HCM solutions,0.38,0.36,0.29,0.23
+Lynda.com,0.32,0.3,0.25,0.18
+SumTotal Systems,0.29,0.28,0.24,0.19
+TED,0.27,0.26,0.19,0.14
+SuccessFactors/SAP,0.25,0.23,0.18,0.13
+SilkRoad,0.24,0.23,0.18,0.13
+Saba,0.24,0.22,0.17,0.13
+Cornerstone OnDemand,0.21,0.2,0.15,0.1
+PeopleFluent,0.19,0.18,0.13,0.1
+Harvard ManageMentor,0.19,0.18,0.14,0.11
+BizLibrary,0.18,0.17,0.13,0.09
+NetDimensions,0.18,0.17,0.14,0.1
+Open Sesame,0.18,0.17,0.13,0.09

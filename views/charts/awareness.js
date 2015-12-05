@@ -47,9 +47,19 @@ chart.draw = function() {
 
   companies.append('rect')
     .attr({
-      x: 0,
-      y: 0,
-      width: function(d) { return xScale.rangeBand() },
+      class: 'unaided',
+      x: xScale.rangeBand() / 2,
+      y: function(d) { return height - yScale(d.Unaided) },
+      width: xScale.rangeBand() / 2,
       height: function(d) { return yScale(d.Unaided) }
+    });
+
+  companies.append('rect')
+    .attr({
+      class: 'aided',
+      x: 0,
+      y: function(d) { return height - yScale(d.Aided) },
+      width: function(d) { return xScale.rangeBand() / 2 },
+      height: function(d) { return yScale(d.Aided) }
     });
 };

@@ -14,7 +14,7 @@ var xScale = d3.scale.ordinal().rangeRoundBands([0, width], 0.1);
 var yScale = d3.scale.linear().range([0, height]);
 
 var dataset;
-d3.csv('/data/bpi.csv', function(error, data) {
+d3.csv('/data/salesFunnel.csv', function(error, data) {
   dataset = data;
   chart.draw();
 });
@@ -26,7 +26,7 @@ chart.draw = function() {
   dataset.forEach(function(d) { xValues.push(d.Company)});
   xScale.domain(xValues);
 
-  yScale.domain([0,100]);
+  yScale.domain([0,1]);
 
   // Create SVG and translated chart area g
   var chartArea = selection.append('svg')
@@ -47,41 +47,41 @@ chart.draw = function() {
 
   companies.append('rect')
     .attr({
-      class: 'character',
-      x: 0 + 0 * xScale.rangeBand() / 3,
-      y: function(d) { return height - yScale(+d['Character']) },
-      width: xScale.rangeBand() / 3,
-      height: function(d) { return yScale(+d.Character) }
-    })
-    .style('fill', 'blue');
+      class: 'awareness',
+      x: 0,
+      y: function(d) { return height - yScale(d.Awareness) },
+      width: xScale.rangeBand(),
+      height: function(d) { return yScale(d.Awareness) }
+    });
 
-  companies.append('rect')
-    .attr({
-      class: 'relationship',
-      x: 0 + 1 * xScale.rangeBand() / 3,
-      y: function(d) { return height - yScale(+d['Customer Relationship']) },
-      width: xScale.rangeBand() / 3,
-      height: function(d) { return yScale(+d['Customer Relationship']) }
-    })
-    .style('fill', 'yellow');
+    companies.append('rect')
+      .attr({
+        class: 'consideration',
+        x: 0,
+        y: function(d) { return height - yScale(d.Consideration) },
+        width: xScale.rangeBand(),
+        height: function(d) { return yScale(d.Consideration) }
+      })
+      .style('fill', 'red');
 
-  companies.append('rect')
-    .attr({
-      class: 'Impact',
-      x: 0 + 2 * xScale.rangeBand() / 3,
-      y: function(d) { return height - yScale(+d['Impact']) },
-      width: xScale.rangeBand() / 3,
-      height: function(d) { return yScale(+d['Impact']) }
-    })
-    .style('fill', 'green');
+      companies.append('rect')
+        .attr({
+          class: 'preference',
+          x: 0,
+          y: function(d) { return height - yScale(d.Preference) },
+          width: xScale.rangeBand(),
+          height: function(d) { return yScale(d.Preference) }
+        })
+        .style('fill', 'yellow');
 
-  companies.append('circle')
-    .attr({
-      class: 'BPI',
-      cx: xScale.rangeBand() / 2,
-      cy: function(d) { return height - yScale(+d['BPI']) },
-      r: xScale.rangeBand() / 8
-    })
-    .style('fill', 'red');
+      companies.append('rect')
+        .attr({
+          class: 'purchase',
+          x: 0,
+          y: function(d) { return height - yScale(d['Purchase Intent']) },
+          width: xScale.rangeBand(),
+          height: function(d) { return yScale(d['Purchase Intent']) }
+        })
+        .style('fill', 'green');
 
 };
