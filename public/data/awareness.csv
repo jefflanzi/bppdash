@@ -1,64 +1,16 @@
- ,Aided Awareness,Unaided Awareness,,,,,,
-Skillsoft,62%,21%,,,Skillsoft,,,
-IBM/Kenexa,42%,13%,,,SumTotal Systems,,,
-Oracle TM/HCM solutions,38%,7%,,,Cornerstone OnDemand,,,
-Lynda.com,32%,9%,,,Lynda.com ,,,
-SumTotal Systems,29%,9%,,,SuccessFactors/SAP,,,
-TED,27%,5%,,,Oracle TM/HCM solutions,,,
-SuccessFactors/SAP,25%,8%,,,Saba ,,,
-SilkRoad,24%,8%,,,Grovo,,,
-Saba,24%,8%,,,Pluralsight,,,
-Cornerstone OnDemand,21%,5%,,,Harvard ManageMentor,,,
-PeopleFluent,19%,2%,,,CrossKnowledge/Wiley Talent,,,
-Harvard ManageMentor,19%,1%,,,Open Sesame,,,
-BizLibrary,18%,4%,,,Udemy,,,
-NetDimensions,18%,4%,,,BizLibrary,,,
-Open Sesame,18%,3%,,,NetDimensions,,,
-,,,,,CEB,,,
-,,,,,UL Workplace safety training (,,,
-,,,,,Infor,,,
-,,,,,IBM/Kenexa,,,
-,,,,,PeopleFluent,,,
-,,,,,SilkRoad,,,
-,,,,,TED,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,Aided Awareness,Unaided Awareness,,,,,,
-Skillsoft,62%,21%,,,,,,
-IBM/Kenexa,42%,13%,,,,,,
-Oracle TM/HCM solutions,38%,7%,,,,,,
-Lynda.com,32%,9%,,,,,,
-SumTotal Systems,29%,9%,,,,,,
-TED,27%,5%,,,,,,
-SuccessFactors/SAP,25%,8%,,,,,,
-SilkRoad,24%,8%,,,,,,
-Saba,24%,8%,,,,,,
-Cornerstone OnDemand,21%,5%,,,,,,
-PeopleFluent,19%,2%,,,,,,
-Harvard ManageMentor,19%,1%,,,,,,
-BizLibrary,18%,4%,,,,,,
-NetDimensions,18%,4%,,,,,,
-Open Sesame,18%,3%,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
+Company,Aided,Unaided
+Skillsoft,0.62,0.21
+IBM/Kenexa,0.42,0.13
+Oracle TM/HCM solutions,0.38,0.07
+Lynda.com,0.32,0.09
+SumTotal Systems,0.29,0.09
+TED,0.27,0.05
+SuccessFactors/SAP,0.25,0.08
+SilkRoad,0.24,0.08
+Saba,0.24,0.08
+Cornerstone OnDemand,0.21,0.05
+PeopleFluent,0.19,0.02
+Harvard ManageMentor,0.19,0.01
+BizLibrary,0.18,0.04
+NetDimensions,0.18,0.04
+Open Sesame,0.18,0.03

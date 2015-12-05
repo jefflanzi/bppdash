@@ -3,19 +3,19 @@ extends ../layout
 block content  
   #chart.wrapper()
   script
-    include attributeChart.js
-  script.
-    $(document).ready( function() {
-      var height = window.innerHeight - $('.navbar').height() - 50;          
-      $('#chart').height(height);      
-      attributeChart(d3.select('#chart'));
-      
-      $(window).on('resize', function() {
-        var height = window.innerHeight - $('.navbar').height() - 50;
-        $('#chart').height(height);
-        d3.select('#chart svg').remove();
-        attributeChart(d3.select('#chart'));
-      });
-    });
+    include awareness.js
+  //- script.
+  //-   $(document).ready( function() {
+  //-     var height = window.innerHeight - $('.navbar').height() - 50;          
+  //-     $('#chart').height(height);      
+  //-     awarenessChart(d3.select('#chart'));
+  //-     
+  //-     $(window).on('resize', function() {
+  //-       var height = window.innerHeight - $('.navbar').height() - 50;
+  //-       $('#chart').height(height);
+  //-       d3.select('#chart svg').remove();
+  //-       awarenessChart(d3.select('#chart'));
+  //-     });
+  //-   });
 
     
