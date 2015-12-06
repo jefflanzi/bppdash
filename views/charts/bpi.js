@@ -50,7 +50,7 @@ chart.draw = function() {
       class: 'character',
       x: 0 + 0 * xScale.rangeBand() / 3,
       y: function(d) { return height - yScale(+d['Character']) },
-      width: xScale.rangeBand() / 3,
+      width: xScale.rangeBand() / 6,
       height: function(d) { return yScale(+d.Character) }
     })
     .style('fill', 'blue');
@@ -60,24 +60,24 @@ chart.draw = function() {
       class: 'relationship',
       x: 0 + 1 * xScale.rangeBand() / 3,
       y: function(d) { return height - yScale(+d['Customer Relationship']) },
-      width: xScale.rangeBand() / 3,
+      width: xScale.rangeBand() / 6,
       height: function(d) { return yScale(+d['Customer Relationship']) }
     })
     .style('fill', 'yellow');
 
   companies.append('rect')
     .attr({
-      class: 'Impact',
+      class: 'impact',
       x: 0 + 2 * xScale.rangeBand() / 3,
       y: function(d) { return height - yScale(+d['Impact']) },
-      width: xScale.rangeBand() / 3,
+      width: xScale.rangeBand() / 6,
       height: function(d) { return yScale(+d['Impact']) }
     })
     .style('fill', 'green');
 
   companies.append('circle')
     .attr({
-      class: 'BPI',
+      class: 'bpi',
       cx: xScale.rangeBand() / 2,
       cy: function(d) { return height - yScale(+d['BPI']) },
       r: xScale.rangeBand() / 8

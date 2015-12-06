@@ -50,16 +50,18 @@ chart.draw = function() {
       class: 'unaided',
       x: xScale.rangeBand() / 2,
       y: function(d) { return height - yScale(d.Unaided) },
-      width: xScale.rangeBand() / 2,
+      width: xScale.rangeBand() * 0.5 ,
       height: function(d) { return yScale(d.Unaided) }
-    });
+    })
+    .style('fill', 'yellow');
 
   companies.append('rect')
     .attr({
       class: 'aided',
       x: 0,
       y: function(d) { return height - yScale(d.Aided) },
-      width: function(d) { return xScale.rangeBand() / 2 },
+      width: xScale.rangeBand() * 0.5,
       height: function(d) { return yScale(d.Aided) }
-    });
+    })
+    .style('fill', 'gray');
 };
