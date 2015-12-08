@@ -42,7 +42,7 @@ function barChart(selection) {
 
       chartArea.append('g')
         .attr('class', 'y axis')
-        .attr('transform', 'translate(' + width + ', 0)')        
+        .attr('transform', 'translate(' + width + ', 0)')
 
       //- Create bar group elements
       var bars = chartArea.selectAll('g.bar')
@@ -95,6 +95,7 @@ function barChart(selection) {
 
     d3.selectAll('.bar rect')
       .transition()
+      .delay(function(d, i ) { return i * 100} )
       .duration(duration)
       .attr('width', function(d) { return xScale(+d.Percent) })
       .attr('y', function(d) { return yScale(d.Title) })
@@ -102,6 +103,7 @@ function barChart(selection) {
 
     d3.selectAll('.valueLabel')
       .transition()
+      .delay(function(d, i ) { return i * 100} )
       .duration(duration)
       .attr('x', function(d) { return xScale(+d.Percent) })
       .attr('y', function(d) { return yScale(d.Title) + yScale.rangeBand() / 2 });

@@ -2,14 +2,13 @@ function awarenessChart(selection) {
 
   // Global Variables
   var chart = {};
-  var margin = {top: 10, right: 0, bottom: 50, left: 40};
+  var margin = {top: 10, right: 0, bottom: 50, left: 50};
   var width = parseInt(selection.style('width')) - margin.left - margin.right;
   var height = parseInt(selection.style('height')) - margin.top - margin.bottom;
-  // var height = 600 - margin.top - margin.bottom;
 
   // Scales
   var xScale = d3.scale.ordinal().rangeRoundBands([0, width], 0.1);
-  var yScale = d3.scale.linear().range([0, height]);
+  var yScale = d3.scale.linear().range([height, 0]);
 
   var xAxis = d3.svg.axis()
     .scale(xScale)
@@ -18,7 +17,8 @@ function awarenessChart(selection) {
   var yAxis = d3.svg.axis()
     .scale(yScale)
     .orient('left')
-    .tickFormat(d3.format('%'));
+    .ticks(10, "%");
+    // .tickFormat(d3.format('%'));
 
   // Load dataset
   var dataset;
@@ -33,8 +33,7 @@ function awarenessChart(selection) {
     var xValues = [];
     dataset.forEach(function(d) { xValues.push(d.Company)});
     xScale.domain(xValues);
-
-    yScale.domain([0,1]);
+    yScale.domain([0, 1]);
 
     // Create SVG and translated chart area g
     var chartArea = selection.append('svg')
@@ -99,9 +98,10 @@ function awarenessChart(selection) {
       .attr('class', 'y axis')
       .call(yAxis);
 
-    // Responsive resigin
+    // Responsive resizing
     chart.resize(1000);
     d3.select(window).on('resize', function() { chart.resize(500); });
+
   // End chart.draw();
   };
 
@@ -112,7 +112,7 @@ function awarenessChart(selection) {
     width = parseInt(selection.style('width')) - margin.left - margin.right;
     height = parseInt(selection.style('height')) - margin.top - margin.bottom;
     xScale.rangeRoundBands([0, width], .1);
-    yScale.range([0, height]);
+    yScale.range([height, 0]);
 
     d3.select('#chart svg')
       .transition()
@@ -141,16 +141,16 @@ function awarenessChart(selection) {
       .transition()
       .delay(function(d, i) { return duration + i * 50 })
       .duration(duration)
-      .attr('y', function(d) { return height - yScale(d.Aided) })
-      .attr('height', function(d) { return yScale(d.Aided) })
+      .attr('y', function(d) { return yScale(d.Aided) })
+      .attr('height', function(d) { return height - yScale(d.Aided) })
       .attr('width', xScale.rangeBand());
 
     d3.selectAll('.unaided')
       .transition()
       .delay(function(d, i) { return duration * 1.5 + i * 50 })
       .duration(duration)
-      .attr('y', function(d) { return height - yScale(d.Unaided) })
-      .attr('height', function(d) { return yScale(d.Unaided) })
+      .attr('y', function(d) { return yScale(d.Unaided) })
+      .attr('height', function(d) { return height - yScale(d.Unaided) })
       .attr('width', xScale.rangeBand());
 
     d3.select('.x.axis')
@@ -164,8 +164,8 @@ function awarenessChart(selection) {
     d3.select('.y.axis')
       .transition()
       .duration(duration)
-      .attr('transform', 'translate(' + 0 + ', 0)')
       .call(yAxis);
+
   // End chart.resize()
   }
 
