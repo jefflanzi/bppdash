@@ -39,13 +39,10 @@ function barChart(selection) {
       //- Draw Axis
       chartArea.append('g')
         .attr('class', 'x axis')
-        // .attr('transform', 'translate(0,' + height + ')')
-        // .call(xAxis);
 
       chartArea.append('g')
         .attr('class', 'y axis')
-        .attr('transform', 'translate(' + width + ', 0)')
-        // .call(yAxis);
+        .attr('transform', 'translate(' + width + ', 0)')        
 
       //- Create bar group elements
       var bars = chartArea.selectAll('g.bar')
