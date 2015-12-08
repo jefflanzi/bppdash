@@ -1,3 +1,4 @@
+// Legends - http://bl.ocks.org/ZJONSSON/3918369
 // Global variables
 var selection = d3.select('#chart')
 var chart = {};
@@ -9,8 +10,9 @@ var height = 500;
 var radius = Math.min(width, height) / 2;
 
 // Pie stuff
-var color = d3.scale.ordinal()
-  .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+// var color = d3.scale.ordinal()
+//   .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+var color = d3.scale.category10();
 
 var arc = d3.svg.arc()
   .outerRadius(radius - 10)
@@ -49,7 +51,7 @@ d3.csv('/data/jobTitles.csv', type, function(error, data) {
   g.append('text')
     .attr('transform', function(d) { return 'translate(' + labelArc.centroid(d) + ')'; })
     .attr('dy', '0.35em')
-    .text(function(d) { return d.data.Title; })
+    .text(function(d) { return d3.format('.1%')(d.data.Percent); })
     .attr('text-anchor', 'middle');
 // end d3.csv()
 });
