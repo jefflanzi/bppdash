@@ -6,9 +6,15 @@ block content
   script
     include bar.js
   script.
+    var data; 
     $(document).ready( function() {
       var height = window.innerHeight - $('.navbar').height() - 40;          
-      $('#chart').height(height);                
-      var chart = barChart(d3.select('#chart'));
-      chart();
+      $('#chart').height(height);                      
+      var chart = barChart(d3.select('#chart'));   
+      chart();      
+      
+      $(window).on('resize', function() {
+        height = window.innerHeight - $('.navbar').height() - 40;         
+        $('#chart').height(height);      
+      });
     });
