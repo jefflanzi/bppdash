@@ -91,6 +91,19 @@ function salesFunnel(selection) {
       })
       .style('fill', '#AFAFAF');
 
+    var labels = companies.append('text')
+      .text(function(d) { return d.Company })
+      .attr('transform', 'rotate(-90)')
+      .attr({
+        x: 0,
+        dx: '-1em',
+        y: xScale.rangeBand() / 2,
+        dy: '0.35em'
+      })
+      .attr('text-anchor', 'end')
+      .style('font-weight', 'bold')
+
+
     // Responsive resize
     resize(1000);
     d3.select(window).on('resize', function() { resize(750); });
@@ -160,10 +173,15 @@ function salesFunnel(selection) {
       .attr('width', xScale.rangeBand())
       .attr('height', function(d) { return height - yScale(d['Purchase Intent']) });
 
+    labels
+      .transition()
+      .duration(duration)
+      .attr('y', xScale.rangeBand() / 2);
+
   }
 
   // End chart()
-  };
+  };  
 
 // End salesFunnel()
 }
