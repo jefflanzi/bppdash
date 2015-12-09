@@ -4,18 +4,16 @@ block content
   #chart.wrapper()
   script
     include salesFunnel.js
-  //- script.
-  //-   $(document).ready( function() {
-  //-     var height = window.innerHeight - $('.navbar').height() - 50;          
-  //-     $('#chart').height(height);      
-  //-     awarenessChart(d3.select('#chart'));
-  //-     
-  //-     $(window).on('resize', function() {
-  //-       var height = window.innerHeight - $('.navbar').height() - 50;
-  //-       $('#chart').height(height);
-  //-       d3.select('#chart svg').remove();
-  //-       awarenessChart(d3.select('#chart'));
-  //-     });
-  //-   });
+  script.
+    $(document).ready( function() {
+      var height = window.innerHeight - $('.navbar').height() - 40;          
+      $('#chart').height(height);      
+      salesFunnel(d3.select('#chart'));
+      
+      $(window).on('resize', function() {
+        height = window.innerHeight - $('.navbar').height() - 40;
+        $('#chart').height(height);
+      });
+    });     
 
     

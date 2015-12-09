@@ -1,87 +1,169 @@
+function salesFunnel(selection) {
 
-// Testing Variables
-var selection = d3.select('#chart');
-var chart = {};
+  // Global Variables
+  var margin = {top: 20, right: 20, bottom: 20, left: 20};
+  var width = parseInt(selection.style('width')) - margin.left - margin.right;
+  var height = parseInt(selection.style('height')) - margin.top - margin.bottom;
 
-// Global Variables
-var margin = {top: 20, right: 20, bottom: 20, left: 20};
-var width = parseInt(selection.style('width')) - margin.left - margin.right;
-var height = 600
-// var height = parseInt(selection.style('height')) - margin.top - margin.bottom;
+  // Scales
+  var xScale = d3.scale.ordinal().rangeRoundBands([0, width], 0.1);
+  var yScale = d3.scale.linear().range([height, 0]);
 
-// Scales
-var xScale = d3.scale.ordinal().rangeRoundBands([0, width], 0.1);
-var yScale = d3.scale.linear().range([0, height]);
+  var dataset;
+  d3.csv('/data/salesFunnel.csv', function(error, data) {
+    dataset = data;
+    chart();
+  });
 
-var dataset;
-d3.csv('/data/salesFunnel.csv', function(error, data) {
-  dataset = data;
-  chart.draw();
-});
+  // Create elements from data
+  function chart() {
+    // Set scale domains
+    var xValues = [];
+    dataset.forEach(function(d) { xValues.push(d.Company)});
+    xScale.domain(xValues);
+    yScale.domain([0,1]);
 
-// Create elements from data
-chart.draw = function() {
-  // Set scale domains
-  var xValues = [];
-  dataset.forEach(function(d) { xValues.push(d.Company)});
-  xScale.domain(xValues);
+    // Create SVG and translated chart area g
+    var chartArea = selection.append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height',  height + margin.top + margin.bottom)
+      // .style('background-color', '#E7E6E7')
+      .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.left + ')');
 
-  yScale.domain([0,1]);
+    // Background rect
+    var background = chartArea.append('rect')
+      .attr('class', 'background')
+      .attr({width: width, height: height})
+      .style('fill', '#E7E6E7');
 
-  // Create SVG and translated chart area g
-  var chartArea = selection.append('svg')
-    .attr({
-      'width': width + margin.left + margin.right,
-      'height': height + margin.top + margin.bottom
-    })
-    .append('g')
-    .attr('transform', 'translate(' + margin.left + ',' + margin.left + ')');
+    // Create company groups and bars
+    var companies = chartArea.selectAll('.company')
+      .data(dataset)
+      .enter()
+      .append('g')
+      .attr('class', 'company')
+      .attr('transform', function(d) { return 'translate(' + xScale(d.Company) + ',0)' });
 
-  // Create company groups and bars
-  var companies = chartArea.selectAll('.companies')
-    .data(dataset)
-    .enter()
-    .append('g')
-    .attr('class', 'company')
-    .attr('transform', function(d) { return 'translate(' + xScale(d.Company) + ',0)' });
+    var companybg = companies.append('rect')
+      .attr('class', 'companyBG')
+      .attr('width', xScale.rangeBand())
+      .attr('height', 0)
+      .style('fill', '#F2F2F2');
 
-  companies.append('rect')
-    .attr({
-      class: 'awareness',
-      x: 0,
-      y: function(d) { return height - yScale(d.Awareness) },
-      width: xScale.rangeBand(),
-      height: function(d) { return yScale(d.Awareness) }
-    });
+    var awareness = companies.append('rect')
+      .attr({
+        class: 'awareness',
+        x: 0,
+        y: height,
+        width: xScale.rangeBand(),
+        height: 0
+      })
+      .style('fill', '#222');
 
-    companies.append('rect')
+    var consideration = companies.append('rect')
       .attr({
         class: 'consideration',
         x: 0,
-        y: function(d) { return height - yScale(d.Consideration) },
+        y: height,
         width: xScale.rangeBand(),
-        height: function(d) { return yScale(d.Consideration) }
+        height: 0
       })
-      .style('fill', 'red');
+      .style('fill', '#4C4C4C');
 
-      companies.append('rect')
-        .attr({
-          class: 'preference',
-          x: 0,
-          y: function(d) { return height - yScale(d.Preference) },
-          width: xScale.rangeBand(),
-          height: function(d) { return yScale(d.Preference) }
-        })
-        .style('fill', 'yellow');
+    var preference = companies.append('rect')
+      .attr({
+        class: 'preference',
+        x: 0,
+        y: height,
+        width: xScale.rangeBand(),
+        height: 0
+      })
+      .style('fill', '#7E7E7E');
 
-      companies.append('rect')
-        .attr({
-          class: 'purchase',
-          x: 0,
-          y: function(d) { return height - yScale(d['Purchase Intent']) },
-          width: xScale.rangeBand(),
-          height: function(d) { return yScale(d['Purchase Intent']) }
-        })
-        .style('fill', 'green');
+    var purchase = companies.append('rect')
+      .attr({
+        class: 'purchase',
+        x: 0,
+        y: height,
+        width: xScale.rangeBand(),
+        height: 0
+      })
+      .style('fill', '#AFAFAF');
 
-};
+    // Responsive resize
+    resize(1000);
+    d3.select(window).on('resize', function() { resize(750); });
+
+
+  function resize(duration) {
+    duration = duration || 500;
+
+    width = parseInt(selection.style('width')) - margin.left - margin.right;
+    height = parseInt(selection.style('height')) - margin.top - margin.bottom;
+    xScale.rangeRoundBands([0, width], 0.1);
+    yScale.range([height, 0]);
+
+    // SVG element
+    d3.select('#chart svg')
+      .transition()
+      .duration(duration)
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom);
+
+    background
+      .transition()
+      .duration(duration)
+      .attr('width', width)
+      .attr('height', height);
+
+    companies
+      .transition()
+      .duration(duration)
+      .attr('transform', function(d) { return 'translate(' + xScale(d.Company) + ',0)' });
+
+    companybg
+      .transition()
+      .duration(function(d, i) { return duration * 1.0 + i * 50 } )
+      .attr('width', xScale.rangeBand())
+      .attr('height', height);
+
+    awareness
+      .transition()
+      .delay(function(d, i) { return duration * 1.25 + i * 50 })
+      .duration(duration)
+      .attr('y', function(d) { return yScale(d.Awareness) })
+      .attr('width', xScale.rangeBand())
+      .attr('height', function(d) { return height - yScale(d.Awareness) });
+
+    consideration
+      .transition()
+      .delay(function(d, i) { return duration * 1.50 + i * 50 })
+      .duration(duration)
+      .attr('y', function(d) { return yScale(d.Consideration) })
+      .attr('width', xScale.rangeBand())
+      .attr('height', function(d) { return height - yScale(d.Consideration) });
+
+    preference
+      .transition()
+      .delay(function(d, i) { return duration * 1.75 + i * 50 })
+      .duration(duration)
+      .attr('y', function(d) { return yScale(d.Preference) })
+      .attr('width', xScale.rangeBand())
+      .attr('height', function(d) { return height - yScale(d.Preference) });
+
+    purchase
+      .transition()
+      .delay(function(d, i) { return duration * 2.0 + i * 50 })
+      .duration(duration)
+      .attr('y', function(d) { return yScale(d['Purchase Intent']) })
+      .attr('width', xScale.rangeBand())
+      .attr('height', function(d) { return height - yScale(d['Purchase Intent']) });
+
+  }
+
+  // End chart()
+  };
+
+// End salesFunnel()
+}
