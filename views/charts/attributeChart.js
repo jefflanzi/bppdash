@@ -1,7 +1,7 @@
 function attributeChart(selection) {
 
   // Function global variables
-  var margin = { top: 20, right: 20, bottom: 20, left: 20 };
+  var margin = { top: 20, right: 20, bottom: 30, left: 250 };
   var width = parseInt(selection.style('width')) - margin.left - margin.right;
   var height = parseInt(selection.style('height')) - margin.top - margin.bottom;
 
@@ -9,15 +9,8 @@ function attributeChart(selection) {
   var yScale = d3.scale.ordinal().rangeRoundBands([0, height]);
   var color = d3.scale.category10();
 
-  var chartArea = selection.append('svg')
-    .attr({
-      id: 'chartSVG',
-      width: width + margin.left + margin.right,
-      height: height + margin.top + margin.bottom
-    })
-    .append('g')
-    .attr('id', 'chartArea')
-    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+  var xAxis = d3.svg.axis().scale(xScale).orient('bottom');
+  var yAxis = d3.svg.axis().scale(yScale).orient('left');
 
   var data;
   d3.csv('/data/attributes.csv', function(d) {
@@ -26,10 +19,20 @@ function attributeChart(selection) {
   });
 
   function chart() {
+    var chartArea = selection.append('svg')
+      .attr({
+        id: 'chartSVG',
+        width: width + margin.left + margin.right,
+        height: height + margin.top + margin.bottom
+      })
+      .append('g')
+      .attr('id', 'chartArea')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
     // Scales
     var xValues = [];
     for (i in data) { xValues = xValues.concat(d3.values(data[i]).slice(2)); }
-    xScale.domain(d3.extent(xValues));
+    xScale.domain([Number(d3.min(xValues)) - .01, Number(d3.max(xValues)) + .01]);
 
     var yValues = [];
     for (i in data) { yValues.push(data[i].attribute) };
@@ -81,6 +84,16 @@ function attributeChart(selection) {
       .attr('cy', function(d) { return yScale(d.point.attribute) })
       .style('fill', function(d) { return color(d.name); });
 
+      // Axes
+      chartArea.append('g')
+        .attr('class', 'x axis')
+        .attr('transform', 'translate(0,' + height + ')')
+        .call(xAxis)
+
+      chartArea.append('g')
+        .attr('class', 'y axis')
+        .call(yAxis)
+
     // responsive resize
     resize(1000); // Initial animation
     d3.select(window).on('resize', function() { resize(500) });
@@ -113,7 +126,7 @@ function attributeChart(selection) {
         })
         .attr('stroke-dashoffset', function() { return this.getTotalLength() })
         .transition()
-        .delay(100)
+        .delay(duration * 2 / 21)
         .duration(duration * 2)
         .ease('linear')
         .attr('stroke-dashoffset', function() { return 0 });
