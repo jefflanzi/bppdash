@@ -51,7 +51,7 @@ function attributeChart(selection) {
     var line = d3.svg.line()
       .interpolate('linear')
       .x(function(d) { return xScale(d.rating) })
-      .y(function(d) { return yScale(d.attribute) })
+      .y(function(d) { return 0 })
 
     var companies = chartArea.selectAll('.company')
       .data(companies)
@@ -62,7 +62,7 @@ function attributeChart(selection) {
     var lines = companies.append('path')
       .attr('class', 'line')
       .attr('d', function(d) { return line(d.values); })
-      .style('stroke', function(d) { return color(d.name); });
+      .style('stroke', function(d) { return color(d.name); })
 
     // Dots
     var dots = companies.selectAll('.dot')
@@ -76,9 +76,9 @@ function attributeChart(selection) {
       .enter()
       .append('circle')
       .attr('class', 'dot')
-      .attr('r', 8)
-      .attr('cx', 0)
-      .attr('cy', 0)
+      .attr('r',0)
+      .attr('cx', function(d) { return xScale(d.point.rating) })
+      .attr('cy', function(d) { return yScale(d.point.attribute) })
       .style('fill', function(d) { return color(d.name); });
 
     // responsive resize
@@ -105,16 +105,26 @@ function attributeChart(selection) {
         .x(function(d) { return xScale(d.rating) })
         .y(function(d) { return yScale(d.attribute) });
 
-
       lines
+        .attr('d', function(d) { return line(d.values); })
+        .attr('stroke-dasharray', function() {
+          len = this.getTotalLength();
+          return len + ' ' + len;
+        })
+        .attr('stroke-dashoffset', function() { return this.getTotalLength() })
         .transition()
-        .duration(duration)
-        .attr('d', function(d) { return line(d.values); });
+        .delay(100)
+        .duration(duration * 2)
+        .ease('linear')
+        .attr('stroke-dashoffset', function() { return 0 });
 
       // Dots
       dots
         .transition()
-        .duration(duration)
+        // .delay(function(d, i) { return (i-1) * ((duration * 2) / 50) })
+        .delay(function(d, i) { return (i-1) * duration * 2 / 21 } )
+        .duration(duration / 2)
+        .attr('r', 8)
         .attr('cx', function(d) { return xScale(d.point.rating) })
         .attr('cy', function(d) { return yScale(d.point.attribute) });
 
