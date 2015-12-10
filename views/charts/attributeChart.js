@@ -1,7 +1,5 @@
-// Reference:
-// http://bl.ocks.org/mbostock/3884955
-// http://codepen.io/brantwills/pen/igsoc?editors=001
 function attributeChart(selection) {
+
   // Function global variables
   var margin = { top: 20, right: 20, bottom: 20, left: 20 };
   var width = parseInt(selection.style('width')) - margin.left - margin.right;
@@ -13,6 +11,7 @@ function attributeChart(selection) {
 
   var chartArea = selection.append('svg')
     .attr({
+      id: 'chartSVG',
       width: width + margin.left + margin.right,
       height: height + margin.top + margin.bottom
     })
@@ -20,7 +19,13 @@ function attributeChart(selection) {
     .attr('id', 'chartArea')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-  d3.csv('/data/attributes.csv', function(data) {
+  var data;
+  d3.csv('/data/attributes.csv', function(d) {
+    data = d;
+    chart();
+  });
+
+  function chart() {
     // Scales
     var xValues = [];
     for (i in data) { xValues = xValues.concat(d3.values(data[i]).slice(2)); }
@@ -48,19 +53,19 @@ function attributeChart(selection) {
       .x(function(d) { return xScale(d.rating) })
       .y(function(d) { return yScale(d.attribute) })
 
-    var company = chartArea.selectAll('.company')
+    var companies = chartArea.selectAll('.company')
       .data(companies)
       .enter()
       .append('g')
       .attr('class', 'company');
 
-    company.append('path')
+    var lines = companies.append('path')
       .attr('class', 'line')
       .attr('d', function(d) { return line(d.values); })
       .style('stroke', function(d) { return color(d.name); });
 
     // Dots
-    company.selectAll('.dot')
+    var dots = companies.selectAll('.dot')
       .data(function(d, index) {
         var a = [];
         d.values.forEach(function(point, i) {
@@ -72,12 +77,52 @@ function attributeChart(selection) {
       .append('circle')
       .attr('class', 'dot')
       .attr('r', 8)
-      .attr('cx', function(d) { return xScale(d.point.rating) })
-      .attr('cy', function(d) { return yScale(d.point.attribute) })
+      .attr('cx', 0)
+      .attr('cy', 0)
       .style('fill', function(d) { return color(d.name); });
 
-  // End d3.csv()
-  });
+    // responsive resize
+    resize(1000); // Initial animation
+    d3.select(window).on('resize', function() { resize(500) });
+
+    function resize(duration) {
+      duration = duration || 500;
+
+      // Get new dimensions and rescale
+      width = parseInt(selection.style('width')) - margin.left - margin.right;
+      height = parseInt(selection.style('height')) - margin.top - margin.bottom;
+      xScale.range([0, width]);
+      yScale.rangeRoundBands([0, height]);
+
+      // Redraw
+      d3.select('#chartSVG')
+        .transition()
+        .duration(duration)
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom);
+
+      line
+        .x(function(d) { return xScale(d.rating) })
+        .y(function(d) { return yScale(d.attribute) });
+
+
+      lines
+        .transition()
+        .duration(duration)
+        .attr('d', function(d) { return line(d.values); });
+
+      // Dots
+      dots
+        .transition()
+        .duration(duration)
+        .attr('cx', function(d) { return xScale(d.point.rating) })
+        .attr('cy', function(d) { return yScale(d.point.attribute) });
+
+    // End resize()
+    };
+
+  // End chart()
+  };
 
 // End attributeChart()
-}
+};

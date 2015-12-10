@@ -106,7 +106,7 @@ function salesFunnel(selection) {
 
     // Responsive resize
     resize(1000);
-    d3.select(window).on('resize', function() { resize(750); });
+    d3.select(window).on('resize', function() { resize(350); });
 
 
   function resize(duration) {
@@ -118,7 +118,7 @@ function salesFunnel(selection) {
     yScale.range([height, 0]);
 
     // SVG element
-    d3.select('#chart svg')
+    selection
       .transition()
       .duration(duration)
       .attr('width', width + margin.left + margin.right)
@@ -181,7 +181,7 @@ function salesFunnel(selection) {
   }
 
   // End chart()
-  };  
+  };
 
 // End salesFunnel()
 }
