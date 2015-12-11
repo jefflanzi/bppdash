@@ -1,16 +1,27 @@
 function attributeChart(selection) {
 
   // Function global variables
-  var margin = { top: 20, right: 20, bottom: 30, left: 250 };
+  var w = parseInt(selection.style('width'))
+  var margin = { top: 20, right: 20, bottom: 30, left: w * 0.4 };
   var width = parseInt(selection.style('width')) - margin.left - margin.right;
   var height = parseInt(selection.style('height')) - margin.top - margin.bottom;
 
   var xScale = d3.scale.linear().range([0, width]);
-  var yScale = d3.scale.ordinal().rangeRoundBands([0, height]);
-  var color = d3.scale.category10();
+  var yScale = d3.scale.ordinal().rangeRoundPoints([0, height]);
+  // var color = d3.scale.category10();
+  var color = d3.scale.ordinal()
+    .range(["#222", "#4C4C4C", "#DA291C", "#7E7E7E"])
 
-  var xAxis = d3.svg.axis().scale(xScale).orient('bottom');
-  var yAxis = d3.svg.axis().scale(yScale).orient('left');
+  var xAxis = d3.svg.axis()
+    .scale(xScale)
+    .orient('bottom')
+    .ticks(10, '%')
+    .tickPadding(10);
+
+  var yAxis = d3.svg.axis()
+    .scale(yScale)
+    .orient('left')
+    .tickPadding(10)
 
   var data;
   d3.csv('/data/attributes.csv', function(d) {
@@ -25,6 +36,7 @@ function attributeChart(selection) {
         width: width + margin.left + margin.right,
         height: height + margin.top + margin.bottom
       })
+      .style('background-color', "#E4E4E4")
       .append('g')
       .attr('id', 'chartArea')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -51,16 +63,35 @@ function attributeChart(selection) {
       };
     });
 
-    var line = d3.svg.line()
-      .interpolate('linear')
-      .x(function(d) { return xScale(d.rating) })
-      .y(function(d) { return 0 })
+    // Axes
+    chartArea.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(xAxis)
 
+    chartArea.append('g')
+      .attr('class', 'y axis')
+      .call(yAxis)
+
+    d3.selectAll('.axis .domain')
+      .style('stroke', 'none')
+
+    d3.selectAll('.axis line')
+      .style('stroke', '#FEFEFE')
+      .style('stroke-width', '2px')
+
+    // Company groups
     var companies = chartArea.selectAll('.company')
       .data(companies)
       .enter()
       .append('g')
       .attr('class', 'company');
+
+    // Lines
+    var line = d3.svg.line()
+      .interpolate('linear')
+      .x(function(d) { return xScale(d.rating) })
+      .y(function(d) { return 0 })
 
     var lines = companies.append('path')
       .attr('class', 'line')
@@ -84,16 +115,6 @@ function attributeChart(selection) {
       .attr('cy', function(d) { return yScale(d.point.attribute) })
       .style('fill', function(d) { return color(d.name); });
 
-      // Axes
-      chartArea.append('g')
-        .attr('class', 'x axis')
-        .attr('transform', 'translate(0,' + height + ')')
-        .call(xAxis)
-
-      chartArea.append('g')
-        .attr('class', 'y axis')
-        .call(yAxis)
-
     // responsive resize
     resize(1000); // Initial animation
     d3.select(window).on('resize', function() { resize(500) });
@@ -102,10 +123,12 @@ function attributeChart(selection) {
       duration = duration || 500;
 
       // Get new dimensions and rescale
+      w = parseInt(selection.style('width'));
+      margin = { top: 20, right: 20, bottom: 30, left: w * 0.4 };
       width = parseInt(selection.style('width')) - margin.left - margin.right;
       height = parseInt(selection.style('height')) - margin.top - margin.bottom;
       xScale.range([0, width]);
-      yScale.rangeRoundBands([0, height]);
+      yScale.rangeRoundPoints([0, height]);
 
       // Redraw
       d3.select('#chartSVG')
@@ -113,6 +136,30 @@ function attributeChart(selection) {
         .duration(duration)
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom);
+
+      chartArea
+        .transition()
+        .duration(duration)
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+      xAxis
+        .innerTickSize(0)
+
+      yAxis
+        .innerTickSize(-width)
+
+      d3.select('.x.axis')
+        .transition()
+        .duration(duration)
+        .attr('transform', 'translate(0,' + height + ')')
+        .call(xAxis);
+
+      d3.select('.y.axis')
+        .transition()
+        .duration(duration)
+        .call(yAxis)
+        .selectAll('text')
+        .call(wrap, (margin.left - 20));
 
       line
         .x(function(d) { return xScale(d.rating) })
@@ -131,10 +178,8 @@ function attributeChart(selection) {
         .ease('linear')
         .attr('stroke-dashoffset', function() { return 0 });
 
-      // Dots
       dots
         .transition()
-        // .delay(function(d, i) { return (i-1) * ((duration * 2) / 50) })
         .delay(function(d, i) { return (i-1) * duration * 2 / 21 } )
         .duration(duration / 2)
         .attr('r', 8)
@@ -146,6 +191,30 @@ function attributeChart(selection) {
 
   // End chart()
   };
+
+  function wrap(text, width) {
+    text.each(function() {
+      var text = d3.select(this),
+          words = text.text().split(/\s+/).reverse(),
+          word,
+          line = [],
+          lineNumber = 0,
+          lineHeight = 1.1, // ems
+          y = text.attr("y"),
+          dy = parseFloat(text.attr("dy")),
+          tspan = text.text(null).append("tspan").attr("x", 0).attr("dx", "-1em").attr("y", y).attr("dy", dy + "em");
+      while (word = words.pop()) {
+        line.push(word);
+        tspan.text(line.join(" "));
+        if (tspan.node().getComputedTextLength() > width) {
+          line.pop();
+          tspan.text(line.join(" "));
+          line = [word];
+          tspan = text.append("tspan").attr("x", 0).attr("dx", "-1em").attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+        }
+      }
+    });
+  }
 
 // End attributeChart()
 };
