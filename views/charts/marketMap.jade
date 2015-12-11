@@ -1,13 +1,19 @@
 extends ../layout
 
-block content  
-  p Welcome to the #{title}
+block content    
   script(src="//d3js.org/d3.v3.min.js" charset="utf-8")
   #chart.wrapper()
   script
     include marketMap.js
   script.
-    $(document).ready(function () {
+    $(document).ready( function() {
+      var height = window.innerHeight - $('.navbar').height() - 50;          
+      $('#chart').height(height);      
       var chart = marketMap(d3.select('#chart'));
       chart();
+      
+      $(window).on('resize', function() {
+        var height = window.innerHeight - $('.navbar').height() - 50;
+        $('#chart').height(height);
+      });
     });

@@ -2,7 +2,7 @@ function marketMap(selection) {
   // Define function variables
   var margin = { top: 20, right: 20, bottom: 30, left: 30 }
   var width = parseInt(selection.style('width')) - margin.left - margin.right;
-  var height = 600 - margin.top - margin.bottom;
+  var height = parseInt(selection.style('height')) - margin.top - margin.bottom;
   var markerSize = 20; // for company markers
 
   var xScale = d3.scale.linear().range([0, width]);
@@ -16,6 +16,7 @@ function marketMap(selection) {
       width: width + margin.left + margin.right,
       height: height + margin.top + margin.bottom
     })
+    .style('background-color', '#E2E2E2')
     .append('g')
     .attr('id', 'chartArea')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -129,13 +130,18 @@ function marketMap(selection) {
       var delay = delay || 0;
 
       width = parseInt(selection.style('width')) - margin.left - margin.right;
+      height = parseInt(selection.style('height')) - margin.top - margin.bottom;
       xScale.range([0, width]);
+      yScale.range([0, height]);
 
-      d3.select('#chart svg').transition()
+      d3.select('#chart svg')
+        .transition()
         .duration(duration)
-        .attr('width', width + margin.left + margin.right + 'px');
+        .attr('width', width + margin.left + margin.right + 'px')
+        .attr('height', height + margin.top + margin.bottom + 'px');
 
-      d3.selectAll('.factor').transition()
+      d3.selectAll('.factor')
+        .transition()
         .duration(duration)
         .attr({
           x1: function(d) { return xScale(d.x1) },
@@ -144,7 +150,8 @@ function marketMap(selection) {
           y2: function(d) { return yScale(d.y2) }
         });
 
-      d3.selectAll('.clusterCircle').transition()
+      d3.selectAll('.clusterCircle')
+        .transition()
         .delay(delay * 1)
         .duration(duration)
         .attr({
@@ -153,7 +160,8 @@ function marketMap(selection) {
           r: function(d) { return d.r }
         });
 
-      d3.selectAll('.clusterText').transition()
+      d3.selectAll('.clusterText')
+        .transition()
         .delay(delay * 1)
         .duration(duration)
         .attr({
