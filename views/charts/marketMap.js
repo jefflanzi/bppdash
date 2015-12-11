@@ -92,7 +92,7 @@ function marketMap(selection) {
         });
 
       // Create companies
-      var companies = chart.selectAll('g.new')
+      var companies = chart.selectAll('.company')
         .data(data.companies)
         .enter()
         .append('g')
