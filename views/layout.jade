@@ -7,57 +7,32 @@ html
     meta(name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
     title= title
     //- Libraries
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css')
     link(rel='stylesheet', href='/stylesheets/layout.css')  
     link(rel='stylesheet', href='/stylesheets/charts.css')    
     script(src='https://code.jquery.com/jquery-2.1.4.min.js')
     script(src='https://code.jquery.com/ui/1.11.4/jquery-ui.min.js')
-    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
     script(src="//d3js.org/d3.v3.min.js" charset="utf-8")
-  body
-    //- Top Navbar
-    nav(class='navbar navbar-inverse navbar-fixed-top')
-      .container-fluid
-        .navbar-header
-          button(type='button', class='navbar-toggle collapsed', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
-            span.sr-only Toggle Navigation
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a.navbar-brand(href='/') Brand Performance Platform
-        #navbar(class='navbar-collapse collapse')
-          ul(class='nav navbar-nav navbar-right')    
-            li
-              a(href='#') Settings
-            li
-              a(href='/login') Help
-            li
-              a(href='#') Logout         
-    //- Body container
-    .container-fluid
-      .row
-        //- Sidebar
-        div(class='col-sm-3 col-md-2 sidebar')
-          ul(class='nav nav-sidebar')
-            li.active
-              a(href='/charts/awareness') Awareness
-                span.sr-only (current)
-            li
-              a(href='/charts/salesFunnel') Sales Funnel
-            li
-              a(href='/charts/bpi') BPI
-            li
-              a(href='/charts/attributeChart') Attributes
-            li
-              a(href='/charts/marketMap') Market Map
-            li
-              a(href='/charts/bar') Bar Chart
-            li
-              a(href='/charts/pie') Pie Chart
-        //- Main content area
-        div(class='col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main')          
-          block content
+  body  
+    ul.navigation
+      li.nav-item
+        a(href='/charts/awareness') Awareness          
+      li.nav-item
+        a(href='/charts/salesFunnel') Sales Funnel
+      li.nav-item
+        a(href='/charts/bpi') BPI
+      li.nav-item
+        a(href='/charts/attributeChart') Attributes
+      li.nav-item
+        a(href='/charts/marketMap') Market Map
+      li.nav-item
+        a(href='/charts/bar') Bar Chart
+        
+    input#nav-trigger(type='checkbox', class='nav-trigger')
+    label(for='nav-trigger')
+    
+    //- Main content area
+    div.site-wrap               
+      block content
           
           
           
