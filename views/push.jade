@@ -1,0 +1,41 @@
+//- http://getbootstrap.com/examples/dashboard/#
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+    title= title
+    //- Libraries
+    link(rel='stylesheet', href='/stylesheets/normalize.css')
+    link(rel='stylesheet', href='/stylesheets/push.css')  
+    link(rel='stylesheet', href='/stylesheets/charts.css')    
+    script(src='https://code.jquery.com/jquery-2.1.4.min.js')
+    script(src='https://code.jquery.com/ui/1.11.4/jquery-ui.min.js')
+    script(src="//d3js.org/d3.v3.min.js" charset="utf-8")
+  body    
+    ul.navigation
+      li.nav-item
+        a(href='/charts/awareness') Awareness          
+      li.nav-item
+        a(href='/charts/salesFunnel') Sales Funnel
+      li.nav-item
+        a(href='/charts/bpi') BPI
+      li.nav-item
+        a(href='/charts/attributeChart') Attributes
+      li.nav-item
+        a(href='/charts/marketMap') Market Map
+      li.nav-item
+        a(href='/charts/bar') Bar Chart
+        
+    
+    input#nav-trigger(type='checkbox', class='nav-trigger')
+    label(for='nav-trigger')        
+    //- Main content area
+    div.site-wrap
+      #topbar
+        p test
+      block content
+          
+          
+          

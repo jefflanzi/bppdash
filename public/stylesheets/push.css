@@ -1,0 +1,106 @@
+/* http://www.sitepoint.com/pure-css-off-screen-navigation-menu/ */
+.navigation {
+  list-style: none;
+  background: #222;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+}
+
+/* Style list into menu */
+.nav-item {
+  width: 200px;
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #000;
+}
+
+.nav-item a {
+  display: block;
+  padding: 1em;
+  color: white;
+  font-size: 1.2em;
+  text-decoration: none;
+  transition: color 0.2s, background 0.5s;
+}
+
+.nav-item a:hover {
+  color: #ffd100;
+  background: linear-gradient(135deg, rgba(0,0,0,0) 0%,rgba(100,100,100,0.65) 100%);
+}
+
+.site-wrap {
+  min-width: 100%;
+  min-height: 100%;
+  background-color: #fff;
+  position: relative;
+  top: 0;
+  bottom: 100%;
+  left: 0;
+  z-index: 1;
+  padding: 4em;
+  background-size: 200%;
+}
+
+/*Hide checkbox trigger while keeping the element accessible
+clip is more iOS compatible than display */
+.nav-trigger {
+  position: absolute;
+  clip: rect(0,0,0,0);
+}
+
+/* Restyle nav trigger to hamburger icon */
+label[for='nav-trigger'] {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' x='0px' y='0px' width='30px' height='30px' viewBox='0 0 30 30' enable-background='new 0 0 30 30' xml:space='preserve'><rect width='30' height='6'/><rect y='24' width='30' height='6'/><rect y='12' width='30' height='6'/></svg>");
+  background-size: contain;
+}
+
+/* Make trigger open menu */
+.nav-trigger:checked ~ .site-wrap {
+  left: 200px;
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.nav-trigger:checked ~ #topbar {
+  left: 200px;
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.nav-trigger:checked + label {
+  left: 215px;
+}
+
+/* Menu Animation */
+.nav-trigger + label, .site-wrap {
+  transition: left 0.2s;
+}
+
+/* Hide body to prevent scrolling when menu is open */
+body {
+  overflow-x: hidden;
+}
+
+/* Micro reset */
+*,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;margin:0;padding:0;}
+html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-serif; }
+
+/* Top bar */
+#topbar {
+  position: fixed;
+  background: #222;
+  height: 50px;
+  top: 0;
+  left: 0;
+  right: 0;
+}
