@@ -134,7 +134,7 @@ function marketMap(selection) {
       xScale.range([0, width]);
       yScale.range([0, height]);
 
-      d3.select('#chart svg')
+      selection.select('svg')
         .transition()
         .duration(duration)
         .attr('width', width + margin.left + margin.right + 'px')
@@ -196,5 +196,5 @@ function marketMap(selection) {
   }
 
   return chart;
-  // End marketMap()
+// End marketMap()
 }

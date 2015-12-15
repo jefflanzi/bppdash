@@ -118,7 +118,8 @@ function salesFunnel(selection) {
     yScale.range([height, 0]);
 
     // SVG element
-    selection
+    console.log(selection);
+    selection.select('svg')
       .transition()
       .duration(duration)
       .attr('width', width + margin.left + margin.right)

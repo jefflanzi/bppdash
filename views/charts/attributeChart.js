@@ -2,7 +2,7 @@ function attributeChart(selection) {
 
   // Function global variables
   var w = parseInt(selection.style('width'))
-  var margin = { top: 20, right: 20, bottom: 30, left: w * 0.4 };
+  var margin = { top: 20, right: 20, bottom: 30, left: w * 0.2 };
   var width = parseInt(selection.style('width')) - margin.left - margin.right;
   var height = parseInt(selection.style('height')) - margin.top - margin.bottom;
 
@@ -124,14 +124,14 @@ function attributeChart(selection) {
 
       // Get new dimensions and rescale
       w = parseInt(selection.style('width'));
-      margin = { top: 20, right: 20, bottom: 30, left: w * 0.4 };
+      margin = { top: 20, right: 20, bottom: 30, left: w * 0.3 };
       width = parseInt(selection.style('width')) - margin.left - margin.right;
       height = parseInt(selection.style('height')) - margin.top - margin.bottom;
       xScale.range([0, width]);
       yScale.rangeRoundPoints([0, height]);
 
       // Redraw
-      d3.select('#chartSVG')
+      selection.select('svg')
         .transition()
         .duration(duration)
         .attr('width', width + margin.left + margin.right)

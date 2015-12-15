@@ -5,12 +5,12 @@ block chart
     include salesFunnel.js
   script.
     $(document).ready( function() {
-      var height = window.innerHeight - $('.navbar').height() - 40;          
+      var height = window.innerHeight - $('#topbar').height();          
       $('#chart').height(height);      
       salesFunnel(d3.select('#chart'));
       
       $(window).on('resize', function() {
-        height = window.innerHeight - $('.navbar').height() - 40;
+        height = window.innerHeight - $('#topbar').height();
         $('#chart').height(height);
       });
     });     
