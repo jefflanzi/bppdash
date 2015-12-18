@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Brand Performance Platform' })
+  res.render('charts/awareness', { title: 'Brand Performance Platform' })
 });
 
 // GET any other views

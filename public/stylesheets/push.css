@@ -100,4 +100,12 @@ html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-seri
   padding-left: 75px;
   border-bottom: 2px solid #ffd100;
   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.4);
+  line-height: 50px;
+}
+
+#topbar p {
+  color: white;
+  vertical-align: middle;
+  font-size: 1.5em;
+  font-weight: bold;
 }
