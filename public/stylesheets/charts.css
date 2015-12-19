@@ -130,7 +130,11 @@ body.login {
 
 /*===========================================================================*/
 /* SalesFunnel / Awareness */
-.awareness:hover, .preference:hover, .consideration:hover, .purchase:hover {
+/*.awareness:hover, .preference:hover, .consideration:hover, .purchase:hover {
+  fill: #ffd100 !important;
+}*/
+
+.highlight {
   fill: #ffd100 !important;
 }
 
@@ -138,12 +142,20 @@ body.login {
   position: absolute;
   z-index: 2;
   height: auto;
+  width: auto;
   padding: .5em;
-  font-size: .7em;
+  font-size: 1em;
+  font-weight: bold;
   text-align: center;
-  background-color: #222;
-  color: #ffd100;
+  background-color: #f00;
+  color: #fff;
+  opacity: 1;
   border-radius: 2px;
+  pointer-events: none;
+}
+
+.hidden {
+  opacity: 0;
 }
 
 /*.test:after {

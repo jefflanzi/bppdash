@@ -28,10 +28,10 @@ function salesFunnel(selection) {
       .data(dataset)
       .enter()
       .append('div')
-      .attr('class', 'tooltip')
-      .style('width', xScale.rangeBand() + 'px' )
+      .attr('class', 'tooltip hidden')
+      .style('width', xScale.rangeBand() * 0.9 + 'px' )
       .style('top', '100px')
-      .style('left', function(d,i) { return margin.left + xScale(d.Company) + 'px'})
+      .style('left', function(d,i) { return margin.left + xScale(d.Company) + xScale.rangeBand() * 0.05 + 'px'})
       .text(function(d) { return d.Company });
 
     // Create SVG and translated chart area g
@@ -115,28 +115,35 @@ function salesFunnel(selection) {
       .style('font-weight', 'bold')
 
     // Tooltip mouseovers
-    d3.selectAll('.bar')
-      .on('mouseover', function(d, i) {
-        var c = $(this).attr('class');
-        console.log(c);
-        var s = d3.selectAll(s);
-        console.log(s);
-      })
+    awareness
+      .on('mouseover', function() { showTooltip(awareness, 'Awareness') })
+      .on('mouseout', function() { hideTooltip(awareness) });
 
-    // var tooltips = companies.append('g')
-    //   .attr('class', 'tooltip');
-    //
-    // tooltips.append('rect')
-    //   .attr({
-    //     x: 0,
-    //     y: 0,
-    //     width: xScale.rangeBand(),
-    //     height: 20
-    //   })
-    //   .style('fill', 'red')
-    //
-    // tooltips.append('text')
-    //   .text(function(d) { return d.Company });
+    consideration
+      .on('mouseover', function() { showTooltip(consideration, 'Consideration') })
+      .on('mouseout', function() { hideTooltip(consideration) });
+
+    preference
+      .on('mouseover', function() { showTooltip(preference, 'Preference') })
+      .on('mouseout', function() { hideTooltip(preference) });
+
+    purchase
+      .on('mouseover', function() { showTooltip(purchase, 'Purchase Intent') })
+      .on('mouseout', function() { hideTooltip(purchase) });
+
+    function showTooltip(series, value) {
+      series
+        .classed('highlight', true);
+      tooltip
+        .style('top', function(d) {return yScale(+d[value]) + 30 + 'px' })
+        .classed('hidden', false)
+        .text(function(d) { return d3.format('1%')(d[value]) });
+    };
+
+    function hideTooltip(series) {
+      series.classed('highlight', false);
+      tooltip.classed('hidden', true);
+    };
 
     // Responsive resize
     resize(1000);
