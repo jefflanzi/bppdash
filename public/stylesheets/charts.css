@@ -134,10 +134,26 @@ body.login {
   fill: #ffd100 !important;
 }
 
-/*.tooltip {
+.tooltip {
   position: absolute;
-  width: 200px;
+  z-index: 2;
   height: auto;
-  background-color: white;
-  pointer-events: none;
+  padding: .5em;
+  font-size: .7em;
+  text-align: center;
+  background-color: #222;
+  color: #ffd100;
+  border-radius: 2px;
+}
+
+/*.test:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: #222;
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
 }*/

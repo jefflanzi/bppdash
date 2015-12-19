@@ -23,6 +23,17 @@ function salesFunnel(selection) {
     xScale.domain(xValues);
     yScale.domain([0,1]);
 
+    //  Tooltips
+    var tooltip = selection.selectAll('.tooltip')
+      .data(dataset)
+      .enter()
+      .append('div')
+      .attr('class', 'tooltip')
+      .style('width', xScale.rangeBand() + 'px' )
+      .style('top', '100px')
+      .style('left', function(d,i) { return margin.left + xScale(d.Company) + 'px'})
+      .text(function(d) { return d.Company });
+
     // Create SVG and translated chart area g
     var chartArea = selection.append('svg')
       .attr('width', width + margin.left + margin.right)
@@ -46,7 +57,7 @@ function salesFunnel(selection) {
       .attr('transform', function(d) { return 'translate(' + xScale(d.Company) + ',0)' });
 
     var companybg = companies.append('rect')
-      .attr('class', 'companyBG')
+      .attr('class', 'bar companyBG')
       .attr('width', xScale.rangeBand())
       .attr('height', 0)
       .style('fill', '#F2F2F2');
@@ -63,7 +74,7 @@ function salesFunnel(selection) {
 
     var consideration = companies.append('rect')
       .attr({
-        class: 'consideration',
+        class: 'bar consideration',
         x: 0,
         y: height,
         width: xScale.rangeBand(),
@@ -73,7 +84,7 @@ function salesFunnel(selection) {
 
     var preference = companies.append('rect')
       .attr({
-        class: 'preference',
+        class: 'bar preference',
         x: 0,
         y: height,
         width: xScale.rangeBand(),
@@ -83,7 +94,7 @@ function salesFunnel(selection) {
 
     var purchase = companies.append('rect')
       .attr({
-        class: 'purchase',
+        class: 'bar purchase',
         x: 0,
         y: height,
         width: xScale.rangeBand(),
@@ -103,6 +114,29 @@ function salesFunnel(selection) {
       .attr('text-anchor', 'end')
       .style('font-weight', 'bold')
 
+    // Tooltip mouseovers
+    d3.selectAll('.bar')
+      .on('mouseover', function(d, i) {
+        var c = $(this).attr('class');
+        console.log(c);
+        var s = d3.selectAll(s);
+        console.log(s);
+      })
+
+    // var tooltips = companies.append('g')
+    //   .attr('class', 'tooltip');
+    //
+    // tooltips.append('rect')
+    //   .attr({
+    //     x: 0,
+    //     y: 0,
+    //     width: xScale.rangeBand(),
+    //     height: 20
+    //   })
+    //   .style('fill', 'red')
+    //
+    // tooltips.append('text')
+    //   .text(function(d) { return d.Company });
 
     // Responsive resize
     resize(1000);
