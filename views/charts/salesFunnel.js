@@ -23,17 +23,6 @@ function salesFunnel(selection) {
     xScale.domain(xValues);
     yScale.domain([0,1]);
 
-    //  Tooltips
-    var tooltip = selection.selectAll('.tooltip')
-      .data(dataset)
-      .enter()
-      .append('div')
-      .attr('class', 'tooltip hidden')
-      .style('width', xScale.rangeBand() * 0.9 + 'px' )
-      .style('top', '100px')
-      .style('left', function(d,i) { return margin.left + xScale(d.Company) + xScale.rangeBand() * 0.05 + 'px'})
-      .text(function(d) { return d.Company });
-
     // Create SVG and translated chart area g
     var chartArea = selection.append('svg')
       .attr('width', width + margin.left + margin.right)
@@ -114,6 +103,12 @@ function salesFunnel(selection) {
       .attr('text-anchor', 'end')
       .style('font-weight', 'bold')
 
+    var tooltips = selection.selectAll('.tooltip')
+      .data(dataset)
+      .enter()
+      .append('div')
+      .attr('class', 'tooltip hidden');
+
     // Tooltip mouseovers
     awareness
       .on('mouseover', function() { showTooltip(awareness, 'Awareness') })
@@ -134,15 +129,18 @@ function salesFunnel(selection) {
     function showTooltip(series, value) {
       series
         .classed('highlight', true);
-      tooltip
-        .style('top', function(d) {return yScale(+d[value]) + 30 + 'px' })
+      tooltips
+        // .style('top', function(d) {return yScale(+d[value]) + margin.top + margin.bottom + 'px' })
+        .style('bottom', function(d) { return height*1.01 - yScale(+d[value]) + margin.bottom + 'px' })
+        .style('left', function(d) { return margin.left + xScale(d.Company) + xScale.rangeBand() * 0.05 + 'px' })
+        .style('width', xScale.rangeBand() * 0.9 + 'px')
         .classed('hidden', false)
         .text(function(d) { return d3.format('1%')(d[value]) });
     };
 
     function hideTooltip(series) {
       series.classed('highlight', false);
-      tooltip.classed('hidden', true);
+      tooltips.classed('hidden', true);
     };
 
     // Responsive resize
@@ -159,7 +157,6 @@ function salesFunnel(selection) {
     yScale.range([height, 0]);
 
     // SVG element
-    console.log(selection);
     selection.select('svg')
       .transition()
       .duration(duration)

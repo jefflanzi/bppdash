@@ -1,4 +1,30 @@
 /*===========================================================================*/
+/* Responsive Text */
+@media (min-width: 300px) {
+  body {
+    font-size: 8px;
+  }
+}
+
+@media (min-width: 450px) {
+  body {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 600px) {
+  body {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 800px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+/*===========================================================================*/
 /* Global Styles */
 svg {
   border: 1px solid #ccc;
@@ -130,9 +156,6 @@ body.login {
 
 /*===========================================================================*/
 /* SalesFunnel / Awareness */
-/*.awareness:hover, .preference:hover, .consideration:hover, .purchase:hover {
-  fill: #ffd100 !important;
-}*/
 
 .highlight {
   fill: #ffd100 !important;
@@ -143,11 +166,11 @@ body.login {
   z-index: 2;
   height: auto;
   width: auto;
-  padding: .5em;
+  padding: 0.3em;
   font-size: 1em;
   font-weight: bold;
   text-align: center;
-  background-color: #f00;
+  background-color: #da291c;
   color: #fff;
   opacity: 1;
   border-radius: 2px;
@@ -158,14 +181,17 @@ body.login {
   opacity: 0;
 }
 
-/*.test:after {
+.tooltip:after {
   box-sizing: border-box;
   display: inline;
-  font-size: 10px;
+  font-size: 1.2em;
   width: 100%;
+  top: 100%;
+  left: 0;
+  margin: -0.2em 0 0 0;
   line-height: 1;
-  color: #222;
+  color: #da291c;
   content: "\25BC";
   position: absolute;
   text-align: center;
-}*/
+}
