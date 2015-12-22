@@ -30,10 +30,6 @@ svg {
   border: 1px solid #ccc;
 }
 
-svg text {
-  pointer-events: none;
-}
-
 .axis path,
 .axis line {
   fill: none;
@@ -157,8 +153,17 @@ body.login {
 /*===========================================================================*/
 /* SalesFunnel / Awareness */
 
-.highlight {
+rect.awareness, circle.awareness { fill: #222; }
+rect.consideration, circle.consideration { fill: #4C4C4C; }
+rect.preference, circle.preference { fill: #7E7E7E; }
+rect.purchase, circle.purchase { fill: #AFAFAF; }
+
+rect.highlight, circle.highlight {
   fill: #ffd100 !important;
+}
+
+#chart {
+  position: relative;
 }
 
 .tooltip {
