@@ -160,6 +160,8 @@ rect.purchase, circle.purchase { fill: #AFAFAF; }
 
 rect.highlight, circle.highlight {
   fill: #ffd100 !important;
+  stroke-width: 3px;
+  stroke: #ffd100;
 }
 
 #chart {
