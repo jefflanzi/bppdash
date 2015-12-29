@@ -18,27 +18,6 @@ svg {
 }
 
 /*===========================================================================*/
-/*Login Page*/
-body.login {
-  background-color: #000;
-  padding: 0;
-}
-
-.loginRect {
-  fill: #111;
-  stroke: #777;
-  stroke-width: .5;
-  -moz-transition: fill 0.1s;
-  -o-transition: fill 0.1s;
-  -webkit-transition: fill 0.1s;
-  transition: fill 0.1s;
-}
-
-.loginRect:hover {
-  fill: #ffd02f;
-}
-
-/*===========================================================================*/
 /* Bar Chart */
 .bar * {
   fill: #222;

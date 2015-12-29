@@ -13,8 +13,10 @@ html
     script(src='https://code.jquery.com/jquery-2.1.4.min.js')
     script(src='https://code.jquery.com/ui/1.11.4/jquery-ui.min.js')
     script(src="//d3js.org/d3.v3.min.js" charset="utf-8")
-  body  
+  body    
     ul.navigation
+      li.nav-item.menu-header
+        p Charts
       li.nav-item
         a(href='/charts/awareness') Awareness          
       li.nav-item
@@ -28,11 +30,16 @@ html
       li.nav-item
         a(href='/charts/bar') Bar Chart
         
+    //- Nav Trigger    
     input#nav-trigger(type='checkbox', class='nav-trigger')
-    label(for='nav-trigger')
+    label(for='nav-trigger')        
     
     //- Main content area
-    div.site-wrap               
+    div.site-wrap
+      #topbar
+        p Brand Performance Platform
+        a(href='/login')
+          button(type='button') Login
       block content
           
           
