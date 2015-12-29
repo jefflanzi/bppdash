@@ -1,3 +1,51 @@
+/*===========================================================================*/
+/* Responsive Text */
+@media (min-width: 300px) {
+  body {
+    font-size: 8px;
+  }
+}
+
+@media (min-width: 450px) {
+  body {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 600px) {
+  body {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 800px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+/*===========================================================================*/
+/* Login Page */
+#login {
+  position: absolute;
+  top: 40%;
+  left: 25%;
+  /*margin-left: auto;
+  margin-right: auto;*/
+  width: 50%;
+  background-color: #444;
+  color: #ffd100;
+  border: 2px solid #ffd100;
+  border-radius: .5em;
+  padding: 10px;
+}
+
+.loginBody {
+  background-color: #222;
+}
+
+/*===========================================================================*/
+/* Navigation */
 /* http://www.sitepoint.com/pure-css-off-screen-navigation-menu/ */
 .navigation {
   list-style: none;
