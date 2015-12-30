@@ -1,30 +1,4 @@
 /*===========================================================================*/
-/* Responsive Text */
-@media (min-width: 300px) {
-  body {
-    font-size: 8px;
-  }
-}
-
-@media (min-width: 450px) {
-  body {
-    font-size: 10px;
-  }
-}
-
-@media (min-width: 600px) {
-  body {
-    font-size: 12px;
-  }
-}
-
-@media (min-width: 800px) {
-  body {
-    font-size: 14px;
-  }
-}
-
-/*===========================================================================*/
 /* Global Styles */
 svg {
   border: 1px solid #ccc;
@@ -41,27 +15,6 @@ svg {
 .axis text {
   font-family: sans-serif;
   font-size: 11px;
-}
-
-/*===========================================================================*/
-/*Login Page*/
-body.login {
-  background-color: #000;
-  padding: 0;
-}
-
-.loginRect {
-  fill: #111;
-  stroke: #777;
-  stroke-width: .5;
-  -moz-transition: fill 0.1s;
-  -o-transition: fill 0.1s;
-  -webkit-transition: fill 0.1s;
-  transition: fill 0.1s;
-}
-
-.loginRect:hover {
-  fill: #ffd02f;
 }
 
 /*===========================================================================*/
