@@ -13,7 +13,7 @@
 **Release Notes :** Present to partners
 
 ## Beta v.0.1.0
-**Features :** Interactive charts, animated login page, + user authentication, database integration  
+**Features :** Interactive charts, animated login page, + user authentication, database integration, ui refinements  
 **Purpose :** Demonstration and Presentation of BPP Reports  
 **Audience :** Clients  
 **Value Proposition :** Value Add  
