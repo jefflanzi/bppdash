@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 
 // GET any other views
 router.get('/charts/*', function(req, res, next) {
-  filename = 'charts' + req.params[0]
+  filename = 'charts/' + req.params[0]
   res.render(filename, { title: 'Brand Performance Platform' })
 });
 
