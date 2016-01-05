@@ -1,0 +1,53 @@
+/*===========================================================================*/
+/* SalesFunnel / Awareness */
+.companyBG { fill: #F2F2F2; }
+
+rect.awareness, circle.awareness { fill: #222; }
+rect.consideration, circle.consideration { fill: #4C4C4C; }
+rect.preference, circle.preference { fill: #7E7E7E; }
+rect.purchase, circle.purchase { fill: #AFAFAF; }
+
+rect.highlight, circle.highlight {
+  fill: $bbyellow !important;
+  stroke-width: 3px;
+  stroke: $bbyellow;
+}
+
+#chart {
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 2;
+  height: auto;
+  width: auto;
+  padding: 0.3em;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  background-color: $bbred;
+  color: #fff;
+  opacity: 1;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.tooltip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 1.2em;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  margin: -0.2em 0 0 0;
+  line-height: 1;
+  color: $bbred;
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}

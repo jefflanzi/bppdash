@@ -265,7 +265,7 @@ html, body {
 /*===========================================================================*/
 /* Global Styles */
 svg {
-  border: 1px solid #ccc;
+  border: none;
   background-color: #E4E4E4; }
 
 .axis path,
@@ -281,6 +281,25 @@ svg {
 
 .legend text {
   cursor: default; }
+
+/*===========================================================================*/
+/* Chart specific styles */
+/*===========================================================================*/
+/* Attribute Line Chart */
+.line {
+  fill: none;
+  stroke-width: 2.5px; }
+
+/*===========================================================================*/
+/* SalesFunnel / Awareness */
+.aided {
+  fill: #AFAFAF; }
+
+.unaided {
+  fill: #222; }
+
+.aided:hover, .unaided:hover {
+  fill: #FFD100; }
 
 /*===========================================================================*/
 /* Bar Chart */
@@ -305,7 +324,31 @@ svg {
   fill: #000; }
 
 /*===========================================================================*/
-/* Factor Map */
+/* BPI */
+.bgrect {
+  fill: #F2F2F2; }
+
+.character {
+  fill: #222; }
+
+.relationship {
+  fill: #808080; }
+
+.impact {
+  fill: #B6B6B6; }
+
+.bpi {
+  fill: #DA291C; }
+
+.bpiLabel {
+  fill: white;
+  font-weight: bold; }
+
+.bpiCompany {
+  font-weight: bold; }
+
+/*===========================================================================*/
+/* Market Map */
 .clusterCircle {
   -moz-transition: fill 0.3s;
   -o-transition: fill 0.3s;
@@ -349,24 +392,9 @@ svg {
   line-height: 20px; }
 
 /*===========================================================================*/
-/* Attribute Line Chart */
-.line {
-  fill: none;
-  stroke-width: 2.5px; }
-
-/*===========================================================================*/
 /* SalesFunnel / Awareness */
 .companyBG {
   fill: #F2F2F2; }
-
-.aided {
-  fill: #AFAFAF; }
-
-.unaided {
-  fill: #222; }
-
-.aided:hover, .unaided:hover {
-  fill: #FFD100; }
 
 rect.awareness, circle.awareness {
   fill: #222; }
@@ -419,27 +447,3 @@ rect.highlight, circle.highlight {
   content: "\25BC";
   position: absolute;
   text-align: center; }
-
-/*===========================================================================*/
-/* BPI */
-.bgrect {
-  fill: #F2F2F2; }
-
-.character {
-  fill: #222; }
-
-.relationship {
-  fill: #808080; }
-
-.impact {
-  fill: #B6B6B6; }
-
-.bpi {
-  fill: #DA291C; }
-
-.bpiLabel {
-  fill: white;
-  font-weight: bold; }
-
-.bpiCompany {
-  font-weight: bold; }

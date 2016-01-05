@@ -1,14 +1,7 @@
-//===========================================================================//
-// Global Variables //
-// $bbred: #DA291C;
-// $bbyellow: #FFD100;
-// $bgdark: #222;
-// $bglight: #E4E4E4;
-
 /*===========================================================================*/
 /* Global Styles */
 svg {
-  border: 1px solid #ccc;
+  border: none;
   background-color: $bglight;
 }
 
@@ -30,157 +23,10 @@ svg {
 }
 
 /*===========================================================================*/
-/* Bar Chart */
-.bar * {
-  fill: #222;
-  -moz-transition: fill 0.3s;
-  -o-transition: fill 0.3s;
-  -webkit-transition: fill 0.3s;
-  transition: fill 0.3s;
-}
-
-.bar rect:hover {
-  fill: $bbyellow;
-}
-
-.bar .valueLabel {
-  margin: 0;
-  font-family: sans-serif;
-  font-size: 16px;
-  font-weight: bold;
-  fill: #fff;
-}
-
-.bar:hover .valueLabel {
-  fill: #000;
-}
-
-/*===========================================================================*/
-/* Factor Map */
-.clusterCircle {
-  -moz-transition: fill 0.3s;
-  -o-transition: fill 0.3s;
-  -webkit-transition: fill 0.3s;
-  transition: fill 0.3s;
-  fill: $bgdark;
-}
-
-.clusterText {
-  font-weight: bold;
-}
-
-.clusterCircle:hover {
-  fill: $bbyellow;
-}
-
-.client {
-  fill: $bbred;
-}
-
-#chart.wrapper {
-  position: relative;
-}
-
-#tooltip {
-  position: absolute;
-  width: auto;
-  height: auto;
-  padding: 10px;
-  background-color: white;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-  pointer-events: none;
-}
-
-#tooltip.hidden {
-        display: none;
-}
-
-#tooltip p {
-        margin: 0;
-        font-family: sans-serif;
-        font-size: 16px;
-        line-height: 20px;
-}
-
-/*===========================================================================*/
-/* Attribute Line Chart */
-.line {
-  fill: none;
-  stroke-width: 2.5px;
-}
-
-/*===========================================================================*/
-/* SalesFunnel / Awareness */
-.companyBG { fill: #F2F2F2; }
-.aided { fill: #AFAFAF; }
-.unaided { fill: #222; }
-.aided:hover, .unaided:hover { fill: $bbyellow; }
-
-rect.awareness, circle.awareness { fill: #222; }
-rect.consideration, circle.consideration { fill: #4C4C4C; }
-rect.preference, circle.preference { fill: #7E7E7E; }
-rect.purchase, circle.purchase { fill: #AFAFAF; }
-
-rect.highlight, circle.highlight {
-  fill: $bbyellow !important;
-  stroke-width: 3px;
-  stroke: $bbyellow;
-}
-
-#chart {
-  position: relative;
-}
-
-.tooltip {
-  position: absolute;
-  z-index: 2;
-  height: auto;
-  width: auto;
-  padding: 0.3em;
-  font-size: 1em;
-  font-weight: bold;
-  text-align: center;
-  background-color: $bbred;
-  color: #fff;
-  opacity: 1;
-  border-radius: 2px;
-  pointer-events: none;
-}
-
-.hidden {
-  opacity: 0;
-}
-
-.tooltip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 1.2em;
-  width: 100%;
-  top: 100%;
-  left: 0;
-  margin: -0.2em 0 0 0;
-  line-height: 1;
-  color: $bbred;
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
-}
-
-/*===========================================================================*/
-/* BPI */
-
-.bgrect { fill: #F2F2F2; }
-.character { fill: #222; }
-.relationship { fill: #808080; }
-.impact { fill: #B6B6B6; }
-.bpi { fill: $bbred; }
-.bpiLabel {
-  fill: white;
-  font-weight: bold;
-}
-.bpiCompany { font-weight: bold; }
+/* Chart specific styles */
+@import 'styles/attributeChart';
+@import 'styles/awareness';
+@import 'styles/bar';
+@import 'styles/bpi';
+@import 'styles/marketMap';
+@import 'styles/salesFunnel';

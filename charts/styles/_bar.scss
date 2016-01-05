@@ -1,0 +1,25 @@
+/*===========================================================================*/
+/* Bar Chart */
+.bar * {
+  fill: #222;
+  -moz-transition: fill 0.3s;
+  -o-transition: fill 0.3s;
+  -webkit-transition: fill 0.3s;
+  transition: fill 0.3s;
+}
+
+.bar rect:hover {
+  fill: $bbyellow;
+}
+
+.bar .valueLabel {
+  margin: 0;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  fill: #fff;
+}
+
+.bar:hover .valueLabel {
+  fill: #000;
+}
