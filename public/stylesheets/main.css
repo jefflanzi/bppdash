@@ -1,0 +1,445 @@
+/*===========================================================================*/
+/* Responsive Text */
+@media (min-width: 300px) {
+  body {
+    font-size: 8px; } }
+
+@media (min-width: 450px) {
+  body {
+    font-size: 10px; } }
+
+@media (min-width: 600px) {
+  body {
+    font-size: 12px; } }
+
+@media (min-width: 800px) {
+  body {
+    font-size: 14px; } }
+
+/*===========================================================================*/
+/* Login Page */
+.logo {
+  position: absolute;
+  left: 35%;
+  right: 35%;
+  top: 5%;
+  background-color: #E4E4E4;
+  border: 4px solid #444;
+  border-radius: 1em;
+  padding: 1em; }
+
+.logo img {
+  width: 350px; }
+
+body.login {
+  background-color: #000;
+  padding: 0; }
+
+.login svg {
+  background-color: #000; }
+
+.loginRect {
+  fill: #111;
+  stroke: #777;
+  stroke-width: .5;
+  -moz-transition: fill 0.1s;
+  -o-transition: fill 0.1s;
+  -webkit-transition: fill 0.1s;
+  transition: fill 0.2s; }
+
+.loginRect:hover {
+  fill: #FFD100; }
+
+.login h1 {
+  text-align: center; }
+
+div.login {
+  opacity: 0;
+  position: absolute;
+  top: 30%;
+  left: 25%;
+  height: auto;
+  width: auto;
+  min-width: 50%;
+  background-color: #444;
+  color: #FFD100;
+  border: 2px solid #FFD100;
+  border-radius: .5em;
+  padding: 10px;
+  box-shadow: 4px 4px 10px 7px rgba(0, 0, 0, 0.7); }
+
+.login form {
+  padding: 1em; }
+
+.login form div + div {
+  margin-top: 1em;
+  /* space between form inputs */ }
+
+.login label {
+  display: inline-block;
+  width: 20%;
+  text-align: right; }
+
+.login input {
+  color: black;
+  background-color: #E4E4E4;
+  width: 75%;
+  box-sizing: border-box;
+  border: 2px solid #FFD100;
+  padding: 0.5em;
+  margin-left: 1em;
+  border-radius: 0.5em;
+  box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.5); }
+
+.login input:focus {
+  outline: none;
+  border: 2px solid #DA291C; }
+
+.login textarea {
+  vertical-align: top;
+  height: 5em;
+  /*resize: vertical;*/ }
+
+.button {
+  font-weight: bold;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 40%;
+  padding-right: 40%; }
+
+.login button {
+  width: 100%;
+  padding: 0.5em;
+  margin-left: 1em;
+  text-align: center;
+  color: #000;
+  background-color: #FFD100;
+  border: none;
+  outline: none;
+  border-radius: 1em; }
+
+.login button:hover {
+  background-color: #DA291C;
+  color: white; }
+
+/*===========================================================================*/
+/* Navigation */
+/* http://www.sitepoint.com/pure-css-off-screen-navigation-menu/ */
+.navigation {
+  list-style: none;
+  background: #222;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  padding-top: 0px; }
+
+/* Style list into menu */
+.nav-item {
+  width: 200px;
+  border-bottom: 1px solid #000; }
+
+.nav-item a {
+  display: block;
+  padding: 1em;
+  color: white;
+  font-size: 1.2em;
+  text-decoration: none;
+  transition: color 0.2s, background 0.5s; }
+
+.nav-item a:hover {
+  color: #FFD100;
+  /*background: linear-gradient(135deg, rgba(0,0,0,0) 0%,rgba(100,100,100,0.65) 100%);*/
+  background: rgba(100, 100, 100, 0.65); }
+
+.nav-item.menu-header {
+  background-color: #FFD100;
+  color: black;
+  padding: 1em;
+  font-size: 1.5em;
+  font-weight: bold;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 1em; }
+
+.site-wrap {
+  min-width: 100%;
+  min-height: 100%;
+  background-color: #e7e6e7;
+  position: relative;
+  top: 0;
+  bottom: 100%;
+  left: 0px;
+  z-index: 1;
+  background-size: 200%; }
+
+/*Hide checkbox trigger while keeping the element accessible
+clip is more iOS compatible than display: none */
+.nav-trigger {
+  position: absolute;
+  left: 215px;
+  clip: rect(0, 0, 0, 0); }
+
+/* Restyle nav trigger to hamburger icon */
+label[for='nav-trigger'] {
+  position: fixed;
+  top: 10px;
+  left: 15px;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' x='0px' y='0px' width='30px' height='30px' viewBox='0 0 30 30' enable-background='new 0 0 30 30' xml:space='preserve'><rect width='30' height='6' fill='#fff'/><rect y='24' width='30' height='6' fill='#fff'/><rect y='12' width='30' height='6' fill='#fff'/></svg>");
+  background-size: contain; }
+
+/* Make trigger close menu */
+.nav-trigger:checked ~ .site-wrap {
+  left: 200px;
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5); }
+
+.nav-trigger:checked + label {
+  left: 215px; }
+
+/* Menu Animation */
+.nav-trigger + label, .site-wrap {
+  transition: left 0.2s; }
+
+/* Hide body to prevent scrolling when menu is open */
+body {
+  overflow-x: hidden;
+  overflow-y: hidden; }
+
+/* Micro reset */
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: Helvetica, Arial, sans-serif; }
+
+/* Top bar */
+#topbar {
+  background: #222;
+  height: 50px;
+  padding-left: 75px;
+  border-bottom: 2px solid #FFD100;
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.4);
+  line-height: 50px; }
+
+#topbar p {
+  color: white;
+  vertical-align: middle;
+  font-size: 1.5em;
+  font-weight: bold; }
+
+#topbar button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+  height: 30px;
+  width: 100px;
+  text-align: center;
+  line-height: 30px;
+  color: #000;
+  font-weight: bold;
+  background-color: #FFD100;
+  border: none;
+  border-radius: 20px; }
+
+#topbar button:hover {
+  background-color: #DA291C;
+  color: white;
+  outline: none; }
+
+/*===========================================================================*/
+/* Global Styles */
+svg {
+  border: 1px solid #ccc;
+  background-color: #E4E4E4; }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: black;
+  stroke-width: 1;
+  shape-rendering: crispEdges; }
+
+.axis text {
+  font-family: sans-serif;
+  font-size: 11px; }
+
+.legend text {
+  cursor: default; }
+
+/*===========================================================================*/
+/* Bar Chart */
+.bar * {
+  fill: #222;
+  -moz-transition: fill 0.3s;
+  -o-transition: fill 0.3s;
+  -webkit-transition: fill 0.3s;
+  transition: fill 0.3s; }
+
+.bar rect:hover {
+  fill: #FFD100; }
+
+.bar .valueLabel {
+  margin: 0;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  fill: #fff; }
+
+.bar:hover .valueLabel {
+  fill: #000; }
+
+/*===========================================================================*/
+/* Factor Map */
+.clusterCircle {
+  -moz-transition: fill 0.3s;
+  -o-transition: fill 0.3s;
+  -webkit-transition: fill 0.3s;
+  transition: fill 0.3s;
+  fill: #222; }
+
+.clusterText {
+  font-weight: bold; }
+
+.clusterCircle:hover {
+  fill: #FFD100; }
+
+.client {
+  fill: #DA291C; }
+
+#chart.wrapper {
+  position: relative; }
+
+#tooltip {
+  position: absolute;
+  width: auto;
+  height: auto;
+  padding: 10px;
+  background-color: white;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  pointer-events: none; }
+
+#tooltip.hidden {
+  display: none; }
+
+#tooltip p {
+  margin: 0;
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 20px; }
+
+/*===========================================================================*/
+/* Attribute Line Chart */
+.line {
+  fill: none;
+  stroke-width: 2.5px; }
+
+/*===========================================================================*/
+/* SalesFunnel / Awareness */
+.companyBG {
+  fill: #F2F2F2; }
+
+.aided {
+  fill: #AFAFAF; }
+
+.unaided {
+  fill: #222; }
+
+.aided:hover, .unaided:hover {
+  fill: #FFD100; }
+
+rect.awareness, circle.awareness {
+  fill: #222; }
+
+rect.consideration, circle.consideration {
+  fill: #4C4C4C; }
+
+rect.preference, circle.preference {
+  fill: #7E7E7E; }
+
+rect.purchase, circle.purchase {
+  fill: #AFAFAF; }
+
+rect.highlight, circle.highlight {
+  fill: #FFD100 !important;
+  stroke-width: 3px;
+  stroke: #FFD100; }
+
+#chart {
+  position: relative; }
+
+.tooltip {
+  position: absolute;
+  z-index: 2;
+  height: auto;
+  width: auto;
+  padding: 0.3em;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  background-color: #DA291C;
+  color: #fff;
+  opacity: 1;
+  border-radius: 2px;
+  pointer-events: none; }
+
+.hidden {
+  opacity: 0; }
+
+.tooltip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 1.2em;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  margin: -0.2em 0 0 0;
+  line-height: 1;
+  color: #DA291C;
+  content: "\25BC";
+  position: absolute;
+  text-align: center; }
+
+/*===========================================================================*/
+/* BPI */
+.bgrect {
+  fill: #F2F2F2; }
+
+.character {
+  fill: #222; }
+
+.relationship {
+  fill: #808080; }
+
+.impact {
+  fill: #B6B6B6; }
+
+.bpi {
+  fill: #DA291C; }
+
+.bpiLabel {
+  fill: white;
+  font-weight: bold; }
+
+.bpiCompany {
+  font-weight: bold; }

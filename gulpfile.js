@@ -3,23 +3,23 @@ var nodemon = require('gulp-nodemon');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 
-gulp.task('default', ['sass', 'scripts'], function() {
+gulp.task('default', ['styles', 'scripts'], function() {
   nodemon({
     script: './bin/www'
   });
 });
 
-gulp.task('sass', function() {
-  gulp.src('./charts/*.scss')
+gulp.task('styles', function() {
+  return gulp.src('./sass/main.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./public/stylesheets'));
 });
 
 gulp.task('scripts', function() {
-  gulp.src('./charts/*.js')
+  return gulp.src('./charts/*.js')
     .pipe(concat('charts.js'))
     .pipe(gulp.dest('./public/scripts'));
 });
 
-gulp.watch('./charts/*.scss', ['sass']);
+gulp.watch('./**/*.scss', ['styles']);
 gulp.watch('./charts/*.js', ['scripts']);
