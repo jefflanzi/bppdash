@@ -197,4 +197,4 @@ function marketMap(selection) {
 
   return chart;
 // End marketMap()
-}
+};

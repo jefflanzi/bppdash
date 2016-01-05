@@ -193,4 +193,4 @@ function awarenessChart(selection) {
     });
   }
 // End awarenessChart()
-}
+};
