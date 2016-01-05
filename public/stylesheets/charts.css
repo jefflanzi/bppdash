@@ -15,6 +15,9 @@ svg {
   font-family: sans-serif;
   font-size: 11px; }
 
+.legend text {
+  cursor: default; }
+
 /*===========================================================================*/
 /* Bar Chart */
 .bar * {
