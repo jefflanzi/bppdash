@@ -41,15 +41,8 @@ function awarenessChart(selection) {
         'width': width + margin.left + margin.right,
         'height': height + margin.top + margin.bottom
       })
-      // .style('background-color', '#E8E6E7')
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-    // Background rect
-    chartArea.append('rect')
-      .attr('class', 'background')
-      .attr({width: width, height: height})
-      .style('fill', '#E8E6E7');
 
     // Create company groups and bars
     var companies = chartArea.selectAll('.company')
@@ -62,8 +55,7 @@ function awarenessChart(selection) {
     companies.append('rect')
       .attr('class', 'companyBG')
       .attr('width', xScale.rangeBand())
-      .attr('height', 0)
-      .style('fill', '#F2F2F2');
+      .attr('height', 0);
 
     companies.append('rect')
       .attr({
@@ -72,8 +64,7 @@ function awarenessChart(selection) {
         y: height,
         width: xScale.rangeBand(),
         height: 0
-      })
-      .style('fill', '#AFAFAF');
+      });
 
     companies.append('rect')
       .attr({
@@ -82,8 +73,7 @@ function awarenessChart(selection) {
         y: height,
         width: xScale.rangeBand(),
         height: 0
-      })
-      .style('fill', '#222');
+      });
 
     // Draw Axis
     chartArea.append('g')
@@ -91,7 +81,6 @@ function awarenessChart(selection) {
       .attr('transform', 'translate(0,' + height + ')')
       .call(xAxis)
       .selectAll('text')
-      // .attr('transform', 'rotate(-90)')
       .call(wrap, xScale.rangeBand());
 
     chartArea.append('g')

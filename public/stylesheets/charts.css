@@ -1,7 +1,8 @@
 /*===========================================================================*/
 /* Global Styles */
 svg {
-  border: 1px solid #ccc; }
+  border: 1px solid #ccc;
+  background-color: #E4E4E4; }
 
 .axis path,
 .axis line {
@@ -24,7 +25,7 @@ svg {
   transition: fill 0.3s; }
 
 .bar rect:hover {
-  fill: #ffd02f; }
+  fill: #FFD100; }
 
 .bar .valueLabel {
   margin: 0;
@@ -49,7 +50,7 @@ svg {
   font-weight: bold; }
 
 .clusterCircle:hover {
-  fill: #ffd02f; }
+  fill: #FFD100; }
 
 .client {
   fill: #DA291C; }
@@ -84,11 +85,22 @@ svg {
 /* Attribute Line Chart */
 .line {
   fill: none;
-  stroke: steelblue;
   stroke-width: 2.5px; }
 
 /*===========================================================================*/
 /* SalesFunnel / Awareness */
+.companyBG {
+  fill: #F2F2F2; }
+
+.aided {
+  fill: #AFAFAF; }
+
+.unaided {
+  fill: #222; }
+
+.aided:hover, .unaided:hover {
+  fill: #FFD100; }
+
 rect.awareness, circle.awareness {
   fill: #222; }
 
@@ -102,9 +114,9 @@ rect.purchase, circle.purchase {
   fill: #AFAFAF; }
 
 rect.highlight, circle.highlight {
-  fill: #ffd100 !important;
+  fill: #FFD100 !important;
   stroke-width: 3px;
-  stroke: #ffd100; }
+  stroke: #FFD100; }
 
 #chart {
   position: relative; }
@@ -118,7 +130,7 @@ rect.highlight, circle.highlight {
   font-size: 1em;
   font-weight: bold;
   text-align: center;
-  background-color: #da291c;
+  background-color: #DA291C;
   color: #fff;
   opacity: 1;
   border-radius: 2px;
@@ -136,7 +148,31 @@ rect.highlight, circle.highlight {
   left: 0;
   margin: -0.2em 0 0 0;
   line-height: 1;
-  color: #da291c;
+  color: #DA291C;
   content: "\25BC";
   position: absolute;
   text-align: center; }
+
+/*===========================================================================*/
+/* BPI */
+.bgrect {
+  fill: #F2F2F2; }
+
+.character {
+  fill: #222; }
+
+.relationship {
+  fill: #808080; }
+
+.impact {
+  fill: #B6B6B6; }
+
+.bpi {
+  fill: #DA291C; }
+
+.bpiLabel {
+  fill: white;
+  font-weight: bold; }
+
+.bpiCompany {
+  font-weight: bold; }

@@ -30,7 +30,6 @@ function salesFunnel(selection) {
     var chartArea = selection.append('svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height',  height + margin.top + margin.bottom)
-      // .style('background-color', '#E7E6E7')
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
@@ -89,8 +88,7 @@ function salesFunnel(selection) {
     var companybg = companies.append('rect')
       .attr('class', 'bar companyBG')
       .attr('width', xScale.rangeBand())
-      .attr('height', 0)
-      .style('fill', '#F2F2F2');
+      .attr('height', 0)      
 
     var awareness = companies.append('rect')
       .attr({

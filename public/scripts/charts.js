@@ -36,7 +36,6 @@ function attributeChart(selection) {
         width: width + margin.left + margin.right,
         height: height + margin.top + margin.bottom
       })
-      .style('background-color', "#E4E4E4")
       .append('g')
       .attr('id', 'chartArea')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -262,15 +261,8 @@ function awarenessChart(selection) {
         'width': width + margin.left + margin.right,
         'height': height + margin.top + margin.bottom
       })
-      // .style('background-color', '#E8E6E7')
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-    // Background rect
-    chartArea.append('rect')
-      .attr('class', 'background')
-      .attr({width: width, height: height})
-      .style('fill', '#E8E6E7');
 
     // Create company groups and bars
     var companies = chartArea.selectAll('.company')
@@ -283,8 +275,7 @@ function awarenessChart(selection) {
     companies.append('rect')
       .attr('class', 'companyBG')
       .attr('width', xScale.rangeBand())
-      .attr('height', 0)
-      .style('fill', '#F2F2F2');
+      .attr('height', 0);
 
     companies.append('rect')
       .attr({
@@ -293,8 +284,7 @@ function awarenessChart(selection) {
         y: height,
         width: xScale.rangeBand(),
         height: 0
-      })
-      .style('fill', '#AFAFAF');
+      });
 
     companies.append('rect')
       .attr({
@@ -303,8 +293,7 @@ function awarenessChart(selection) {
         y: height,
         width: xScale.rangeBand(),
         height: 0
-      })
-      .style('fill', '#222');
+      });
 
     // Draw Axis
     chartArea.append('g')
@@ -312,7 +301,6 @@ function awarenessChart(selection) {
       .attr('transform', 'translate(0,' + height + ')')
       .call(xAxis)
       .selectAll('text')
-      // .attr('transform', 'rotate(-90)')
       .call(wrap, xScale.rangeBand());
 
     chartArea.append('g')
@@ -442,8 +430,7 @@ function barChart(selection) {
       .attr({
         width: width + margin.left + margin.right,
         height: height + margin.top + margin.bottom,
-      })
-      .style('background-color', '#E2E2E2')
+      })      
       .append('g')
       .attr('id', 'chartArea')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -587,16 +574,6 @@ function bpiChart(selection) {
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.left + ')');
 
-    var chartbg = chartArea.append('rect')
-      .attr({
-        class: 'chartbg',
-        x: 0,
-        y: 0,
-        height: height,
-        width: width
-      })
-      .style('fill', '#E4E4E4');
-
     // Create company groups and bars
     var companies = chartArea.selectAll('.companies')
       .data(dataset)
@@ -612,8 +589,7 @@ function bpiChart(selection) {
         y: 0,
         height: 0,
         width: xScale.rangeBand()
-      })
-      .style('fill', '#F2F2F2');
+      });
 
     var character = companies.append('rect')
       .attr({
@@ -622,8 +598,7 @@ function bpiChart(selection) {
         y: height,
         width: cScale.rangeBand() / 2,
         height: 0
-      })
-      .style('fill', '#222');
+      });
 
     var relationship = companies.append('rect')
       .attr({
@@ -632,8 +607,7 @@ function bpiChart(selection) {
         y: height,
         width: cScale.rangeBand() / 2,
         height: 0
-      })
-      .style('fill', '#808080');
+      });
 
     var impact = companies.append('rect')
       .attr({
@@ -642,8 +616,7 @@ function bpiChart(selection) {
         y: height,
         width: cScale.rangeBand() / 2,
         height: 0
-      })
-      .style('fill', '#B6B6B6');
+      });
 
     var bpi = companies.append('circle')
       .attr({
@@ -651,29 +624,27 @@ function bpiChart(selection) {
         cx: 0,
         cy: 0,
         r: 0
-      })
-      .style('fill', '#da291c');
+      });
 
     var bpiLabel = companies.append('text')
       .text(function(d) { return d.BPI })
       .attr({
+        class: 'bpiLabel',
         x: 0,
         'text-anchor': 'middle',
         y: 0,
         dy: '0.35em'
-      })
-      .style('fill', 'white')
-      .style('font-weight', 'bold')
+      });
 
     var companyLabel = companies.append('text')
       .text(function(d) { return d.Company} )
       .attr({
+        class: 'bpiCompany',
         x: xScale.rangeBand() / 2,
         'text-anchor': 'middle',
         y: 0,
         dy: '2em'
-      })
-      .style('font-weight', 'bold')
+      });      
 
     // Responsive resize
     resize(1000); // Initial animations
@@ -695,12 +666,6 @@ function bpiChart(selection) {
         .duration(duration)
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom);
-
-      chartbg
-        .attr({
-          height: height,
-          width: width
-        });
 
       companies
         .transition()
@@ -798,7 +763,6 @@ function marketMap(selection) {
       width: width + margin.left + margin.right,
       height: height + margin.top + margin.bottom
     })
-    .style('background-color', '#E2E2E2')
     .append('g')
     .attr('id', 'chartArea')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -1080,7 +1044,6 @@ function salesFunnel(selection) {
     var chartArea = selection.append('svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height',  height + margin.top + margin.bottom)
-      // .style('background-color', '#E7E6E7')
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
@@ -1139,8 +1102,7 @@ function salesFunnel(selection) {
     var companybg = companies.append('rect')
       .attr('class', 'bar companyBG')
       .attr('width', xScale.rangeBand())
-      .attr('height', 0)
-      .style('fill', '#F2F2F2');
+      .attr('height', 0)      
 
     var awareness = companies.append('rect')
       .attr({
