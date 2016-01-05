@@ -16,7 +16,6 @@ function marketMap(selection) {
       width: width + margin.left + margin.right,
       height: height + margin.top + margin.bottom
     })
-    .style('background-color', '#E2E2E2')
     .append('g')
     .attr('id', 'chartArea')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -197,4 +196,4 @@ function marketMap(selection) {
 
   return chart;
 // End marketMap()
-}
+};

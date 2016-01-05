@@ -1,18 +1,16 @@
 extends ../chart
 
 block chart  
-  script
-    include bpi.js
   script.
-      $(document).ready( function() {
-        var height = window.innerHeight - $('.navbar').height() - 50;          
-        $('#chart').height(height);      
-        bpiChart(d3.select('#chart'));
-        
-        $(window).on('resize', function() {
-          var height = window.innerHeight - $('.navbar').height() - 50;
-          $('#chart').height(height);
-        });
+    $(document).ready( function() {
+      var height = window.innerHeight - $('.navbar').height() - 50;          
+      $('#chart').height(height);      
+      bpiChart(d3.select('#chart'));
+      
+      $(window).on('resize', function() {
+        var height = window.innerHeight - $('.navbar').height() - 50;
+        $('#chart').height(height);
       });
+    });
 
     

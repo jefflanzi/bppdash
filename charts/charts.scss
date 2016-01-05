@@ -1,22 +1,33 @@
+//===========================================================================//
+// Global Variables //
+$bbred: #DA291C;
+$bbyellow: #FFD100;
+$bgdark: #222;
+$bglight: #E4E4E4;
+
 /*===========================================================================*/
 /* Global Styles */
 svg {
   border: 1px solid #ccc;
-  background-color: #E4E4E4; }
+  background-color: $bglight;
+}
 
 .axis path,
 .axis line {
   fill: none;
   stroke: black;
   stroke-width: 1;
-  shape-rendering: crispEdges; }
+  shape-rendering: crispEdges;
+}
 
 .axis text {
   font-family: sans-serif;
-  font-size: 11px; }
+  font-size: 11px;
+}
 
 .legend text {
-  cursor: default; }
+  cursor: default;
+}
 
 /*===========================================================================*/
 /* Bar Chart */
@@ -25,20 +36,24 @@ svg {
   -moz-transition: fill 0.3s;
   -o-transition: fill 0.3s;
   -webkit-transition: fill 0.3s;
-  transition: fill 0.3s; }
+  transition: fill 0.3s;
+}
 
 .bar rect:hover {
-  fill: #FFD100; }
+  fill: $bbyellow;
+}
 
 .bar .valueLabel {
   margin: 0;
   font-family: sans-serif;
   font-size: 16px;
   font-weight: bold;
-  fill: #fff; }
+  fill: #fff;
+}
 
 .bar:hover .valueLabel {
-  fill: #000; }
+  fill: #000;
+}
 
 /*===========================================================================*/
 /* Factor Map */
@@ -47,19 +62,24 @@ svg {
   -o-transition: fill 0.3s;
   -webkit-transition: fill 0.3s;
   transition: fill 0.3s;
-  fill: #222; }
+  fill: $bgdark;
+}
 
 .clusterText {
-  font-weight: bold; }
+  font-weight: bold;
+}
 
 .clusterCircle:hover {
-  fill: #FFD100; }
+  fill: $bbyellow;
+}
 
 .client {
-  fill: #DA291C; }
+  fill: $bbred;
+}
 
 #chart.wrapper {
-  position: relative; }
+  position: relative;
+}
 
 #tooltip {
   position: absolute;
@@ -73,56 +93,48 @@ svg {
   -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-  pointer-events: none; }
+  pointer-events: none;
+}
 
 #tooltip.hidden {
-  display: none; }
+        display: none;
+}
 
 #tooltip p {
-  margin: 0;
-  font-family: sans-serif;
-  font-size: 16px;
-  line-height: 20px; }
+        margin: 0;
+        font-family: sans-serif;
+        font-size: 16px;
+        line-height: 20px;
+}
 
 /*===========================================================================*/
 /* Attribute Line Chart */
 .line {
   fill: none;
-  stroke-width: 2.5px; }
+  stroke-width: 2.5px;
+}
 
 /*===========================================================================*/
 /* SalesFunnel / Awareness */
-.companyBG {
-  fill: #F2F2F2; }
+.companyBG { fill: #F2F2F2; }
+.aided { fill: #AFAFAF; }
+.unaided { fill: #222; }
+.aided:hover, .unaided:hover { fill: $bbyellow; }
 
-.aided {
-  fill: #AFAFAF; }
-
-.unaided {
-  fill: #222; }
-
-.aided:hover, .unaided:hover {
-  fill: #FFD100; }
-
-rect.awareness, circle.awareness {
-  fill: #222; }
-
-rect.consideration, circle.consideration {
-  fill: #4C4C4C; }
-
-rect.preference, circle.preference {
-  fill: #7E7E7E; }
-
-rect.purchase, circle.purchase {
-  fill: #AFAFAF; }
+rect.awareness, circle.awareness { fill: #222; }
+rect.consideration, circle.consideration { fill: #4C4C4C; }
+rect.preference, circle.preference { fill: #7E7E7E; }
+rect.purchase, circle.purchase { fill: #AFAFAF; }
 
 rect.highlight, circle.highlight {
-  fill: #FFD100 !important;
+  fill: $bbyellow !important;
   stroke-width: 3px;
-  stroke: #FFD100; }
+  stroke: $bbyellow;
+}
 
 #chart {
-  position: relative; }
+  position: relative;
+}
 
 .tooltip {
   position: absolute;
@@ -133,14 +145,16 @@ rect.highlight, circle.highlight {
   font-size: 1em;
   font-weight: bold;
   text-align: center;
-  background-color: #DA291C;
+  background-color: $bbred;
   color: #fff;
   opacity: 1;
   border-radius: 2px;
-  pointer-events: none; }
+  pointer-events: none;
+}
 
 .hidden {
-  opacity: 0; }
+  opacity: 0;
+}
 
 .tooltip:after {
   box-sizing: border-box;
@@ -151,31 +165,22 @@ rect.highlight, circle.highlight {
   left: 0;
   margin: -0.2em 0 0 0;
   line-height: 1;
-  color: #DA291C;
+  color: $bbred;
   content: "\25BC";
   position: absolute;
-  text-align: center; }
+  text-align: center;
+}
 
 /*===========================================================================*/
 /* BPI */
-.bgrect {
-  fill: #F2F2F2; }
 
-.character {
-  fill: #222; }
-
-.relationship {
-  fill: #808080; }
-
-.impact {
-  fill: #B6B6B6; }
-
-.bpi {
-  fill: #DA291C; }
-
+.bgrect { fill: #F2F2F2; }
+.character { fill: #222; }
+.relationship { fill: #808080; }
+.impact { fill: #B6B6B6; }
+.bpi { fill: $bbred; }
 .bpiLabel {
   fill: white;
-  font-weight: bold; }
-
-.bpiCompany {
-  font-weight: bold; }
+  font-weight: bold;
+}
+.bpiCompany { font-weight: bold; }
