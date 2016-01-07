@@ -54,4 +54,4 @@
 
 ---
 ## Future Releases v1.x.x+  
-**New Features :** + integrations (e.g. google analytics, salesforce)
+**New Features :** employee engagment, integrations (e.g. google analytics, salesforce)
