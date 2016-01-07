@@ -12,4 +12,8 @@ router.get('/charts/*', function(req, res, next) {
   res.render(filename, { title: 'Brand Performance Platform' })
 });
 
+router.get('/roadmap', function(req, res, next) {
+  res.render('roadmap');
+});
+
 module.exports = router;
