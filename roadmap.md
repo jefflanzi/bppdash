@@ -4,7 +4,7 @@
 **New Features :** Interactive Charts  
 **Purpose :** Technical demonstration for internal consideration  
 **Audience :** Internal Team  
-**Value Proposition :** Prototype
+**Value Proposition :** Prototype  
 **Time required :** 2 Weeks
 
 ---
@@ -13,7 +13,7 @@
 **Purpose :** Technical demonstration for internal consideration  
 **Audience :** Internal Team  
 **Value Proposition :** Prototype  
-**Release Notes :** Present to partners
+**Release Notes :** Present to partners  
 **Time required :** 2 Weeks
 
 ---
@@ -40,7 +40,7 @@
 **Purpose :** Demonstration and Presentation of BPP Reports.  
 **Audience :** Clients  
 **Value Proposition :** Value Add  
-**Release Notes :** Chart annotation for internal use only.
+**Release Notes :** Chart annotation for internal use only.  
 **Time required :** 4-6 Weeks
 
 ---
@@ -54,5 +54,4 @@
 
 ---
 ## Future Releases v1.x.x+  
-**New Features :** + integrations(e.g. google analytics, salesforce)
-}
+**New Features :** + integrations (e.g. google analytics, salesforce)
