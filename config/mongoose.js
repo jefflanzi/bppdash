@@ -4,7 +4,7 @@ var mongoURI = {
   development: 'mongodb://localhost/bppdash',
   test: 'mongodb://localhost/bppdash-test'
 }
-
+console.log('connecting to : ' + mongoURI[process.env.NODE_ENV]);
 mongoose.connect(mongoURI[process.env.NODE_ENV]);
 
 // check for successful connection
