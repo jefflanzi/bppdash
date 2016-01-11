@@ -5,19 +5,15 @@ block body
       img(src="/images/bpp_logo.png")
     div.login
       h1 Sign In
-      form(action='/login', method='get', id='login')
+      form(role='form', action='/login', method='post', id='login')
         div
           label(for='username') Username:
-          input(type='text', id='username', name='username', value='Username')    
-        div
-          label(for='email') Email:
-          input(type='email', id='email', name='email', value='name@example.com')
+          input(type='text', id='username', name='username', placeholder='Username')
         div
           label(for='password') Password:
-          input(type='text', id='password', name='password', value = "*****")
-        div.button
-          a(href="/charts/awareness")
-            button(type='button') Submit
+          input(type='password', id='password', name='password', placeholder="Password")
+        div.button        
+          button(type='submit') Submit
   script.
     var width = window.innerWidth || document.documentElement.clientWidth;
     var height = window.innerHeight || document.documentElement.clientHeight;
