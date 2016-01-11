@@ -31,8 +31,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 //==============================================================================
 // Mongoose
 var envURIs = {
-  development: 'mongodb://localhost/bppdash',
-  test: 'mongodb://localhost/bppdash-test'
+  development: 'mongodb://localhost/bppdash',  
+  test: 'mongodb://localhost/bppdash-test',
+  production: process.env.MONGOLAB_URI
 }
 var mongoURI = envURIs[app.get('env')];
 console.log('connecting to : ' + mongoURI);
