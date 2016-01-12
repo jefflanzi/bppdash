@@ -49,51 +49,45 @@ div.container.float {
   pointer-events: none; }
 
 /* BPP Logo */
-div.logo {
+div.login {
+  opacity: 0;
   background-color: #E4E4E4;
-  border: 4px solid #444;
+  color: #222;
+  border: 4px solid #E4E4E4;
   border-radius: 1em;
-  padding: 1em;
+  box-shadow: 4px 4px 10px 7px rgba(0, 0, 0, 0.7);
+  padding: 0;
   position: relative;
   width: 100%;
   margin-bottom: 5%;
   margin-left: auto;
   margin-right: auto; }
   @media (min-width: 401px) and (max-width: 799px) {
-    div.logo {
+    div.login {
       width: 60%;
       margin-bottom: 10%; } }
   @media (min-width: 800px) {
-    div.logo {
-      width: 40%;
+    div.login {
+      width: 50%;
       margin-bottom: 10%; } }
 
-.logo img {
-  max-width: 100%; }
+div.logo {
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em; }
+
+.login img {
+  margin: 5% 25%;
+  width: 50%; }
 
 /* Login Form */
 .login h1 {
   text-align: center; }
 
-div.login {
-  opacity: 0;
-  background-color: #444;
-  color: #FFD100;
-  border: 2px solid #FFD100;
-  border-radius: .5em;
-  padding: 10px;
-  box-shadow: 4px 4px 10px 7px rgba(0, 0, 0, 0.7);
-  pointer-events: auto;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 5%; }
-  @media (min-width: 401px) and (max-width: 799px) {
-    div.login {
-      width: 80%; } }
-  @media (min-width: 800px) {
-    div.login {
-      width: 70%; } }
+.login hr {
+  color: #222;
+  border: 1px solid #222;
+  margin-left: 5%;
+  margin-right: 5%; }
 
 .login form {
   padding: 1em; }
@@ -105,14 +99,15 @@ div.login {
 .login label {
   display: inline-block;
   width: 20%;
-  text-align: right; }
+  text-align: right;
+  font-weight: bold; }
 
 .login input {
-  color: black;
-  background-color: #E4E4E4;
+  pointer-events: auto;
+  color: white;
+  background-color: #222;
   width: 75%;
   box-sizing: border-box;
-  border: 2px solid #FFD100;
   padding: 0.5em;
   margin-left: 1em;
   border-radius: 0.5em;
