@@ -3,17 +3,17 @@
 
 /* SVG Backgroung */
 body.login {
-  background-color: #000;
+  background-color: $bgdark;
   padding: 0;
 }
 
 .login svg {
-  background-color: #000;  
+  background-color: $bgdark;
 }
 
 .loginRect {
-  fill: #111;
-  stroke: #777;
+  fill: $bglight;
+  stroke: $bgdark;
   stroke-width: .5;
   -moz-transition: fill 0.1s;
   -o-transition: fill 0.1s;
@@ -28,7 +28,10 @@ body.login {
 /* Logo & Form container */
 div.container.float {
   position: absolute;
-  margin-top: 5%;
+  // margin-top: 10%;
+  top: 20%;
+  bottom: 20%;
+  height: 60%;
   margin-left: 5%;
   margin-right: 5%;
   width: 90%;
@@ -36,11 +39,14 @@ div.container.float {
 }
 
 /* BPP Logo */
-div.logo {
+div.login {
+  opacity: 0;
   background-color: $bglight;
-  border: 4px solid #444;
+  color: $bgdark;
+  border: 4px solid $bgdark;
   border-radius: 1em;
-  padding: 1em;
+  box-shadow: 4px 4px 7px 7px rgba(0, 0, 0, 0.7);
+  padding: 0;
   position: relative;
   width: 100%;
   margin-bottom: 5%;
@@ -51,13 +57,23 @@ div.logo {
     margin-bottom: 10%;
   }
   @media #{$large} {
-    width: 40%;
+    width: 50%;
     margin-bottom: 10%;
   }
 }
 
-.logo img {
-  max-width: 100%;
+div.logo {
+  background-color: $bglight;
+  border-radius: 1em 1em 0 0;
+}
+.login img {
+  margin: 5% 25%;
+  width: 50%;
+}
+
+div.form {
+  pointer-events: auto;
+  margin-top: 5%;
 }
 
 /* Login Form */
@@ -65,25 +81,11 @@ div.logo {
   text-align: center;
 }
 
-div.login {
-  opacity: 0;
-  background-color: #444;
-  color: $bbyellow;
-  border: 2px solid $bbyellow;
-  border-radius: .5em;
-  padding: 10px;
-  box-shadow: 4px 4px 10px 7px rgba(0, 0, 0, 0.7);
-  pointer-events: auto;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 5%;
-  @media #{$medium} {
-    width: 80%;
-  }
-  @media #{$large} {
-    width: 70%;
-  }
+.login hr {
+  color: $bgdark;
+  border: 1px solid $bgdark;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .login form {
@@ -98,18 +100,18 @@ div.login {
   display: inline-block;
   width: 20%;
   text-align: right;
+  font-weight: bold;
 }
 
 .login input {
-  color: black;
-  background-color: $bglight;
+  color: $bgdark;
+  background-color: white;
   width: 75%;
   box-sizing: border-box;
-  border: 2px solid $bbyellow;
+  // border: 2px solid $bbyellow;
   padding: 0.5em;
   margin-left: 1em;
   border-radius: 0.5em;
-  box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 .login input:focus {
