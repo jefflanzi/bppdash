@@ -19,8 +19,7 @@ block body
     var height = window.innerHeight || document.documentElement.clientHeight;
     //- console.log(width);
     //- console.log(height);
-    var body = d3.select('body')
-      .classed('login', true);
+    var body = d3.select('body');      
 
     var chart = body.append('svg')
       .attr({
