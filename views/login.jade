@@ -1,26 +1,26 @@
 extends header  
 block body
   body.login
-    div.logo
-      img(src="/images/bpp_logo.png")
-    div.login
-      h1 Sign In
-      form(role='form', action='/login', method='post', id='login')
-        div
-          label(for='username') Username:
-          input(type='text', id='username', name='username', placeholder='Username')
-        div
-          label(for='password') Password:
-          input(type='password', id='password', name='password', placeholder="Password")
-        div.button        
-          button(type='submit') Submit
+    .container.float
+      div.logo
+        img(src="/images/bpp_logo.png")
+      div.login
+        h1 Sign In
+        form(role='form', action='/login', method='post', id='login')
+          div
+            label(for='username') Username:
+            input(type='text', id='username', name='username', placeholder='Username')
+          div
+            label(for='password') Password:
+            input(type='password', id='password', name='password', placeholder="Password")
+          div.button        
+            button(type='submit') Submit
   script.
     var width = window.innerWidth || document.documentElement.clientWidth;
     var height = window.innerHeight || document.documentElement.clientHeight;
     //- console.log(width);
     //- console.log(height);
-    var body = d3.select('body')
-      .classed('login', true);
+    var body = d3.select('body');      
 
     var chart = body.append('svg')
       .attr({
