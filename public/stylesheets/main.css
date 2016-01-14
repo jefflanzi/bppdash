@@ -312,9 +312,19 @@ svg {
 /* Chart specific styles */
 /*===========================================================================*/
 /* Attribute Line Chart */
-.line {
+.attributeChart .axis {
+  pointer-events: none; }
+
+.attributeChart .company path.line {
   fill: none;
+  pointer-events: none;
   stroke-width: 2.5px; }
+
+.attributeChart .tooltipSelector {
+  opacity: 0;
+  fill: #FFD100; }
+  .attributeChart .tooltipSelector:hover {
+    opacity: 1; }
 
 /*===========================================================================*/
 /* SalesFunnel / Awareness */

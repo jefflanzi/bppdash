@@ -1,8 +1,9 @@
 function attributeChart(selection) {
 
   // Function global variables
-  var w = parseInt(selection.style('width'))
-  var margin = { top: 20, right: 20, bottom: 30, left: w * 0.2 };
+  var w = parseInt(selection.style('width'));
+  var h = parseInt(selection.style('height'));
+  var margin = { top: 0, right: 20, bottom: 30, left: w * 0.2 };
   var width = parseInt(selection.style('width')) - margin.left - margin.right;
   var height = parseInt(selection.style('height')) - margin.top - margin.bottom;
 
@@ -30,12 +31,20 @@ function attributeChart(selection) {
   });
 
   function chart() {
-    var chartArea = selection.append('svg')
+    selection.attr('class', 'attributeChart');
+
+    selection.append('svg')
       .attr({
         id: 'chartSVG',
         width: width + margin.left + margin.right,
         height: height + margin.top + margin.bottom
       })
+
+    d3.select('#chartSVG')
+      .append('g')
+      .attr('id', 'tooltipSelectors');
+
+    var chartArea = d3.select('#chartSVG')
       .append('g')
       .attr('id', 'chartArea')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -62,6 +71,20 @@ function attributeChart(selection) {
       };
     });
 
+    // Tooltip Selector rectangles
+    var tooltipSelectors = d3.select('#tooltipSelectors')
+      .selectAll('.tooltipSelector')
+      .data(companies[0].values)
+      .enter()
+      .append('rect')
+      .attr('class', 'tooltipSelector')
+      .attr({
+        x: 0,
+        y: function(d) { console.log(yScale(d.attribute)); return yScale(d.attribute) },
+        width: w,
+        height: h / companies[0].values.length
+      });
+    console.log(companies[0].values);
     // Axes
     chartArea.append('g')
       .attr('class', 'x axis')

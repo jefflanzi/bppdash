@@ -1,6 +1,22 @@
 /*===========================================================================*/
 /* Attribute Line Chart */
-.line {
-  fill: none;
-  stroke-width: 2.5px;
+.attributeChart {
+  .axis/*, .dot*/ {
+    pointer-events: none;
+  }
+
+  .company path.line {
+    fill: none;
+    pointer-events: none;
+    stroke-width: 2.5px;
+  }
+
+  .tooltipSelector {
+    opacity: 0;
+    fill: $bbyellow;
+    &:hover
+    {
+      opacity: 1;
+    }
+  }
 }
