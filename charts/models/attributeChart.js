@@ -76,7 +76,7 @@ function attributeChart(selection) {
       .data(companies[0].values)
       .enter()
       .append('rect')
-      .attr('class', 'tooltipSelector')
+      .attr('class', function(d, i) { return 'a' + i })
       .attr({
         x: 0,
         y: function(d) { return yScale(d.attribute) },
@@ -129,12 +129,28 @@ function attributeChart(selection) {
       })
       .enter()
       .append('circle')
-      .attr('class', 'dot')
+      .attr('class', function(d, i) { return 'a' + i })
       .attr('r',0)
       .attr('cx', function(d) { return xScale(d.point.rating) })
       .attr('cy', function(d) { return yScale(d.point.attribute) })
       .style('fill', function(d) { return color(d.name); });
 
+    //============================================================================
+    // tooltips
+    var tooltips = selection.selectAll('.tooltip')
+      .data(companies[0])
+      .enter()
+      .append('div')
+      .attr('class', 'tooltip');
+
+    tooltipSelectors
+      .on('mouseover', function () {
+        // d3.selectAll('.' + d3.select(this).attr('class') ));
+        d3.selectAll('.tooltip')
+          .style('top', d3.select(this).attr('y') - yScale.rangeBand() + 'px')
+      });
+
+    console.log(companies);
     // responsive resize
     resize(1000); // Initial animation
     d3.select(window).on('resize', function() { resize(500) });

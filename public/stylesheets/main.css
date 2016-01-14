@@ -312,26 +312,29 @@ svg {
 /* Chart specific styles */
 /*===========================================================================*/
 /* Attribute Line Chart */
-.attributeChart .axis {
-  pointer-events: none; }
-
-.attributeChart .axis .domain {
-  stroke: none; }
-
-.attributeChart .axis line {
-  stroke: #FEFEFE;
-  stroke-width: 1.5px; }
-
-.attributeChart .company path.line {
-  fill: none;
-  pointer-events: none;
-  stroke-width: 2.5px; }
-
-.attributeChart .tooltipSelector {
-  opacity: 0;
-  fill: #FFD100; }
-  .attributeChart .tooltipSelector:hover {
-    opacity: 1; }
+.attributeChart {
+  position: relative; }
+  .attributeChart .axis {
+    pointer-events: none; }
+  .attributeChart .axis .domain {
+    stroke: none; }
+  .attributeChart .axis line {
+    stroke: #FEFEFE;
+    stroke-width: 1.5px; }
+  .attributeChart .company path.line {
+    fill: none;
+    pointer-events: none;
+    stroke-width: 2.5px; }
+  .attributeChart #tooltipSelectors rect {
+    opacity: 0;
+    fill: #FFD100; }
+    .attributeChart #tooltipSelectors rect:hover {
+      opacity: 1; }
+  .attributeChart .tooltip {
+    width: 20px;
+    height: 20px;
+    top: 10px;
+    background-color: red; }
 
 /*===========================================================================*/
 /* SalesFunnel / Awareness */

@@ -1,6 +1,8 @@
 /*===========================================================================*/
 /* Attribute Line Chart */
 .attributeChart {
+  position: relative;
+
   .axis/*, .dot*/ {
     pointer-events: none;
   }
@@ -20,7 +22,7 @@
     stroke-width: 2.5px;
   }
 
-  .tooltipSelector {
+  #tooltipSelectors rect {
     opacity: 0;
     fill: $bbyellow;
     &:hover
@@ -28,4 +30,12 @@
       opacity: 1;
     }
   }
+
+  .tooltip {
+    width: 20px;
+    height: 20px;
+    top: 10px;
+    background-color: red;
+  }
+
 }
