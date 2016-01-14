@@ -333,10 +333,16 @@ svg {
     .attributeChart #tooltipSelectors rect:hover {
       opacity: 1; }
   .attributeChart .tooltip {
-    width: 25px;
-    height: 20px;
+    width: auto;
+    height: auto;
+    padding: 0.5em;
     font-size: 60%;
     background-color: #DA291C; }
+  .attributeChart .legendBG {
+    fill: #E4E4E4; }
+  .attributeChart .legendItem rect {
+    fill: none;
+    stroke: none; }
 
 /*===========================================================================*/
 /* SalesFunnel / Awareness */
@@ -481,17 +487,3 @@ rect.highlight, circle.highlight {
 
 .hidden {
   opacity: 0; }
-
-.tooltip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 1.2em;
-  width: 100%;
-  top: 100%;
-  left: 0;
-  margin: -0.2em 0 0 0;
-  line-height: 1;
-  color: #DA291C;
-  content: "\25BC";
-  position: absolute;
-  text-align: center; }

@@ -37,17 +37,17 @@ rect.highlight, circle.highlight {
   opacity: 0;
 }
 
-.tooltip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 1.2em;
-  width: 100%;
-  top: 100%;
-  left: 0;
-  margin: -0.2em 0 0 0;
-  line-height: 1;
-  color: $bbred;
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
-}
+// .tooltip:after {
+//   box-sizing: border-box;
+//   display: inline;
+//   font-size: 1.2em;
+//   width: 100%;
+//   top: 100%;
+//   left: 0;
+//   margin: -0.2em 0 0 0;
+//   line-height: 1em;
+//   color: $bbred;
+//   content: "\25BC";
+//   position: absolute;
+//   text-align: center;
+// }

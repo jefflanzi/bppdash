@@ -19,7 +19,7 @@
   .company circle {
     pointer-events: none;
   }
-  
+
   .company path.line {
     fill: none;
     pointer-events: none;
@@ -36,10 +36,22 @@
   }
 
   .tooltip {
-    width: 25px;
-    height: 20px;
+    width: auto;
+    height: auto;
+    padding: 0.5em;
     font-size: 60%;
     background-color: $bbred;
   }
+
+  .legendBG {
+    fill: $bglight;
+  }
+
+  .legendItem rect {
+    fill: none;
+    stroke: none;    
+  }
+
+
 
 }

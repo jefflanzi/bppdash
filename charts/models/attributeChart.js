@@ -9,8 +9,9 @@ function attributeChart(selection) {
   var height = h - margin.top - margin.bottom;
 
   var xScale = d3.scale.linear().range([0, width]);
-  var yScale = d3.scale.ordinal().rangeRoundBands([0, height]);
+  var yScale = d3.scale.ordinal().rangeBands([0, height]);
   var color = d3.scale.ordinal().range(["#222", "#4C4C4C", "#DA291C", "#7E7E7E"])
+  var legendScale = d3.scale.ordinal().rangeBands([0, width]);
 
   // Axis Variables
   var xAxis = d3.svg.axis()
@@ -41,7 +42,7 @@ function attributeChart(selection) {
     for (i in data) { xValues = xValues.concat(d3.values(data[i]).slice(2)); }
     xScale.domain([Number(d3.min(xValues)) - .01, Number(d3.max(xValues)) + .01]);
 
-    var yValues = [];
+    var yValues = ['legend1'];
     for (i in data) { yValues.push(data[i].attribute) };
     yScale.domain(yValues);
 
@@ -49,7 +50,7 @@ function attributeChart(selection) {
     color.domain(companyNames);
 
     // Lines
-    var companies = companyNames.map(function(name) {
+    var companyData = companyNames.map(function(name) {
       return {
         name: name,
         values: data.map(function(d) {
@@ -57,6 +58,7 @@ function attributeChart(selection) {
         })
       };
     });
+    legendScale.domain(companyNames);
 
     //============================================================================
     // Draw SVG elements
@@ -73,7 +75,7 @@ function attributeChart(selection) {
       .append('g')
       .attr('id', 'tooltipSelectors')
       .selectAll('.tooltipSelector')
-      .data(companies[0].values)
+      .data(companyData[0].values)
       .enter()
       .append('rect')
       .attr('class', function(d, i) { return 'a' + i })
@@ -101,7 +103,7 @@ function attributeChart(selection) {
 
     // Company groups
     var companies = chartArea.selectAll('.company')
-      .data(companies)
+      .data(companyData)
       .enter()
       .append('g')
       .attr('class', 'company')
@@ -136,33 +138,95 @@ function attributeChart(selection) {
       .style('fill', function(d) { return color(d.name); });
 
     //============================================================================
-    // tooltips
+    // Legend
+    var legend = d3.select('#chartSVG')
+      .append('g')
+      .attr('id', 'legend');
 
+    legend
+      .on('mouseover', function() {
+        d3.selectAll('.tooltip')
+          .style('opacity', 0);
+      });
+
+    var legendBG = legend.append('rect')
+      .attr('class', 'legendBG')
+
+    var legendItems = legend.selectAll('.legendItem')
+      .data(companyNames)
+      .enter()
+      .append('g')
+      .attr('class', 'legendItem')
+      .attr('transform', function (d) { return 'translate(' + (margin.left + legendScale(d)) + ',0)' })
+
+    var keyBGs = legendItems.append('rect')
+      .attr({
+        class: 'legend',
+        x: 0,
+        y: 0,
+        width: legendScale.rangeBand(),
+        height: yScale.rangeBand()
+      });
+
+    var legendCircles = legendItems
+      .append('circle')
+      .attr({
+        class: 'legend',
+        cx: 0.4 * yScale.rangeBand(),
+        cy: 0.5 * yScale.rangeBand(),
+        r: 0.3 * yScale.rangeBand()
+      })
+      .style('fill', function (d) { return color(d) });
+
+    var legendText = legendItems
+      .append('text')
+      .text(function (d) { return d } )
+      .attr({
+        class: 'legend',
+        x: yScale.rangeBand(),
+        y: 0.5 * yScale.rangeBand(),
+        dy: '0.33em'
+      })
+
+
+    //============================================================================
+    // tooltips
     var seedData = d3.selectAll('circle.a0').data();
     var tooltips = d3.select('#chart')
       .selectAll('.tooltip')
       .data(seedData)
       .enter()
       .append('div')
-      .attr('class', 'tooltip')
-      .style('left', function(d) { return margin.left + xScale(d.point.rating) + 'px' })
-      .style('top', function(d) {return yScale(d.point.attribute) - 0.5*yScale.rangeBand() + 'px' });
+      .attr('class', 'tooltip');
 
-    // tooltipSelectors
+    // tooltips: position on mouseover
     tooltipSelectors
       .on('mouseover', function () {
         var thisClass = '.' + d3.select(this).attr('class');
-        var thisData = d3.selectAll('circle' + thisClass).data();
+        var thisData = d3.selectAll('circle' + thisClass)
+          .data()
+          .sort(function(a, b) {
+            return a.point.rating - b.point.rating
+          });
 
         tooltips
           .data(thisData)
           .text(function(d) { return d3.format('%1')(d.point.rating) })
-          .style('left', function(d) { return margin.left - 10 + xScale(d.point.rating) + 'px' })
-          .style('top', function(d) {return yScale(d.point.attribute) - 0.5*yScale.rangeBand() + 'px' });
-
-        console.log(thisClass);
-        console.log(thisData);
-        console.log(tooltips);
+          .style('left', function(d) {
+            thisWidth = parseInt(d3.select(this).style('height'))
+            // return margin.left - 0.5*thisWidth + xScale(d.point.rating) + 'px'
+            return margin.left + xScale(d.point.rating) + 'px'
+          })
+          .style('top', function(d, i) {
+            var thisHeight = parseInt(d3.select(this).style('height'));
+            var circleHeight = d3.select('.company circle').attr('r');
+            var center = 0.5 * (yScale.rangeBand() - thisHeight);
+            var offset = 0.5 * yScale.rangeBand() - thisHeight - circleHeight;
+            // var offset = 0;
+            return yScale(d.point.attribute) + offset + (i % 2)*2*thisHeight + 'px'
+          })
+          .style('background-color', function(d) { return color(d.name); })
+          .style('opacity', 1);
 
       });
 
@@ -182,7 +246,7 @@ function attributeChart(selection) {
       width = w - margin.left - margin.right;
       height = h - margin.top - margin.bottom;
       xScale.range([0, width]);
-      yScale.rangeRoundBands([0, height]);
+      yScale.rangeBands([0, height]);
 
       // Redraw
       d3.select('#chartSVG')
@@ -247,9 +311,39 @@ function attributeChart(selection) {
         .transition()
         .delay(function(d, i) { return (i-1) * duration * 2 / 21 } )
         .duration(duration / 2)
-        .attr('r', 8)
+        .attr('r', 1.3 * Math.sqrt(yScale.rangeBand()))
         .attr('cx', function(d) { return xScale(d.point.rating) })
         .attr('cy', function(d) { return yScale(d.point.attribute) });
+
+      legendBG
+        .attr({
+          x: 0,
+          y: 0,
+          height: yScale.rangeBand(),
+          width: w
+        });
+
+      legendItems
+        .attr('transform', function (d) { return 'translate(' + (margin.left + legendScale(d)) + ',0)' })
+
+      keyBGs
+        .attr({
+          width: legendScale.rangeBand(),
+          height: yScale.rangeBand()
+        });
+
+      legendCircles
+        .attr({
+          cx: 0.4 * yScale.rangeBand(),
+          cy: 0.5 * yScale.rangeBand(),
+          r: 0.25 * yScale.rangeBand()
+        });
+
+      legendText
+        .attr({
+          x: yScale.rangeBand(),
+          y: 0.5 * yScale.rangeBand(),
+        });
 
     // End resize()
     };
