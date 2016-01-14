@@ -9,7 +9,7 @@ function attributeChart(selection) {
   var height = h - margin.top - margin.bottom;
 
   var xScale = d3.scale.linear().range([0, width]);
-  var yScale = d3.scale.ordinal().rangeRoundBands([0, height], 0);
+  var yScale = d3.scale.ordinal().rangeRoundBands([0, height]);
   var color = d3.scale.ordinal().range(["#222", "#4C4C4C", "#DA291C", "#7E7E7E"])
 
   // Axis Variables
@@ -35,22 +35,6 @@ function attributeChart(selection) {
   //============================================================================
   // Main chart funcion
   function chart() {
-    selection.attr('class', 'attributeChart');
-    selection.append('svg')
-      .attr({
-        id: 'chartSVG',
-        width: w,
-        height: h
-      });
-
-    d3.select('#chartSVG')
-      .append('g')
-      .attr('id', 'tooltipSelectors');
-
-    var chartArea = d3.select('#chartSVG')
-      .append('g')
-      .attr('id', 'chartArea')
-      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     // Scales
     var xValues = [];
@@ -74,8 +58,20 @@ function attributeChart(selection) {
       };
     });
 
+    //============================================================================
+    // Draw SVG elements
+    selection.attr('class', 'attributeChart');
+    selection.append('svg')
+      .attr({
+        id: 'chartSVG',
+        width: w,
+        height: h
+      });
+
     // Tooltip Selector rectangles
-    var tooltipSelectors = d3.select('#tooltipSelectors')
+    var tooltipSelectors = d3.select('#chartSVG')
+      .append('g')
+      .attr('id', 'tooltipSelectors')
       .selectAll('.tooltipSelector')
       .data(companies[0].values)
       .enter()
@@ -83,10 +79,15 @@ function attributeChart(selection) {
       .attr('class', 'tooltipSelector')
       .attr({
         x: 0,
-        y: function(d) { console.log(yScale(d.attribute)); return yScale(d.attribute) },
+        y: function(d) { return yScale(d.attribute) },
         width: w,
         height: yScale.rangeBand()
       });
+
+    var chartArea = d3.select('#chartSVG')
+      .append('g')
+      .attr('id', 'chartArea')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     // Axes
     chartArea.append('g')
@@ -153,11 +154,19 @@ function attributeChart(selection) {
       yScale.rangeRoundBands([0, height]);
 
       // Redraw
-      selection.select('svg')
+      d3.select('#chartSVG')
         .transition()
         .duration(duration)
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom);
+
+      tooltipSelectors
+        .attr({
+          x: 0,
+          y: function(d) { return yScale(d.attribute) },
+          width: w,
+          height: yScale.rangeBand()
+        });
 
       chartArea
         .transition()
@@ -182,6 +191,9 @@ function attributeChart(selection) {
         .call(yAxis)
         .selectAll('text')
         .call(wrap, (margin.left - 20));
+
+      companies
+        .attr('transform', 'translate(0,' + 0.5 * yScale.rangeBand() + ')');
 
       line
         .x(function(d) { return xScale(d.rating) })
