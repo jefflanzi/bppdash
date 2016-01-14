@@ -1,18 +1,18 @@
 function attributeChart(selection) {
 
+  //============================================================================
   // Function global variables
   var w = parseInt(selection.style('width'));
   var h = parseInt(selection.style('height'));
   var margin = { top: 0, right: 20, bottom: 30, left: w * 0.2 };
-  var width = parseInt(selection.style('width')) - margin.left - margin.right;
-  var height = parseInt(selection.style('height')) - margin.top - margin.bottom;
+  var width = w - margin.left - margin.right;
+  var height = h - margin.top - margin.bottom;
 
   var xScale = d3.scale.linear().range([0, width]);
-  var yScale = d3.scale.ordinal().rangeRoundPoints([0, height]);
-  // var color = d3.scale.category10();
-  var color = d3.scale.ordinal()
-    .range(["#222", "#4C4C4C", "#DA291C", "#7E7E7E"])
+  var yScale = d3.scale.ordinal().rangeRoundBands([0, height], 0);
+  var color = d3.scale.ordinal().range(["#222", "#4C4C4C", "#DA291C", "#7E7E7E"])
 
+  // Axis Variables
   var xAxis = d3.svg.axis()
     .scale(xScale)
     .orient('bottom')
@@ -24,21 +24,24 @@ function attributeChart(selection) {
     .orient('left')
     .tickPadding(10)
 
+  //============================================================================
+  // Load data and call chart
   var data;
   d3.csv('/data/attributes.csv', function(d) {
     data = d;
     chart();
   });
 
+  //============================================================================
+  // Main chart funcion
   function chart() {
     selection.attr('class', 'attributeChart');
-
     selection.append('svg')
       .attr({
         id: 'chartSVG',
-        width: width + margin.left + margin.right,
-        height: height + margin.top + margin.bottom
-      })
+        width: w,
+        height: h
+      });
 
     d3.select('#chartSVG')
       .append('g')
@@ -82,9 +85,9 @@ function attributeChart(selection) {
         x: 0,
         y: function(d) { console.log(yScale(d.attribute)); return yScale(d.attribute) },
         width: w,
-        height: h / companies[0].values.length
+        height: yScale.rangeBand()
       });
-    console.log(companies[0].values);
+
     // Axes
     chartArea.append('g')
       .attr('class', 'x axis')
@@ -95,19 +98,13 @@ function attributeChart(selection) {
       .attr('class', 'y axis')
       .call(yAxis)
 
-    d3.selectAll('.axis .domain')
-      .style('stroke', 'none')
-
-    d3.selectAll('.axis line')
-      .style('stroke', '#FEFEFE')
-      .style('stroke-width', '2px')
-
     // Company groups
     var companies = chartArea.selectAll('.company')
       .data(companies)
       .enter()
       .append('g')
-      .attr('class', 'company');
+      .attr('class', 'company')
+      .attr('transform', 'translate(0,' + 0.5 * yScale.rangeBand() + ')');
 
     // Lines
     var line = d3.svg.line()
@@ -141,16 +138,19 @@ function attributeChart(selection) {
     resize(1000); // Initial animation
     d3.select(window).on('resize', function() { resize(500) });
 
+    //============================================================================
+    // Responsive resive function
     function resize(duration) {
       duration = duration || 500;
 
       // Get new dimensions and rescale
       w = parseInt(selection.style('width'));
-      margin = { top: 20, right: 20, bottom: 30, left: w * 0.3 };
-      width = parseInt(selection.style('width')) - margin.left - margin.right;
-      height = parseInt(selection.style('height')) - margin.top - margin.bottom;
+      h = parseInt(selection.style('height'));
+      margin = { top: 0, right: 20, bottom: 30, left: w * 0.3 };
+      width = w - margin.left - margin.right;
+      height = h - margin.top - margin.bottom;
       xScale.range([0, width]);
-      yScale.rangeRoundPoints([0, height]);
+      yScale.rangeRoundBands([0, height]);
 
       // Redraw
       selection.select('svg')
@@ -214,6 +214,8 @@ function attributeChart(selection) {
   // End chart()
   };
 
+  //============================================================================
+  // Text wrapping function
   function wrap(text, width) {
     text.each(function() {
       var text = d3.select(this),

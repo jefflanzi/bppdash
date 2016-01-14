@@ -5,6 +5,15 @@
     pointer-events: none;
   }
 
+  .axis .domain {
+    stroke: none;
+  }
+
+  .axis line {
+    stroke: #FEFEFE;
+    stroke-width: 1.5px;
+  }
+
   .company path.line {
     fill: none;
     pointer-events: none;

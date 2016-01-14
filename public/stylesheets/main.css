@@ -315,6 +315,13 @@ svg {
 .attributeChart .axis {
   pointer-events: none; }
 
+.attributeChart .axis .domain {
+  stroke: none; }
+
+.attributeChart .axis line {
+  stroke: #FEFEFE;
+  stroke-width: 1.5px; }
+
 .attributeChart .company path.line {
   fill: none;
   pointer-events: none;
