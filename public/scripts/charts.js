@@ -4,7 +4,7 @@ function attributeChart(selection) {
   // Function global variables
   var w = parseInt(selection.style('width'));
   var h = parseInt(selection.style('height'));
-  var margin = { top: 0, right: 20, bottom: 30, left: w * 0.2 };
+  var margin = { top: 0, right: 20, bottom: 30, left: w * 0.3 };
   var width = w - margin.left - margin.right;
   var height = h - margin.top - margin.bottom;
 
@@ -137,20 +137,35 @@ function attributeChart(selection) {
 
     //============================================================================
     // tooltips
-    var tooltips = selection.selectAll('.tooltip')
-      .data(companies[0])
+
+    var seedData = d3.selectAll('circle.a0').data();
+    var tooltips = d3.select('#chart')
+      .selectAll('.tooltip')
+      .data(seedData)
       .enter()
       .append('div')
-      .attr('class', 'tooltip');
+      .attr('class', 'tooltip')
+      .style('left', function(d) { return margin.left + xScale(d.point.rating) + 'px' })
+      .style('top', function(d) {return yScale(d.point.attribute) - 0.5*yScale.rangeBand() + 'px' });
 
+    // tooltipSelectors
     tooltipSelectors
       .on('mouseover', function () {
-        // d3.selectAll('.' + d3.select(this).attr('class') ));
-        d3.selectAll('.tooltip')
-          .style('top', d3.select(this).attr('y') - yScale.rangeBand() + 'px')
+        var thisClass = '.' + d3.select(this).attr('class');
+        var thisData = d3.selectAll('circle' + thisClass).data();
+
+        tooltips
+          .data(thisData)
+          .text(function(d) { return d3.format('%1')(d.point.rating) })
+          .style('left', function(d) { return margin.left - 10 + xScale(d.point.rating) + 'px' })
+          .style('top', function(d) {return yScale(d.point.attribute) - 0.5*yScale.rangeBand() + 'px' });
+
+        console.log(thisClass);
+        console.log(thisData);
+        console.log(tooltips);
+
       });
 
-    console.log(companies);
     // responsive resize
     resize(1000); // Initial animation
     d3.select(window).on('resize', function() { resize(500) });

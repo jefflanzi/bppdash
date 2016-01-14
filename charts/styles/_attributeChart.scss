@@ -3,7 +3,7 @@
 .attributeChart {
   position: relative;
 
-  .axis/*, .dot*/ {
+  .axis {
     pointer-events: none;
   }
 
@@ -16,6 +16,10 @@
     stroke-width: 1.5px;
   }
 
+  .company circle {
+    pointer-events: none;
+  }
+  
   .company path.line {
     fill: none;
     pointer-events: none;
@@ -32,10 +36,10 @@
   }
 
   .tooltip {
-    width: 20px;
+    width: 25px;
     height: 20px;
-    top: 10px;
-    background-color: red;
+    font-size: 60%;
+    background-color: $bbred;
   }
 
 }

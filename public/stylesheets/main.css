@@ -321,6 +321,8 @@ svg {
   .attributeChart .axis line {
     stroke: #FEFEFE;
     stroke-width: 1.5px; }
+  .attributeChart .company circle {
+    pointer-events: none; }
   .attributeChart .company path.line {
     fill: none;
     pointer-events: none;
@@ -331,10 +333,10 @@ svg {
     .attributeChart #tooltipSelectors rect:hover {
       opacity: 1; }
   .attributeChart .tooltip {
-    width: 20px;
+    width: 25px;
     height: 20px;
-    top: 10px;
-    background-color: red; }
+    font-size: 60%;
+    background-color: #DA291C; }
 
 /*===========================================================================*/
 /* SalesFunnel / Awareness */
