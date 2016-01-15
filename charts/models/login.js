@@ -63,10 +63,9 @@ function loginAnimate() {
 
   function resize(duration) {
     duration == duration || 500;
+
     var width = window.innerWidth || document.documentElement.clientWidth;
     var height = window.innerHeight || document.documentElement.clientHeight;
-
-    
 
   }
 
