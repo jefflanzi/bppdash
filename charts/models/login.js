@@ -1,72 +1,85 @@
 //==============================================================================
 // Login Animation script
 //==============================================================================
-function loginAnimate() {
-
-  var width = window.innerWidth || document.documentElement.clientWidth;
-  var height = window.innerHeight || document.documentElement.clientHeight;
-  //- console.log(width);
-  //- console.log(height);
-  var body = d3.select('body');
-
-  var chart = body.append('svg')
-    .attr({
-      width: width,
-      height: height
-    })
-    .style('border', 'none');
-
+function loginGrid() {
+  // Function variables
+  var width;
+  var height;
+  var xScale = d3.scale.ordinal();
+  var yScale = d3.scale.ordinal();
   var squareSize = 30
-
-  var xScale = d3.scale.ordinal()
-    .domain(d3.range(Math.ceil(width / squareSize)))
-    .rangeRoundBands([0, width])
-
-  var yScale = d3.scale.ordinal()
-    .domain(d3.range(Math.ceil(height / squareSize)))
-    .rangeRoundBands([0, height])
-
-  xs = Math.ceil(width/squareSize);
-  ys = Math.ceil(height/squareSize);
-
   var dataMatrix = []
-  for(var i = 0; i < ys; i++) {
-    for(var j = 0; j < xs; j++) {
-      dataMatrix.push({x: j * squareSize, y: i * squareSize});
-    }
-  }
+  var chart = d3.select('body').append('svg');
+  resize();
 
-  var grid = chart.selectAll('rect')
-    .data(dataMatrix)
-    .enter()
-    .append('rect')
-    .attr({
-      x: function(d, i) { return d.x; },
-      y: function(d, i) { return d.y; },
-      width: 0,
-      height: 0,
-      class: 'loginRect'
-    })
-    .transition()
-    .delay(function(d, i) { return Math.sqrt(i) * 20})
-    .duration(1000)
-    .attr({
-      height: squareSize,
-      width: squareSize
-    });
-
+  // Display login form
   d3.select('div.login')
     .transition()
     .delay(1000)
     .duration(1000)
     .style('opacity', 1);
 
+  // Resize
+  d3.select(window).on('resize', function() { resize(500) });
+
+//==============================================================================
+// Reusable Functions
   function resize(duration) {
-    duration == duration || 500;
+    var duration = duration || 500;
+    getSizes();
+    gridData();
+    chart.attr({
+      width: width,
+      height: height
+    });
+    drawGrid();
+    console.log(dataMatrix);
+  }
+  // Get window size and adjust scales
+  function getSizes() {
+    width = window.innerWidth || document.documentElement.clientWidth;
+    height = window.innerHeight || document.documentElement.clientHeight;
 
-    var width = window.innerWidth || document.documentElement.clientWidth;
-    var height = window.innerHeight || document.documentElement.clientHeight;
+    xScale
+      .domain(d3.range(Math.ceil(width / squareSize)))
+      .rangeRoundBands([0, width]);
 
+    yScale
+      .domain(d3.range(Math.ceil(height / squareSize)))
+      .rangeRoundBands([0, height])
+  }
+
+  // Generate data matrix for drawing squares
+  function gridData() {
+    xs = Math.ceil(width/squareSize);
+    ys = Math.ceil(height/squareSize);
+
+    for(var i = 0; i < ys; i++) {
+      for(var j = 0; j < xs; j++) {
+        dataMatrix.push({x: j * squareSize, y: i * squareSize});
+      }
+    }
+  }
+
+  function drawGrid() {
+    chart.selectAll('.loginRect')
+      .data(dataMatrix)
+      .enter()
+      .append('rect')
+      .attr({
+        x: function(d, i) { return d.x; },
+        y: function(d, i) { return d.y; },
+        width: 0,
+        height: 0,
+        class: 'loginRect'
+      })
+      .transition()
+      .delay(function(d, i) { return Math.sqrt(i) * 20 })
+      .duration(1000)
+      .attr({
+        height: squareSize,
+        width: squareSize
+      });
   }
 
 // End loginAnimate()
