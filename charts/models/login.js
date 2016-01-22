@@ -10,7 +10,7 @@ function loginGrid() {
   var squareSize = 30
   var dataMatrix = []
   var chart = d3.select('body').append('svg');
-  resize();
+  resize(1000, 1);
 
   // Display login form
   d3.select('div.login')
@@ -20,20 +20,20 @@ function loginGrid() {
     .style('opacity', 1);
 
   // Resize
-  d3.select(window).on('resize', function() { resize(500) });
+  d3.select(window).on('resize', function() { resize(1, 0) });
 
 //==============================================================================
 // Reusable Functions
-  function resize(duration) {
-    var duration = duration || 500;
+  function resize(duration, delay) {
+    var duration = duration || 1000;
+    console.log('1 delay = ' + delay);
     getSizes();
     gridData();
     chart.attr({
       width: width,
       height: height
     });
-    drawGrid();
-    console.log(dataMatrix);
+    drawGrid(duration, delay);
   }
   // Get window size and adjust scales
   function getSizes() {
@@ -61,7 +61,9 @@ function loginGrid() {
     }
   }
 
-  function drawGrid() {
+  function drawGrid(duration, delay) {
+    var duration = duration || 1000;
+    console.log(delay);
     chart.selectAll('.loginRect')
       .data(dataMatrix)
       .enter()
@@ -74,8 +76,8 @@ function loginGrid() {
         class: 'loginRect'
       })
       .transition()
-      .delay(function(d, i) { return Math.sqrt(i) * 20 })
-      .duration(1000)
+      .delay(function(d, i) { return delay * Math.sqrt(i) * 20 })
+      .duration(duration)
       .attr({
         height: squareSize,
         width: squareSize
