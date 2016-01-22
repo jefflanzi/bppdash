@@ -1,24 +1,30 @@
 function salesFunnel(selection) {
 
   // Global Variables
-  var h = parseInt(selection.style('height'));
-  var w = parseInt(selection.style('width'));
-  var margin = {top: 0.05 * h, right: 20, bottom: 20, left: 20};
-  var width = parseInt(selection.style('width')) - margin.left - margin.right;
-  var height = parseInt(selection.style('height')) - margin.top - margin.bottom;
+  var h;
+  var w;
+  var margin;
+  var width;
+  var height;
 
   // Scales
-  var xScale = d3.scale.ordinal().rangeRoundBands([0, width], 0.1);
-  var yScale = d3.scale.linear().range([height, 0]);
-  var legendScale = d3.scale.ordinal().rangeRoundBands([0, width/2], 0.1);
+  var xScale = d3.scale.ordinal();
+  var yScale = d3.scale.linear();
+  var legendScale = d3.scale.ordinal();
 
   var dataset;
   d3.csv('/data/salesFunnel', function(error, data) {
     dataset = data;
+    scale();
     chart();
   });
 
-  // Create elements from data
+  //============================================================================
+  // Reusable Functions
+  //============================================================================
+  //============================================================================
+  // Draw primary chart elements from data
+  //============================================================================
   function chart() {
     // Set scale domains
     var xValues = [];
@@ -27,20 +33,21 @@ function salesFunnel(selection) {
     yScale.domain([0,1]);
 
     // Create SVG and translated chart area g
+    selection.attr('class', 'salesFunnel');
     var chartArea = selection.append('svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height',  height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+    //==========================================================================
     // Create legend
     var keys = ['awareness', 'consideration', 'preference', 'purchase']
     var values = d3.keys(dataset[0]).slice(1);
     legendScale.domain(keys)
 
     var legend = chartArea.append('g')
-      .attr('class', 'legend')
-      .attr('transform', 'translate(' + margin.left + ',' + (-margin.top/2) + ')');
+      .attr('class', 'legend');
 
     var legendSeries = legend.selectAll('.series')
       .data(keys)
@@ -49,34 +56,29 @@ function salesFunnel(selection) {
       .attr('class', function(d) { return 'series ' + d })
       .attr('transform', function(d) { return 'translate(' + legendScale(d) + ',0)' })
 
-    legendSeries.append('rect')
+    var legendBG = legendSeries.append('rect')
       .attr({
-        class: function(d) { return 'legend ' + d },
+        class: function(d) { return d + ' legend interactive background' },
         x: 0,
-        y: -margin.top/4,
-        width: legendScale.rangeBand(),
-        height: margin.top/2
+        y: 0
       })
       .style('opacity', '0');
 
-    legendSeries.append('circle')
+    var legendCircle = legendSeries.append('circle')
       .attr({
-        class: function(d) { return 'legend ' + d },
+        class: function(d) { return d + ' legend interactive' },
         cx: 0,
-        cy: 0,
-        r: '0.75em'
+        cy: 0
       });
 
-    legendSeries.append('text')
+    var legendText = legendSeries.append('text')
       .text(function(d, i) { return values[i] })
       .attr({
-        class: function(d) { return 'legend ' + d },
-        x: 0,
-        y: 0,
-        dx: '1.5em',
-        dy: '0.32em'
+        class: function(d) { return d + ' legend' },
+        dy: '0.33em'
       });
 
+    //==========================================================================
     // Create company groups and bars
     var companies = chartArea.selectAll('.company')
       .data(dataset)
@@ -86,13 +88,13 @@ function salesFunnel(selection) {
       .attr('transform', function(d) { return 'translate(' + xScale(d.Company) + ',0)' });
 
     var companybg = companies.append('rect')
-      .attr('class', 'bar companyBG')
+      .attr('class', 'companyBG')
       .attr('width', xScale.rangeBand())
       .attr('height', 0)
 
     var awareness = companies.append('rect')
       .attr({
-        class: 'bar awareness',
+        class: 'awareness bar interactive',
         x: 0,
         y: height,
         width: xScale.rangeBand(),
@@ -101,7 +103,7 @@ function salesFunnel(selection) {
 
     var consideration = companies.append('rect')
       .attr({
-        class: 'bar consideration',
+        class: 'consideration bar interactive',
         x: 0,
         y: height,
         width: xScale.rangeBand(),
@@ -110,7 +112,7 @@ function salesFunnel(selection) {
 
     var preference = companies.append('rect')
       .attr({
-        class: 'bar preference',
+        class: 'preference bar interactive',
         x: 0,
         y: height,
         width: xScale.rangeBand(),
@@ -119,7 +121,7 @@ function salesFunnel(selection) {
 
     var purchase = companies.append('rect')
       .attr({
-        class: 'bar purchase',
+        class: 'purchase bar interactive',
         x: 0,
         y: height,
         width: xScale.rangeBand(),
@@ -144,28 +146,30 @@ function salesFunnel(selection) {
       .append('div')
       .attr('class', 'tooltip hidden');
 
+    //==========================================================================
     // Tooltip mouseovers
-    d3.selectAll('.awareness')
-      .on('mouseover', function() { showTooltip('.awareness', 'Awareness') })
-      .on('mouseout', function() { hideTooltip('.awareness') });
-
-    d3.selectAll('.consideration')
-      .on('mouseover', function() { showTooltip('.consideration', 'Consideration') })
-      .on('mouseout', function() { hideTooltip('.consideration') });
-
-    d3.selectAll('.preference')
-      .on('mouseover', function() { showTooltip('.preference', 'Preference') })
-      .on('mouseout', function() { hideTooltip('.preference') });
-
-    d3.selectAll('.purchase')
-      .on('mouseover', function() { showTooltip('.purchase', 'Purchase Intent') })
-      .on('mouseout', function() { hideTooltip('.purchase') });
+    d3.selectAll('.interactive')
+    .on('mouseover', function () {
+      var thisClass = '.' + d3.select(this).attr('class').split(/\s+/)[0];
+      d3.selectAll(thisClass + '.interactive:not(.background)')
+        .classed('highlight', true);
+      d3.selectAll('.interactive:not(' + thisClass + ')')
+        .filter('*:not(.legend)')
+        .style('opacity', 0.5);
+    })
+    .on('mouseout', function() {
+      var thisClass = '.' + d3.select(this).attr('class').split(/\s+/)[0];
+      d3.selectAll(thisClass + '.interactive:not(.background)').classed('highlight', false);
+      d3.selectAll('.interactive:not(' + thisClass + ')')
+        .filter('*:not(.background)')
+        .style('opacity', 1);
+    });
 
     function showTooltip(series, value) {
       d3.selectAll(series)
         .classed('highlight', true);
 
-      var m = xScale.rangeBand() * .05
+      var m = xScale.rangeBand() * 0.05
       tooltips
         // .style('top', function(d) {return yScale(+d[value]) + 'px' })
         .style('bottom', function(d) {return height*1.01 + margin.bottom - yScale(+d[value]) + 'px' })
@@ -184,23 +188,12 @@ function salesFunnel(selection) {
     resize(1000);
     d3.select(window).on('resize', function() { resize(350); });
 
-
+  //============================================================================
+  // Resize the chart elements when window resizes
+  //============================================================================
   function resize(duration) {
     duration = duration || 500;
-    w = parseInt(selection.style('width'))
-    h = parseInt(selection.style('height'))
-    margin.top = 0.05 * h;
-    width = w - margin.left - margin.right;
-    height = h - margin.top - margin.bottom;
-    xScale.rangeRoundBands([0, width], 0.1);
-    yScale.range([height, 0]);
-    var lw;
-    if (width > 900) {
-      lw = width * 0.6;
-    } else {
-      lw = width;
-    };
-    legendScale.rangeRoundBands([0, lw], 0.1);
+    scale();
 
     // SVG element
     selection.select('svg')
@@ -213,10 +206,28 @@ function salesFunnel(selection) {
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     legend
-      .attr('transform', 'translate(' + margin.left + ',' + (-margin.top/2) + ')');
+      .attr('transform', 'translate(' + margin.left + ',' + (-margin.top) + ')');
 
     legendSeries
       .attr('transform', function(d) { return 'translate(' + legendScale(d) + ',0)' })
+
+    legendBG
+      .attr({
+        width: legendScale.rangeBand(),
+        height: margin.top
+      });
+
+    legendCircle
+      .attr({
+        cy: 0.5 * margin.top,
+        r: 0.3 * margin.top
+      });
+
+    legendText
+      .attr({
+        x: 0.5 * margin.top,
+        y: 0.5 * margin.top
+      });
 
     companies
       .transition()
@@ -270,6 +281,22 @@ function salesFunnel(selection) {
 
   // End chart()
   };
+
+  //============================================================================
+  // Adjust scales based on window size
+  //============================================================================
+  function scale() {
+    w = parseInt(selection.style('width'));
+    h = parseInt(selection.style('height'));
+    margin = {top: 0.05 * h, right: 20, bottom: 20, left: 20};
+    width = w - margin.left - margin.right;
+    height = h - margin.top - margin.bottom;
+    // Scales
+    xScale.rangeRoundBands([0, width], 0.1);
+    yScale.range([height, 0]);
+    var lw = width > 900 ? 0.6 * width : width;
+    legendScale.rangeRoundBands([0, lw], 0.1);
+  }
 
 // End salesFunnel()
 }

@@ -40,7 +40,7 @@ function attributeChart(selection) {
     // Scales
     var xValues = [];
     for (i in data) { xValues = xValues.concat(d3.values(data[i]).slice(2)); }
-    xScale.domain([Number(d3.min(xValues)) - .01, Number(d3.max(xValues)) + .01]);
+    xScale.domain([Number(d3.min(xValues)) - 0.01, Number(d3.max(xValues)) + 0.01]);
 
     var yValues = ['legend1'];
     for (i in data) { yValues.push(data[i].attribute) };

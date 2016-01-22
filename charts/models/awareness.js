@@ -1,15 +1,14 @@
 function awarenessChart(selection) {
 
-  // Global Variables
-  var chart = {};
+  // Function Variables
   var margin = {top: 10, right: 0, bottom: 50, left: 50};
-  var width = parseInt(selection.style('width')) - margin.left - margin.right;
-  var height = parseInt(selection.style('height')) - margin.top - margin.bottom;
+  var width;
+  var height;
+  var dataset;
+  var xScale = d3.scale.ordinal();
+  var yScale = d3.scale.linear();
 
-  // Scales
-  var xScale = d3.scale.ordinal().rangeRoundBands([0, width], 0.1);
-  var yScale = d3.scale.linear().range([height, 0]);
-
+  // Configure Axes
   var xAxis = d3.svg.axis()
     .scale(xScale)
     .orient('bottom');
@@ -18,17 +17,24 @@ function awarenessChart(selection) {
     .scale(yScale)
     .orient('left')
     .ticks(10, "%");
-    // .tickFormat(d3.format('%'));
 
-  // Load dataset
-  var dataset;
+  // Load dataset and draw chart
   d3.csv('/data/awareness', function(error, data) {
     dataset = data;
-    chart.draw();
+    scale();
+    draw();
+    resize(1000); // Call for initial animations
+    // Listen for window resize
+    d3.select(window).on('resize', function() { resize(500); });
   });
 
-  // Create elements from data
-  chart.draw = function() {
+  //============================================================================
+  // Reusable Functions
+  //============================================================================
+  //============================================================================
+  // Draw primary chart elements from data
+  //============================================================================
+  function draw() {
     // Set scale domains
     var xValues = [];
     dataset.forEach(function(d) { xValues.push(d.Company)});
@@ -59,7 +65,7 @@ function awarenessChart(selection) {
 
     companies.append('rect')
       .attr({
-        class: 'aided',
+        class: 'aided interactive',
         x: 0,
         y: height,
         width: xScale.rangeBand(),
@@ -68,7 +74,7 @@ function awarenessChart(selection) {
 
     companies.append('rect')
       .attr({
-        class: 'unaided',
+        class: 'unaided interactive',
         x: 0,
         y: height,
         width: xScale.rangeBand(),
@@ -87,21 +93,32 @@ function awarenessChart(selection) {
       .attr('class', 'y axis')
       .call(yAxis);
 
-    // Responsive resizing
-    chart.resize(1000);
-    d3.select(window).on('resize', function() { chart.resize(500); });
+    // Bind interactions
+    d3.selectAll('rect.interactive')
+      .on('mouseover', function() {
+        var thisClass = '.' + d3.select(this).attr('class').split(/\s+/)[0];
+        d3.selectAll(thisClass).classed('highlight', true);
+        d3.selectAll('.interactive:not(' + thisClass + ')')
+          .style('opacity', 0.5);
+      });
 
-  // End chart.draw();
+    d3.selectAll('rect.interactive')
+      .on('mouseout', function() {
+        var thisClass = '.' + d3.select(this).attr('class').split(/\s+/)[0];
+        d3.selectAll(thisClass).classed('highlight', false);
+        d3.selectAll('.interactive:not(' + thisClass + ')')
+          .style('opacity', 1);
+      });
+
+  // End draw();
   };
 
-  chart.resize = function resize(duration) {
-
+  //============================================================================
+  // Resize the chart elements when window resizes
+  //============================================================================
+  function resize(duration) {
     var duration = duration || 500;
-
-    width = parseInt(selection.style('width')) - margin.left - margin.right;
-    height = parseInt(selection.style('height')) - margin.top - margin.bottom;
-    xScale.rangeRoundBands([0, width], .1);
-    yScale.range([height, 0]);
+    scale();
 
     d3.select('#chart svg')
       .transition()
@@ -155,9 +172,23 @@ function awarenessChart(selection) {
       .duration(duration)
       .call(yAxis);
 
-  // End chart.resize()
+  // End resize()
   }
 
+  //============================================================================
+  // Adjust scales based on window size
+  //============================================================================
+  function scale() {
+    width = parseInt(selection.style('width')) - margin.left - margin.right;
+    height = parseInt(selection.style('height')) - margin.top - margin.bottom;
+
+    xScale.rangeRoundBands([0, width], 0.1);
+    yScale.range([height, 0]);
+  }
+
+  //============================================================================
+  // Wrap text elements
+  //============================================================================
   function wrap(text, width) {
     text.each(function() {
       var text = d3.select(this),
@@ -168,7 +199,8 @@ function awarenessChart(selection) {
           lineHeight = 1.1, // ems
           y = text.attr("y"),
           dy = parseFloat(text.attr("dy")),
-          tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+          tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y)
+            .attr("dy", dy + "em");
       while (word = words.pop()) {
         line.push(word);
         tspan.text(line.join(" "));
@@ -176,10 +208,12 @@ function awarenessChart(selection) {
           line.pop();
           tspan.text(line.join(" "));
           line = [word];
-          tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+          tspan = text.append("tspan").attr("x", 0).attr("y", y)
+            .attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
         }
       }
     });
   }
+  
 // End awarenessChart()
 };

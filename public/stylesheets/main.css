@@ -447,30 +447,31 @@ svg {
 
 /*===========================================================================*/
 /* SalesFunnel */
-.companyBG {
+.salesFunnel .companyBG {
   fill: #F2F2F2; }
 
-rect.awareness, circle.awareness {
+.salesFunnel text.legend {
+  pointer-events: none; }
+
+.salesFunnel rect.awareness, .salesFunnel circle.awareness {
   fill: #222; }
 
-rect.consideration, circle.consideration {
+.salesFunnel rect.consideration, .salesFunnel circle.consideration {
   fill: #4C4C4C; }
 
-rect.preference, circle.preference {
+.salesFunnel rect.preference, .salesFunnel circle.preference {
   fill: #7E7E7E; }
 
-rect.purchase, circle.purchase {
+.salesFunnel rect.purchase, .salesFunnel circle.purchase {
   fill: #AFAFAF; }
 
-rect.highlight, circle.highlight {
-  fill: #FFD100 !important;
-  stroke-width: 3px;
-  stroke: #FFD100; }
+.salesFunnel rect.highlight, .salesFunnel circle.highlight {
+  fill: #FFD100 !important; }
 
-#chart {
+.salesFunnel #chart {
   position: relative; }
 
-.tooltip {
+.salesFunnel .tooltip {
   position: absolute;
   z-index: 2;
   height: auto;
@@ -485,5 +486,5 @@ rect.highlight, circle.highlight {
   border-radius: 2px;
   pointer-events: none; }
 
-.hidden {
+.salesFunnel .hidden {
   opacity: 0; }
