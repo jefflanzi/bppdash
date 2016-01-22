@@ -24,13 +24,13 @@ function barChart(selection) {
       .attr({
         width: width + margin.left + margin.right,
         height: height + margin.top + margin.bottom,
-      })      
+      })
       .append('g')
       .attr('id', 'chartArea')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     //- load data and call constructor functions
-    d3.csv('/data/jobTitles.csv', function(error, data) {
+    d3.csv('/data/jobTitles', function(error, data) {
       //- Scales
       var xMax = d3.max(data, function(d) { return +d.Percent });
       xScale.domain([0, xMax]);

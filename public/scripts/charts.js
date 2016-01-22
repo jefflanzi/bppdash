@@ -28,7 +28,7 @@ function attributeChart(selection) {
   //============================================================================
   // Load data and call chart
   var data;
-  d3.csv('/data/attributes.csv', function(d) {
+  d3.csv('/data/attributes', function(d) {
     data = d;
     chart();
   });
@@ -404,7 +404,7 @@ function awarenessChart(selection) {
 
   // Load dataset
   var dataset;
-  d3.csv('/data/awareness.csv', function(error, data) {
+  d3.csv('/data/awareness', function(error, data) {
     dataset = data;
     chart.draw();
   });
@@ -592,13 +592,13 @@ function barChart(selection) {
       .attr({
         width: width + margin.left + margin.right,
         height: height + margin.top + margin.bottom,
-      })      
+      })
       .append('g')
       .attr('id', 'chartArea')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     //- load data and call constructor functions
-    d3.csv('/data/jobTitles.csv', function(error, data) {
+    d3.csv('/data/jobTitles', function(error, data) {
       //- Scales
       var xMax = d3.max(data, function(d) { return +d.Percent });
       xScale.domain([0, xMax]);
@@ -710,7 +710,7 @@ function bpiChart(selection) {
   var cScale = d3.scale.ordinal()
 
   var dataset;
-  d3.csv('/data/bpi.csv', function(error, data) {
+  d3.csv('/data/bpi', function(error, data) {
     dataset = data;
     chart.draw();
   });
@@ -806,7 +806,7 @@ function bpiChart(selection) {
         'text-anchor': 'middle',
         y: 0,
         dy: '2em'
-      });      
+      });
 
     // Responsive resize
     resize(1000); // Initial animations
@@ -1031,7 +1031,7 @@ function marketMap(selection) {
     var path = marker.append('path').attr('d', 'M 0 0 L 10 5 L 0 10 z');
 
     // Load data and draw chart
-    d3.json('/data/factorMap.json', function(data) {
+    d3.json('/data/marketMap', function(data) {
 
       // Define scales
       var cxMax = d3.max(data.clusters, function(d) { return Number(d.cx); });
@@ -1276,7 +1276,7 @@ function salesFunnel(selection) {
   var legendScale = d3.scale.ordinal().rangeRoundBands([0, width/2], 0.1);
 
   var dataset;
-  d3.csv('/data/salesFunnel.csv', function(error, data) {
+  d3.csv('/data/salesFunnel', function(error, data) {
     dataset = data;
     chart();
   });
@@ -1351,7 +1351,7 @@ function salesFunnel(selection) {
     var companybg = companies.append('rect')
       .attr('class', 'bar companyBG')
       .attr('width', xScale.rangeBand())
-      .attr('height', 0)      
+      .attr('height', 0)
 
     var awareness = companies.append('rect')
       .attr({

@@ -22,7 +22,7 @@ function awarenessChart(selection) {
 
   // Load dataset
   var dataset;
-  d3.csv('/data/awareness.csv', function(error, data) {
+  d3.csv('/data/awareness', function(error, data) {
     dataset = data;
     chart.draw();
   });

@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //==============================================================================
 // Mongoose
 var envURIs = {
-  development: 'mongodb://localhost/bppdash',  
+  development: 'mongodb://localhost/bppdash',
   test: 'mongodb://localhost/bppdash-test',
   production: process.env.MONGOLAB_URI
 }
@@ -68,6 +68,8 @@ passport.deserializeUser(User.deserializeUser());
 // Routes
 var routes = require('./routes/routes');
 app.use('/', routes);
+var data = require('./routes/data');
+app.use('/data', data);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

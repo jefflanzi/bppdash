@@ -13,7 +13,7 @@ function bpiChart(selection) {
   var cScale = d3.scale.ordinal()
 
   var dataset;
-  d3.csv('/data/bpi.csv', function(error, data) {
+  d3.csv('/data/bpi', function(error, data) {
     dataset = data;
     chart.draw();
   });
@@ -109,7 +109,7 @@ function bpiChart(selection) {
         'text-anchor': 'middle',
         y: 0,
         dy: '2em'
-      });      
+      });
 
     // Responsive resize
     resize(1000); // Initial animations

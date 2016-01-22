@@ -35,7 +35,7 @@ function marketMap(selection) {
     var path = marker.append('path').attr('d', 'M 0 0 L 10 5 L 0 10 z');
 
     // Load data and draw chart
-    d3.json('/data/factorMap.json', function(data) {
+    d3.json('/data/marketMap', function(data) {
 
       // Define scales
       var cxMax = d3.max(data.clusters, function(d) { return Number(d.cx); });

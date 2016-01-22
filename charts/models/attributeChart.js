@@ -28,7 +28,7 @@ function attributeChart(selection) {
   //============================================================================
   // Load data and call chart
   var data;
-  d3.csv('/data/attributes.csv', function(d) {
+  d3.csv('/data/attributes', function(d) {
     data = d;
     chart();
   });

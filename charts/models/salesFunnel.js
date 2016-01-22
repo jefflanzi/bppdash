@@ -13,7 +13,7 @@ function salesFunnel(selection) {
   var legendScale = d3.scale.ordinal().rangeRoundBands([0, width/2], 0.1);
 
   var dataset;
-  d3.csv('/data/salesFunnel.csv', function(error, data) {
+  d3.csv('/data/salesFunnel', function(error, data) {
     dataset = data;
     chart();
   });
@@ -88,7 +88,7 @@ function salesFunnel(selection) {
     var companybg = companies.append('rect')
       .attr('class', 'bar companyBG')
       .attr('width', xScale.rangeBand())
-      .attr('height', 0)      
+      .attr('height', 0)
 
     var awareness = companies.append('rect')
       .attr({
