@@ -1341,9 +1341,14 @@ function salesFunnel(selection) {
 
     //==========================================================================
     // Create legend
-    var keys = ['awareness', 'consideration', 'preference', 'purchase']
-    var values = d3.keys(dataset[0]).slice(1);
-    legendScale.domain(keys)
+    var keys = ['awareness', 'consideration', 'preference', 'purchase'];
+    var displayText = {
+      awareness: 'Awareness',
+      consideration: 'Consideration',
+      preference: 'Preference',
+      purchase: 'Purchase Intent'
+    }
+    legendScale.domain(keys);
 
     var legend = chartArea.append('g')
       .attr('class', 'legend');
@@ -1371,7 +1376,7 @@ function salesFunnel(selection) {
       });
 
     var legendText = legendSeries.append('text')
-      .text(function(d, i) { return values[i] })
+      .text(function(d, i) { return displayText[d] })
       .attr({
         class: function(d) { return d + ' legend' },
         dy: '0.33em'
@@ -1449,12 +1454,20 @@ function salesFunnel(selection) {
     // Tooltip mouseovers
     d3.selectAll('.interactive')
     .on('mouseover', function () {
-      var thisClass = '.' + d3.select(this).attr('class').split(/\s+/)[0];
-      d3.selectAll(thisClass + '.interactive:not(.background)')
+      var thisClass = d3.select(this).attr('class').split(/\s+/)[0];
+      d3.selectAll('.' + thisClass + '.interactive:not(.background)')
         .classed('highlight', true);
-      d3.selectAll('.interactive:not(' + thisClass + ')')
+      d3.selectAll('.interactive:not(.' + thisClass + ')')
         .filter('*:not(.legend)')
         .style('opacity', 0.5);
+
+      var m = xScale.rangeBand() * 0.05;
+      tooltips
+        .style('bottom', function(d) {return height*1.01 + margin.bottom - yScale(+d[thisClass]) + 'px' })
+        .style('left', function(d) { return margin.left + xScale(d.Company) + m + 'px' })
+        .style('width', xScale.rangeBand() * 0.9 + 'px')
+        .classed('hidden', false)
+        .text(function(d) { return d3.format('1%')(d[thisClass]) });
     })
     .on('mouseout', function() {
       var thisClass = '.' + d3.select(this).attr('class').split(/\s+/)[0];
@@ -1462,21 +1475,8 @@ function salesFunnel(selection) {
       d3.selectAll('.interactive:not(' + thisClass + ')')
         .filter('*:not(.background)')
         .style('opacity', 1);
+      tooltips.classed('hidden', true);
     });
-
-    function showTooltip(series, value) {
-      d3.selectAll(series)
-        .classed('highlight', true);
-
-      var m = xScale.rangeBand() * 0.05
-      tooltips
-        // .style('top', function(d) {return yScale(+d[value]) + 'px' })
-        .style('bottom', function(d) {return height*1.01 + margin.bottom - yScale(+d[value]) + 'px' })
-        .style('left', function(d) { return margin.left + xScale(d.Company) + m + 'px' })
-        .style('width', xScale.rangeBand() * 0.9 + 'px')
-        .classed('hidden', false)
-        .text(function(d) { return d3.format('1%')(d[value]) });
-    };
 
     function hideTooltip(series) {
       d3.selectAll(series).classed('highlight', false);
@@ -1543,33 +1543,33 @@ function salesFunnel(selection) {
       .transition()
       .delay(function(d, i) { return duration * 1.25 + i * 50 })
       .duration(duration)
-      .attr('y', function(d) { return yScale(d.Awareness) })
+      .attr('y', function(d) { return yScale(d.awareness) })
       .attr('width', xScale.rangeBand())
-      .attr('height', function(d) { return height - yScale(d.Awareness) });
+      .attr('height', function(d) { return height - yScale(d.awareness) });
 
     consideration
       .transition()
       .delay(function(d, i) { return duration * 1.50 + i * 50 })
       .duration(duration)
-      .attr('y', function(d) { return yScale(d.Consideration) })
+      .attr('y', function(d) { return yScale(d.consideration) })
       .attr('width', xScale.rangeBand())
-      .attr('height', function(d) { return height - yScale(d.Consideration) });
+      .attr('height', function(d) { return height - yScale(d.consideration) });
 
     preference
       .transition()
       .delay(function(d, i) { return duration * 1.75 + i * 50 })
       .duration(duration)
-      .attr('y', function(d) { return yScale(d.Preference) })
+      .attr('y', function(d) { return yScale(d.preference) })
       .attr('width', xScale.rangeBand())
-      .attr('height', function(d) { return height - yScale(d.Preference) });
+      .attr('height', function(d) { return height - yScale(d.preference) });
 
     purchase
       .transition()
       .delay(function(d, i) { return duration * 2.0 + i * 50 })
       .duration(duration)
-      .attr('y', function(d) { return yScale(d['Purchase Intent']) })
+      .attr('y', function(d) { return yScale(d.purchase) })
       .attr('width', xScale.rangeBand())
-      .attr('height', function(d) { return height - yScale(d['Purchase Intent']) });
+      .attr('height', function(d) { return height - yScale(d.purchase) });
 
     labels
       .transition()
