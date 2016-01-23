@@ -36,11 +36,19 @@
   }
 
   .tooltip {
+    position:absolute;
     width: auto;
     height: auto;
     padding: 0.5em;
-    font-size: 60%;
+    font-size: 1em;
+    color: #fff;
     background-color: $bbred;
+    z-index: 2;
+    font-weight: bold;
+    text-align: center;
+    opacity: 1;
+    border-radius: 2px;
+    pointer-events: none;
   }
 
   .legendBG {
@@ -49,9 +57,7 @@
 
   .legendItem rect {
     fill: none;
-    stroke: none;    
+    stroke: none;
   }
-
-
 
 }

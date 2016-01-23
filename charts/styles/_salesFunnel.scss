@@ -1,6 +1,8 @@
 /*===========================================================================*/
 /* SalesFunnel */
 .salesFunnel {
+  position: relative;
+
   .companyBG { fill: #F2F2F2; }
   text.legend { pointer-events: none; };
 
@@ -10,11 +12,7 @@
   rect.purchase, circle.purchase { fill: #AFAFAF; }
 
   rect.highlight, circle.highlight {
-    fill: $bbyellow !important;
-  }
-
-  #chart {
-    position: relative;
+    fill: $bbyellow;
   }
 
   .tooltip {

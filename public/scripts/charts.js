@@ -424,6 +424,7 @@ function awarenessChart(selection) {
     yScale.domain([0, 1]);
 
     // Create SVG and translated chart area g
+    selection.attr('class', 'awarenessChart');
     var chartArea = selection.append('svg')
       .attr({
         'width': width + margin.left + margin.right,
@@ -596,7 +597,7 @@ function awarenessChart(selection) {
       }
     });
   }
-  
+
 // End awarenessChart()
 };
 

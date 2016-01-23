@@ -1,6 +1,14 @@
 /*===========================================================================*/
 /* SalesFunnel / Awareness */
+.awarenessChart {
+  position: relative;
+  
+  .companyBG { fill: #F2F2F2; }
+  .aided { fill: #AFAFAF; }
+  .unaided { fill: #222; }
+  .aided:hover, .unaided:hover { fill: $bbyellow; }
 
-.aided { fill: #AFAFAF; }
-.unaided { fill: #222; }
-.aided:hover, .unaided:hover { fill: $bbyellow; }
+  rect.highlight, circle.highlight {
+    fill: $bbyellow;
+  }
+}

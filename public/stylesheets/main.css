@@ -333,11 +333,19 @@ svg {
     .attributeChart #tooltipSelectors rect:hover {
       opacity: 1; }
   .attributeChart .tooltip {
+    position: absolute;
     width: auto;
     height: auto;
     padding: 0.5em;
-    font-size: 60%;
-    background-color: #DA291C; }
+    font-size: 1em;
+    color: #fff;
+    background-color: #DA291C;
+    z-index: 2;
+    font-weight: bold;
+    text-align: center;
+    opacity: 1;
+    border-radius: 2px;
+    pointer-events: none; }
   .attributeChart .legendBG {
     fill: #E4E4E4; }
   .attributeChart .legendItem rect {
@@ -346,14 +354,18 @@ svg {
 
 /*===========================================================================*/
 /* SalesFunnel / Awareness */
-.aided {
-  fill: #AFAFAF; }
-
-.unaided {
-  fill: #222; }
-
-.aided:hover, .unaided:hover {
-  fill: #FFD100; }
+.awarenessChart {
+  position: relative; }
+  .awarenessChart .companyBG {
+    fill: #F2F2F2; }
+  .awarenessChart .aided {
+    fill: #AFAFAF; }
+  .awarenessChart .unaided {
+    fill: #222; }
+  .awarenessChart .aided:hover, .awarenessChart .unaided:hover {
+    fill: #FFD100; }
+  .awarenessChart rect.highlight, .awarenessChart circle.highlight {
+    fill: #FFD100; }
 
 /*===========================================================================*/
 /* Bar Chart */
@@ -447,44 +459,35 @@ svg {
 
 /*===========================================================================*/
 /* SalesFunnel */
-.salesFunnel .companyBG {
-  fill: #F2F2F2; }
-
-.salesFunnel text.legend {
-  pointer-events: none; }
-
-.salesFunnel rect.awareness, .salesFunnel circle.awareness {
-  fill: #222; }
-
-.salesFunnel rect.consideration, .salesFunnel circle.consideration {
-  fill: #4C4C4C; }
-
-.salesFunnel rect.preference, .salesFunnel circle.preference {
-  fill: #7E7E7E; }
-
-.salesFunnel rect.purchase, .salesFunnel circle.purchase {
-  fill: #AFAFAF; }
-
-.salesFunnel rect.highlight, .salesFunnel circle.highlight {
-  fill: #FFD100 !important; }
-
-.salesFunnel #chart {
+.salesFunnel {
   position: relative; }
-
-.salesFunnel .tooltip {
-  position: absolute;
-  z-index: 2;
-  height: auto;
-  width: auto;
-  padding: 0.3em;
-  font-size: 1em;
-  font-weight: bold;
-  text-align: center;
-  background-color: #DA291C;
-  color: #fff;
-  opacity: 1;
-  border-radius: 2px;
-  pointer-events: none; }
-
-.salesFunnel .hidden {
-  opacity: 0; }
+  .salesFunnel .companyBG {
+    fill: #F2F2F2; }
+  .salesFunnel text.legend {
+    pointer-events: none; }
+  .salesFunnel rect.awareness, .salesFunnel circle.awareness {
+    fill: #222; }
+  .salesFunnel rect.consideration, .salesFunnel circle.consideration {
+    fill: #4C4C4C; }
+  .salesFunnel rect.preference, .salesFunnel circle.preference {
+    fill: #7E7E7E; }
+  .salesFunnel rect.purchase, .salesFunnel circle.purchase {
+    fill: #AFAFAF; }
+  .salesFunnel rect.highlight, .salesFunnel circle.highlight {
+    fill: #FFD100; }
+  .salesFunnel .tooltip {
+    position: absolute;
+    z-index: 2;
+    height: auto;
+    width: auto;
+    padding: 0.3em;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    background-color: #DA291C;
+    color: #fff;
+    opacity: 1;
+    border-radius: 2px;
+    pointer-events: none; }
+  .salesFunnel .hidden {
+    opacity: 0; }
