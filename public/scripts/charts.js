@@ -219,15 +219,15 @@ function attributeChart(selection) {
           })
           .style('top', function(d, i) {
             var thisHeight = parseInt(d3.select(this).style('height'));
-            var circleHeight = d3.select('.company circle').attr('r');
-            var center = 0.5 * (yScale.rangeBand() - thisHeight);
-            var offset = 0.5 * yScale.rangeBand() - thisHeight - circleHeight;
-            // var offset = 0;
-            return yScale(d.point.attribute) + offset + (i % 2)*2*thisHeight + 'px'
+            var circleHeight = parseInt(d3.select('.company circle').attr('r'));
+            var center = yScale.rangeBand()/2 - thisHeight/2;
+            var coeff = 1-(2*(i%2));
+            var offset = coeff * (circleHeight + thisHeight/2);
+            return yScale(d.point.attribute) + center + offset + 'px';
           })
           .style('background-color', function(d) { return color(d.name); })
           .style('opacity', 1);
-
+      // End .on('mouseover')
       });
 
     // responsive resize
