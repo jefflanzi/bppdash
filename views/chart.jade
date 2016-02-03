@@ -2,4 +2,14 @@ extends nav
 
 block content
   #chart()
-  block chart
+  script.
+    $(document).ready( function() {
+      var height = window.innerHeight - $('.navbar').height() - 50;          
+      $('#chart').height(height);      
+      d3.select('#chart').call(#{model});
+      
+      $(window).on('resize', function() {
+        var height = window.innerHeight - $('.navbar').height() - 50;
+        $('#chart').height(height);
+      });
+    });

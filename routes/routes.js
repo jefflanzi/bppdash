@@ -45,9 +45,8 @@ router.get('/logout', function(req, res) {
 });
 
 // Chart views
-router.get('/charts/*', function(req, res, next) {
-  filename = 'charts/' + req.params[0]
-  res.render(filename, { title: 'Brand Performance Platform' })
+router.get('/charts/*', function(req, res, next) {  
+  res.render('chart', { title: 'Brand Performance Platform', model: req.params[0] })
 });
 
 router.get('/roadmap', function(req, res, next) {
