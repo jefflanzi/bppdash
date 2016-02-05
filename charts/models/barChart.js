@@ -65,7 +65,7 @@ function barChart(selection) {
   //============================================================================
   // Chart elements
   //============================================================================
-  var chart = {}
+  var chart = {};
 
   chart.area = {
     create: function(selection) {
