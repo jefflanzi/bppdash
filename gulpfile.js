@@ -3,13 +3,13 @@ var nodemon = require('gulp-nodemon');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 
-gulp.task('default', ['styles', 'scripts'], function() {
+gulp.task('default', ['sass', 'scripts'], function() {
   nodemon({
     script: './bin/www'
   });
 });
 
-gulp.task('styles', function() {
+gulp.task('sass', function() {
   return gulp.src('./sass/main.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./public/stylesheets'));
