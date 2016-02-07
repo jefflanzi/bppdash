@@ -21,5 +21,7 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('./public/scripts'));
 });
 
+gulp.task('build', ['sass', 'scripts']);
+
 gulp.watch('./**/*.scss', ['styles']);
 gulp.watch('./charts/models/*.js', ['scripts']);
