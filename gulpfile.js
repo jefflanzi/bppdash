@@ -6,7 +6,7 @@ var sass = require('gulp-sass');
 gulp.task('start', ['sass', 'scripts'], function() {
   nodemon({
     script: './bin/www'
-  });
+  }).on('start', ['watch']);
 });
 
 gulp.task('sass', function() {
@@ -21,7 +21,12 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('./public/scripts'));
 });
 
-gulp.task('build', ['sass', 'scripts']);
+gulp.task('build', function (){
+  gulp.start('sass');
+  gulp.start('scripts');
+});
 
-gulp.watch('./**/*.scss', ['styles']);
-gulp.watch('./charts/models/*.js', ['scripts']);
+gulp.task('watch', function() {
+  gulp.watch('./**/*.scss', ['styles']);
+  gulp.watch('./charts/models/*.js', ['scripts']);
+});
