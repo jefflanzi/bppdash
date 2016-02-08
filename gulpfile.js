@@ -2,11 +2,13 @@ var gulp = require('gulp');
 var nodemon = require('gulp-nodemon');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
+var mocha = require('gulp-mocha');
 
-gulp.task('start', ['sass', 'scripts'], function() {
+
+gulp.task('default', function() {
   nodemon({
     script: './bin/www'
-  }).on('start', ['watch']);
+  }).on('start', ['test', 'watch']);
 });
 
 gulp.task('sass', function() {
@@ -26,4 +28,9 @@ gulp.task('build', ['sass', 'scripts']);
 gulp.task('watch', function() {
   gulp.watch('./**/*.scss', ['styles']);
   gulp.watch('./charts/models/*.js', ['scripts']);
+});
+
+gulp.task('test', ['build'], function() {
+  return gulp.src('test/routes.test.js')
+    .pipe(mocha());
 });
