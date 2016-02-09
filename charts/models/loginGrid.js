@@ -19,14 +19,16 @@ function loginGrid() {
     .duration(1000)
     .style('opacity', 1);
 
-  // Resize
-  d3.select(window).on('resize', function() { resize(1, 0) });
+  // // Resize
+  // d3.select(window).on('load', function() {
+  //   d3.select(window).on('resize', function() { resize(1,0) })
+  // });
+
 
 //==============================================================================
 // Reusable Functions
   function resize(duration, delay) {
-    var duration = duration || 1000;
-    console.log('1 delay = ' + delay);
+    duration = duration || 1000;
     getSizes();
     gridData();
     chart.attr({
@@ -62,8 +64,7 @@ function loginGrid() {
   }
 
   function drawGrid(duration, delay) {
-    var duration = duration || 1000;
-    console.log(delay);
+    duration = duration || 1000;
     chart.selectAll('.loginRect')
       .data(dataMatrix)
       .enter()

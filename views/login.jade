@@ -17,8 +17,9 @@ block body
               input(type='password', id='password', name='password', placeholder="Password")
             div.button        
               button(type='submit') Submit
-  script.
-    $(document).ready( function() {
+  script(defer).
+    $(window).on('load', function() {
       loginGrid();
     });
+
     
