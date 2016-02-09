@@ -3,7 +3,7 @@ var nodemon = require('gulp-nodemon');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 
-gulp.task('start', ['sass', 'scripts'], function() {
+gulp.task('start', ['build'], function() {
   nodemon({
     script: './bin/www'
   }).on('start', ['watch']);

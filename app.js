@@ -48,10 +48,11 @@ db.once('open', function() {
 
 //==============================================================================
 // Passport middleware
+var secret = process.env.nodeSesssionSecret || 'test secret';
 app.use(session({
   resave: false,
   saveUninitialized: false,
-  secret: 'secret',
+  secret: secret,
   // store: new MongoStore({ url: 'mongodb://localhost/bppdash-sessions' })
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
