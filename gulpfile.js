@@ -10,20 +10,20 @@ gulp.task('start', ['build'], function() {
 });
 
 gulp.task('sass', function() {
-  return gulp.src('./sass/main.scss')
+  return gulp.src('.src/sass/main.scss')
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./public/stylesheets'));
+    .pipe(gulp.dest('./public/stylesheets/'));
 });
 
 gulp.task('scripts', function() {
-  return gulp.src('./charts/models/*.js')
+  return gulp.src('./src/charts/models/*.js')
     .pipe(concat('charts.js'))
-    .pipe(gulp.dest('./public/scripts'));
+    .pipe(gulp.dest('./public/scripts/'));
 });
 
 gulp.task('build', ['sass', 'scripts']);
 
 gulp.task('watch', function() {
-  gulp.watch('./**/*.scss', ['styles']);
+  gulp.watch('./src/**/*.scss', ['styles']);
   gulp.watch('./charts/models/*.js', ['scripts']);
 });
