@@ -10,7 +10,7 @@ module.exports = function bpiChart(selection) {
   // Scales
   var xScale = d3.scale.ordinal().rangeRoundBands([0, width], 0.05);
   var yScale = d3.scale.linear().range([0, height]);
-  var cScale = d3.scale.ordinal()
+  var cScale = d3.scale.ordinal();
 
   var dataset;
   d3.csv('/data/bpi', function(error, data) {
@@ -22,12 +22,12 @@ module.exports = function bpiChart(selection) {
   chart.draw = function() {
     // Set scale domains
     var xValues = [];
-    dataset.forEach(function(d) { xValues.push(d.Company)});
+    dataset.forEach(function(d) { xValues.push(d.Company); });
     xScale.domain(xValues);
     yScale.domain([0,100]);
     // Inner scale for companies
     cScale
-      .rangeRoundBands([0, xScale.rangeBand()], .5)
+      .rangeRoundBands([0, xScale.rangeBand()], 0.5)
       .domain(d3.range(3));
 
     // Create SVG and translated chart area g
@@ -45,7 +45,7 @@ module.exports = function bpiChart(selection) {
       .enter()
       .append('g')
       .attr('class', 'company')
-      .attr('transform', function(d) { return 'translate(' + xScale(d.Company) + ',0)' });
+      .attr('transform', function(d) { return 'translate(' + xScale(d.Company) + ',0)'; });
 
     var companybgs = companies.append('rect')
       .attr({
@@ -92,7 +92,7 @@ module.exports = function bpiChart(selection) {
       });
 
     var bpiLabel = companies.append('text')
-      .text(function(d) { return d.BPI })
+      .text(function(d) { return d.BPI; })
       .attr({
         class: 'bpiLabel',
         x: 0,
@@ -102,7 +102,7 @@ module.exports = function bpiChart(selection) {
       });
 
     var companyLabel = companies.append('text')
-      .text(function(d) { return d.Company} )
+      .text(function(d) { return d.Company; })
       .attr({
         class: 'bpiCompany',
         x: xScale.rangeBand() / 2,
@@ -113,17 +113,17 @@ module.exports = function bpiChart(selection) {
 
     // Responsive resize
     resize(1000); // Initial animations
-    d3.select(window).on('resize', function() { resize(350) });
+    d3.select(window).on('resize', function() { resize(350); });
 
     function resize(duration) {
-      var duration = duration || 500;
+      duration = duration || 500;
 
       width = parseInt(selection.style('width')) - margin.left - margin.right;
       height = parseInt(selection.style('height')) - margin.top - margin.bottom;
 
       xScale.rangeRoundBands([0, width], 0.05);
       yScale.range([0, height]);
-      cScale.rangeRoundBands([0, xScale.rangeBand()], .5)
+      cScale.rangeRoundBands([0, xScale.rangeBand()], 0.5);
 
       // SVG element
       selection.select('svg')
@@ -135,11 +135,11 @@ module.exports = function bpiChart(selection) {
       companies
         .transition()
         .duration(duration)
-        .attr('transform', function(d) { return 'translate(' + xScale(d.Company) + ',0)' });
+        .attr('transform', function(d) { return 'translate(' + xScale(d.Company) + ',0)'; });
 
       companybgs
         .transition()
-        .delay(function(d, i) { return i * 100} )
+        .delay(function(d, i) { return i * 100; })
         .duration(duration)
         .attr({
           height: height,
@@ -148,61 +148,61 @@ module.exports = function bpiChart(selection) {
 
       character
         .transition()
-        .delay(function(d, i ) { return duration + i * 100 })
+        .delay(function(d, i ) { return duration + i * 100; })
         .duration(duration)
         .attr({
           x: cScale(0),
-          y: function(d) { return height - yScale(+d['Character']) },
+          y: function(d) { return height - yScale(+d.Character); },
           width: cScale.rangeBand() / 2,
-          height: function(d) { return yScale(+d.Character) }
+          height: function(d) { return yScale(+d.Character); }
         });
 
       relationship
         .transition()
-        .delay(function(d, i ) { return duration + i * 100 })
+        .delay(function(d, i ) { return duration + i * 100; })
         .duration(duration)
         .attr({
           x: cScale(1),
-          y: function(d) { return height - yScale(+d['Customer Relationship']) },
+          y: function(d) { return height - yScale(+d['Customer Relationship']); },
           width: cScale.rangeBand() / 2,
-          height: function(d) { return yScale(+d['Customer Relationship']) }
+          height: function(d) { return yScale(+d['Customer Relationship']); }
         });
 
       impact
         .transition()
-        .delay(function(d, i ) { return duration + i * 100 })
+        .delay(function(d, i ) { return duration + i * 100; })
         .duration(duration)
         .attr({
           x: cScale(2),
-          y: function(d) { return height - yScale(+d['Impact']) },
+          y: function(d) { return height - yScale(+d.Impact); },
           width: cScale.rangeBand() / 2,
-          height: function(d) { return yScale(+d['Impact']) }
+          height: function(d) { return yScale(+d.Impact); }
         });
 
       bpi
         .transition()
-        .delay(function(d, i) { return 1.5 * duration + i * 100 })
+        .delay(function(d, i) { return 1.5 * duration + i * 100; })
         .duration(duration)
         .attr({
           cx: cScale(1) + cScale.rangeBand() / 4,
-          cy: function(d) { return height - yScale(+d['BPI']) },
+          cy: function(d) { return height - yScale(+d.BPI); },
           r: cScale.rangeBand() * 0.7
         });
 
       bpiLabel
         .transition()
-        .delay(function(d, i) { return 1.5 * duration + i * 100 })
+        .delay(function(d, i) { return 1.5 * duration + i * 100; })
         .duration(duration)
         .attr({
           x: cScale(1) + cScale.rangeBand() / 4,
-          y: function(d) { return height - yScale(+d['BPI']) }
+          y: function(d) { return height - yScale(+d.BPI); }
         });
 
       companyLabel
         .attr('x', xScale.rangeBand() / 2);
 
     // End resize();
-    };
+    }
 
   // End chart.draw();
   };

@@ -13,7 +13,7 @@ module.exports = function barChart(selection) {
 
   var yAxis = d3.svg.axis()
     .scale(yScale)
-    .orient('left')
+    .orient('left');
 
   //============================================================================
   // Load data and create chart
@@ -21,9 +21,9 @@ module.exports = function barChart(selection) {
   d3.csv('/data/jobTitles', function(error, data) {
     // Scales
     scale();
-    var xMax = d3.max(data, function(d) { return +d.Percent });
+    var xMax = d3.max(data, function(d) { return +d.Percent; });
     xScale.domain([0, xMax]);
-    yScale.domain(data.map(function(d) { return d.Title }));
+    yScale.domain(data.map(function(d) { return d.Title; }));
 
     // Create Elements
     var chartArea = chart.area.create(selection);
@@ -54,8 +54,8 @@ module.exports = function barChart(selection) {
   //============================================================================
   function resize(duration, delay) {
     scale();
-    var duration = duration || 250;
-    var delay = delay || 0;
+    duration = duration || 250;
+    delay = delay || 0;
     chart.area.update();
     chart.bars.update(duration, delay);
     chart.labels.update(duration, delay);
@@ -84,7 +84,7 @@ module.exports = function barChart(selection) {
       d3.select('#chartArea')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
     }
-  }
+  };
   chart.axis = {
     create: function(selection) {
       selection.append('g')
@@ -106,14 +106,14 @@ module.exports = function barChart(selection) {
         .duration(duration)
         .call(yAxis);
     }
-  }
+  };
   chart.bars = {
     create: function(selection, data) {
       var groups =  selection.selectAll('.bar')
         .data(data)
         .enter()
         .append('g')
-        .classed('bar', true)
+        .classed('bar', true);
       groups
         .append('rect')
         .attr({
@@ -126,24 +126,24 @@ module.exports = function barChart(selection) {
     update: function(duration, delay) {
       d3.selectAll('.bar rect')
       .transition()
-      .delay(function(d, i) { return i * delay})
+      .delay(function(d, i) { return i * delay; })
       .duration(duration)
       .attr({
-        width: function(d) { return xScale(+d.Percent) },
+        width: function(d) { return xScale(+d.Percent); },
         height: yScale.rangeBand(),
-        y: function(d) { return yScale(d.Title) }
-      })
+        y: function(d) { return yScale(d.Title); }
+      });
     }
-  }
+  };
   chart.labels = {
     create: function(selection) {
       return selection.append('text')
-        .text(function(d) { return d3.format('.1%')(+d.Percent) })
+        .text(function(d) { return d3.format('.1%')(+d.Percent); })
         .attr({
           class: 'valueLabel',
           dx: '-1em',
           x: 0,
-          y: function(d, i) { return yScale(d.Title) + yScale.rangeBand() / 2 },
+          y: function(d, i) { return yScale(d.Title) + yScale.rangeBand() / 2; },
           dy: '0.35em',
           'text-anchor': 'end'
         });
@@ -151,12 +151,12 @@ module.exports = function barChart(selection) {
     update: function(duration, delay) {
       d3.selectAll('.valueLabel')
         .transition()
-        .delay(function(d, i) { return i * delay })
+        .delay(function(d, i) { return i * delay; })
         .duration(duration)
-        .attr('x', function(d) {return xScale(+d.Percent) })
-        .attr('y', function(d) {return yScale(d.Title) + yScale.rangeBand() / 2 });
+        .attr('x', function(d) { return xScale(+d.Percent); })
+        .attr('y', function(d) { return yScale(d.Title) + yScale.rangeBand() / 2; });
     }
-  }
+  };
 
 // end barChart()
 };

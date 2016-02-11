@@ -14,7 +14,7 @@ router.post('/login',  passport.authenticate('local'),  function(req, res) {
 
 // Need separate admin authentication to protect user registration
 router.get('/register', function(req, res) {
-  res.render('register')
+  res.render('register');
 });
 
 router.post('/register', function(req, res) {
@@ -32,7 +32,7 @@ router.post('/register', function(req, res) {
 // All routes after this will check for successful authentication
 router.all('*', function(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
+  res.redirect('/login');
 });
 
 router.get('/', function(req, res) {
@@ -46,7 +46,7 @@ router.get('/logout', function(req, res) {
 
 // Chart views
 router.get('/charts/:model', function(req, res, next) {
-  res.render('chart', { title: 'Brand Performance Platform', model: req.params.model })
+  res.render('chart', { title: 'Brand Performance Platform', model: req.params.model });
 });
 
 router.get('/roadmap', function(req, res, next) {

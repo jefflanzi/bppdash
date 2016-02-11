@@ -1,7 +1,6 @@
 function pie(selection) {
   // Legends - http://bl.ocks.org/ZJONSSON/3918369
-  // Global variables
-  var selection = d3.select('#chart')
+  // Global variables  
   var chart = {};
 
   // Sizing
@@ -25,7 +24,7 @@ function pie(selection) {
 
   var pie = d3.layout.pie()
     .sort(null)
-    .value(function(d) { return d.Percent} );
+    .value(function(d) { return d.Percent; });
 
   // Chart area
   var svg = selection.append('svg')
@@ -47,7 +46,7 @@ function pie(selection) {
 
     g.append('path')
       .attr('d', arc)
-      .style('fill', function(d) { return color(d.data.Title) });
+      .style('fill', function(d) { return color(d.data.Title); });
 
     g.append('text')
       .attr('transform', function(d) { return 'translate(' + labelArc.centroid(d) + ')'; })
@@ -63,4 +62,4 @@ function pie(selection) {
   }
 
 // End pie()
-};
+}

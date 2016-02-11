@@ -41,7 +41,7 @@ module.exports = function marketMap(selection) {
     resize(1000, 500);
 
     // Update on resize
-    d3.select(window).on('resize', function() { resize(500, 0) });
+    d3.select(window).on('resize', function() { resize(500, 0); });
 
   });
 
@@ -64,8 +64,8 @@ module.exports = function marketMap(selection) {
   //============================================================================
   function resize(duration, delay) {
     scale();
-    var duration = duration || 0;
-    var delay = delay || 0;
+    duration = duration || 0;
+    delay = delay || 0;
     chart.area.update();
     chart.arrows.update(duration);
     chart.clusters.update(duration, delay);
@@ -74,7 +74,7 @@ module.exports = function marketMap(selection) {
   //============================================================================
   // Chart elements
   //============================================================================
-  var chart = {}
+  var chart = {};
   chart.area = {
     create: function(selection) {
       return selection.append('svg')
@@ -91,7 +91,7 @@ module.exports = function marketMap(selection) {
         .attr('width', width + margin.left + margin.right + 'px')
         .attr('height', height + margin.top + margin.bottom + 'px');
     }
-  }
+  };
   chart.marker = {
     create: function(selection) {
       selection
@@ -109,7 +109,7 @@ module.exports = function marketMap(selection) {
             .append('path')
               .attr('d', 'M 0 0 L 10 5 L 0 10 z');
     }
-  }
+  };
   chart.arrows = {
     create: function(selection, data) {
       selection.selectAll('.factor')
@@ -138,24 +138,24 @@ module.exports = function marketMap(selection) {
           y2: function(d) { return yScale(+d.y2); }
         });
     }
-  }
+  };
   chart.clusters = {
     create: function(selection, data) {
       var groups = selection.selectAll('.cluster')
         .data(data.clusters)
         .enter()
         .append('g')
-          .attr('class', 'cluster')
+          .attr('class', 'cluster');
 
       groups.append('circle')
           .attr({
-            id: function(d) { return d.id },
+            id: function(d) { return d.id; },
             class: 'clusterCircle',
             r: 0
           });
 
       groups.append('text')
-        .text(function(d) { return d.label })
+        .text(function(d) { return d.label; })
         .attr({
           class: 'clusterText',
           'font-size': '0em',
@@ -170,7 +170,7 @@ module.exports = function marketMap(selection) {
         .attr({
           cx: function(d) { return xScale(d.cx); },
           cy: function(d) { return yScale(d.cy); },
-          r: function(d) { return d.r }
+          r: function(d) { return d.r; }
         });
 
       d3.selectAll('.clusterText')
@@ -178,12 +178,12 @@ module.exports = function marketMap(selection) {
         .delay(delay)
         .duration(duration)
         .attr({
-          x: function(d) { return xScale(d.cx) },
-          y: function(d) { return yScale(d.cy - d.r - 15) },
+          x: function(d) { return xScale(d.cx); },
+          y: function(d) { return yScale(d.cy - d.r - 15); },
           'font-size': '1.2em'
         });
     }
-  }
+  };
   chart.companies = {
     create: function(selection, data) {
       var companies = selection.selectAll('.company')
@@ -200,7 +200,7 @@ module.exports = function marketMap(selection) {
         });
 
       companies.append('text')
-        .text(function(d) { return d.id })
+        .text(function(d) { return d.id; })
         .attr({
           class: 'companyLabel',
           'font-size': '0em',
@@ -209,7 +209,7 @@ module.exports = function marketMap(selection) {
           dy: '1em'
         });
 
-      companies.filter(function(d) { return d.class === 'client' })
+      companies.filter(function(d) { return d.class === 'client'; })
         .classed('client', true);
     },
     update: function(duration, delay) {
@@ -217,8 +217,8 @@ module.exports = function marketMap(selection) {
         .delay(delay)
         .duration(duration)
         .attr({
-          x: function(d) { return xScale(d.x) },
-          y: function(d) { return yScale(d.y) },
+          x: function(d) { return xScale(d.x); },
+          y: function(d) { return yScale(d.y); },
           height: markerSize + 'px',
           width: markerSize + 'px'
         });
@@ -229,11 +229,11 @@ module.exports = function marketMap(selection) {
         .attr({
           class: 'companyLabel',
           'font-size': '1em',
-          x: function(d) { return xScale(d.x) + markerSize},
-          y: function(d) { return yScale(d.y) }
+          x: function(d) { return xScale(d.x) + markerSize; },
+          y: function(d) { return yScale(d.y); }
         });
     }
-  }
+  };
 
 // End marketMap()
 };
