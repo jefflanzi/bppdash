@@ -1,4 +1,4 @@
-function attributeChart(selection) {
+module.exports = function attributeChart(selection) {
 
   //============================================================================
   // Declare Variables
@@ -12,7 +12,7 @@ function attributeChart(selection) {
   var xScale = d3.scale.linear();
   var yScale = d3.scale.ordinal();
   var legendScale = d3.scale.ordinal();
-  var color = d3.scale.ordinal().range(["#222", "#4C4C4C", "#DA291C", "#7E7E7E"])
+  var color = d3.scale.ordinal().range(["#222", "#4C4C4C", "#DA291C", "#7E7E7E"]);
 
   // Axis Variables
   var xAxis = d3.svg.axis()
@@ -24,7 +24,7 @@ function attributeChart(selection) {
   var yAxis = d3.svg.axis()
     .scale(yScale)
     .orient('left')
-    .tickPadding(10)
+    .tickPadding(10);
 
   //============================================================================
   // Load data and create chart
@@ -35,14 +35,14 @@ function attributeChart(selection) {
     // and used during subsequent element creation
     // Scale Domains
     var xValues = [];
-    for (i in data) { xValues = xValues.concat(d3.values(data[i]).slice(2)); }
+    for (var i in data) { xValues = xValues.concat(d3.values(data[i]).slice(2)); }
     xScale.domain([Number(d3.min(xValues)) - 0.01, Number(d3.max(xValues)) + 0.01]);
 
     var yValues = ['legend1'];
-    for (i in data) { yValues.push(data[i].attribute) };
+    for (var i in data) { yValues.push(data[i].attribute); }
     yScale.domain(yValues);
 
-    companyNames = d3.keys(data[0]).filter(function(key) { return key !== 'attribute' & key !== 'order'});
+    companyNames = d3.keys(data[0]).filter(function(key) { return key !== 'attribute' & key !== 'order'; });
     color.domain(companyNames);
     legendScale.domain(companyNames);
 
@@ -67,7 +67,7 @@ function attributeChart(selection) {
 
     // resize
     resize(1000);
-    d3.select(window).on('resize', function() { resize(500) });
+    d3.select(window).on('resize', function() { resize(500); });
 
     // chartx(chartArea, data);
   });
@@ -91,8 +91,8 @@ function attributeChart(selection) {
   //============================================================================
   function resize(duration, delay) {
     scale();
-    var duration = duration || 0;
-    var delay = delay || 0;
+    duration = duration || 0;
+    delay = delay || 0;
     chart.area.update(duration);
     chart.tooltipSelectors.update(duration);
     chart.axis.update(duration);

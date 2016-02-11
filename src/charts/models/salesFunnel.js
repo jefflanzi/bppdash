@@ -1,4 +1,4 @@
-function salesFunnel(selection) {
+module.exports = function salesFunnel(selection) {
 
   // Global Variables
   var h;
@@ -299,4 +299,4 @@ function salesFunnel(selection) {
   }
 
 // End salesFunnel()
-}
+};

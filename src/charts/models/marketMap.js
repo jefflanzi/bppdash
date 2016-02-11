@@ -1,4 +1,4 @@
-function marketMap(selection) {
+module.exports = function marketMap(selection) {
   // Declare variables
   var margin = { top: 30, right: 30, bottom: 30, left: 30 };
   var width;

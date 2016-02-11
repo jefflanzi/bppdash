@@ -1,4 +1,4 @@
-function bpiChart(selection) {
+module.exports = function bpiChart(selection) {
   // Testing Variables
   var chart = {};
 

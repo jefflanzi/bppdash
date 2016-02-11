@@ -1,4 +1,4 @@
-function barChart(selection) {
+module.exports = function barChart(selection) {
   // Declare variables
   var margin = {top: 20, right:20, bottom: 30, left: 140};
   var width;
@@ -159,4 +159,4 @@ function barChart(selection) {
   }
 
 // end barChart()
-}
+};
