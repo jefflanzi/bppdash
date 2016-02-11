@@ -1,14 +1,14 @@
-//==============================================================================
-// Login Animation script
-//==============================================================================
-function loginGrid() {
+module.exports = function loginGrid() {
+  //==============================================================================
+  // Login Animation script
+  //==============================================================================
   // Function variables
   var width;
   var height;
   var xScale = d3.scale.ordinal();
   var yScale = d3.scale.ordinal();
-  var squareSize = 30
-  var dataMatrix = []
+  var squareSize = 30;
+  var dataMatrix = [];
   var chart = d3.select('body').append('svg');
   resize(1000, 1);
 
@@ -48,7 +48,7 @@ function loginGrid() {
 
     yScale
       .domain(d3.range(Math.ceil(height / squareSize)))
-      .rangeRoundBands([0, height])
+      .rangeRoundBands([0, height]);
   }
 
   // Generate data matrix for drawing squares
@@ -77,7 +77,7 @@ function loginGrid() {
         class: 'loginRect'
       })
       .transition()
-      .delay(function(d, i) { return delay * Math.sqrt(i) * 20 })
+      .delay(function(d, i) { return delay * Math.sqrt(i) * 20; })
       .duration(duration)
       .attr({
         height: squareSize,
@@ -85,5 +85,5 @@ function loginGrid() {
       });
   }
 
-// End loginAnimate()
-}
+// End loginGrid()
+};

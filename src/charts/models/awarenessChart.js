@@ -1,4 +1,4 @@
-function awarenessChart(selection) {
+module.exports = function awarenessChart(selection) {
 
   // Function Variables
   var margin = {top: 10, right: 0, bottom: 50, left: 50};
@@ -37,7 +37,7 @@ function awarenessChart(selection) {
   function draw() {
     // Set scale domains
     var xValues = [];
-    dataset.forEach(function(d) { xValues.push(d.Company)});
+    dataset.forEach(function(d) { xValues.push(d.Company); });
     xScale.domain(xValues);
     yScale.domain([0, 1]);
 
@@ -57,7 +57,7 @@ function awarenessChart(selection) {
       .enter()
       .append('g')
       .attr('class', 'company')
-      .attr('transform', function(d) { return 'translate(' + xScale(d.Company) + ',0)' });
+      .attr('transform', function(d) { return 'translate(' + xScale(d.Company) + ',0)'; });
 
     companies.append('rect')
       .attr('class', 'companyBG')
@@ -112,13 +112,13 @@ function awarenessChart(selection) {
       });
 
   // End draw();
-  };
+  }
 
   //============================================================================
   // Resize the chart elements when window resizes
   //============================================================================
   function resize(duration) {
-    var duration = duration || 500;
+    duration = duration || 500;
     scale();
 
     d3.select('#chart svg')
@@ -130,7 +130,7 @@ function awarenessChart(selection) {
     d3.selectAll('.company')
       .transition()
       .duration(duration)
-      .attr('transform', function(d) { return 'translate(' + xScale(d.Company) + ',0)' });
+      .attr('transform', function(d) { return 'translate(' + xScale(d.Company) + ',0)'; });
 
     d3.selectAll('.background')
       .transition()
@@ -140,24 +140,24 @@ function awarenessChart(selection) {
 
     d3.selectAll('.companyBG')
       .transition()
-      .duration(function(d, i) { return duration + i * 50 } )
+      .duration(function(d, i) { return duration + i * 50; })
       .attr('width', xScale.rangeBand())
       .attr('height', height);
 
     d3.selectAll('.aided')
       .transition()
-      .delay(function(d, i) { return duration + i * 50 })
+      .delay(function(d, i) { return duration + i * 50; })
       .duration(duration)
-      .attr('y', function(d) { return yScale(d.Aided) })
-      .attr('height', function(d) { return height - yScale(d.Aided) })
+      .attr('y', function(d) { return yScale(d.Aided); })
+      .attr('height', function(d) { return height - yScale(d.Aided); })
       .attr('width', xScale.rangeBand());
 
     d3.selectAll('.unaided')
       .transition()
-      .delay(function(d, i) { return duration * 1.5 + i * 50 })
+      .delay(function(d, i) { return duration * 1.5 + i * 50; })
       .duration(duration)
-      .attr('y', function(d) { return yScale(d.Unaided) })
-      .attr('height', function(d) { return height - yScale(d.Unaided) })
+      .attr('y', function(d) { return yScale(d.Unaided); })
+      .attr('height', function(d) { return height - yScale(d.Unaided); })
       .attr('width', xScale.rangeBand());
 
     d3.select('.x.axis')

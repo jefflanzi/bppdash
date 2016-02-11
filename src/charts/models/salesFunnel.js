@@ -1,4 +1,4 @@
-function salesFunnel(selection) {
+module.exports = function salesFunnel(selection) {
 
   // Global Variables
   var h;
@@ -28,7 +28,7 @@ function salesFunnel(selection) {
   function chart() {
     // Set scale domains
     var xValues = [];
-    dataset.forEach(function(d) { xValues.push(d.Company)});
+    dataset.forEach(function(d) { xValues.push(d.Company); });
     xScale.domain(xValues);
     yScale.domain([0,1]);
 
@@ -48,7 +48,7 @@ function salesFunnel(selection) {
       consideration: 'Consideration',
       preference: 'Preference',
       purchase: 'Purchase Intent'
-    }
+    };
     legendScale.domain(keys);
 
     var legend = chartArea.append('g')
@@ -58,12 +58,12 @@ function salesFunnel(selection) {
       .data(keys)
       .enter()
       .append('g')
-      .attr('class', function(d) { return 'series ' + d })
-      .attr('transform', function(d) { return 'translate(' + legendScale(d) + ',0)' })
+      .attr('class', function(d) { return 'series ' + d; })
+      .attr('transform', function(d) { return 'translate(' + legendScale(d) + ',0)'; });
 
     var legendBG = legendSeries.append('rect')
       .attr({
-        class: function(d) { return d + ' legend interactive background' },
+        class: function(d) { return d + ' legend interactive background'; },
         x: 0,
         y: 0
       })
@@ -71,15 +71,15 @@ function salesFunnel(selection) {
 
     var legendCircle = legendSeries.append('circle')
       .attr({
-        class: function(d) { return d + ' legend interactive' },
+        class: function(d) { return d + ' legend interactive'; },
         cx: 0,
         cy: 0
       });
 
     var legendText = legendSeries.append('text')
-      .text(function(d, i) { return displayText[d] })
+      .text(function(d, i) { return displayText[d]; })
       .attr({
-        class: function(d) { return d + ' legend' },
+        class: function(d) { return d + ' legend'; },
         dy: '0.33em'
       });
 
@@ -90,12 +90,12 @@ function salesFunnel(selection) {
       .enter()
       .append('g')
       .attr('class', 'company')
-      .attr('transform', function(d) { return 'translate(' + xScale(d.Company) + ',0)' });
+      .attr('transform', function(d) { return 'translate(' + xScale(d.Company) + ',0)'; });
 
     var companybg = companies.append('rect')
       .attr('class', 'companyBG')
       .attr('width', xScale.rangeBand())
-      .attr('height', 0)
+      .attr('height', 0);
 
     var awareness = companies.append('rect')
       .attr({
@@ -134,7 +134,7 @@ function salesFunnel(selection) {
       });
 
     var labels = companies.append('text')
-      .text(function(d) { return d.Company })
+      .text(function(d) { return d.Company; })
       .attr('transform', 'rotate(-90)')
       .attr({
         x: 0,
@@ -143,7 +143,7 @@ function salesFunnel(selection) {
         dy: '0.35em'
       })
       .attr('text-anchor', 'end')
-      .style('font-weight', 'bold')
+      .style('font-weight', 'bold');
 
     var tooltips = selection.selectAll('.tooltip')
       .data(dataset)
@@ -164,11 +164,11 @@ function salesFunnel(selection) {
 
       var m = xScale.rangeBand() * 0.05;
       tooltips
-        .style('bottom', function(d) {return height*1.01 + margin.bottom - yScale(+d[thisClass]) + 'px' })
-        .style('left', function(d) { return margin.left + xScale(d.Company) + m + 'px' })
+        .style('bottom', function(d) {return height*1.01 + margin.bottom - yScale(+d[thisClass]) + 'px'; })
+        .style('left', function(d) { return margin.left + xScale(d.Company) + m + 'px'; })
         .style('width', xScale.rangeBand() * 0.9 + 'px')
         .classed('hidden', false)
-        .text(function(d) { return d3.format('1%')(d[thisClass]) });
+        .text(function(d) { return d3.format('1%')(d[thisClass]); });
     })
     .on('mouseout', function() {
       var thisClass = '.' + d3.select(this).attr('class').split(/\s+/)[0];
@@ -182,7 +182,7 @@ function salesFunnel(selection) {
     function hideTooltip(series) {
       d3.selectAll(series).classed('highlight', false);
       tooltips.classed('hidden', true);
-    };
+    }
 
     // Responsive resize
     resize(1000);
@@ -209,7 +209,7 @@ function salesFunnel(selection) {
       .attr('transform', 'translate(' + margin.left + ',' + (-margin.top) + ')');
 
     legendSeries
-      .attr('transform', function(d) { return 'translate(' + legendScale(d) + ',0)' })
+      .attr('transform', function(d) { return 'translate(' + legendScale(d) + ',0)'; });
 
     legendBG
       .attr({
@@ -232,45 +232,45 @@ function salesFunnel(selection) {
     companies
       .transition()
       .duration(duration)
-      .attr('transform', function(d) { return 'translate(' + xScale(d.Company) + ',0)' });
+      .attr('transform', function(d) { return 'translate(' + xScale(d.Company) + ',0)'; });
 
     companybg
       .transition()
-      .duration(function(d, i) { return duration * 1.0 + i * 50 } )
+      .duration(function(d, i) { return duration * 1.0 + i * 50; })
       .attr('width', xScale.rangeBand())
       .attr('height', height);
 
     awareness
       .transition()
-      .delay(function(d, i) { return duration * 1.25 + i * 50 })
+      .delay(function(d, i) { return duration * 1.25 + i * 50; })
       .duration(duration)
-      .attr('y', function(d) { return yScale(d.awareness) })
+      .attr('y', function(d) { return yScale(d.awareness); })
       .attr('width', xScale.rangeBand())
-      .attr('height', function(d) { return height - yScale(d.awareness) });
+      .attr('height', function(d) { return height - yScale(d.awareness); });
 
     consideration
       .transition()
-      .delay(function(d, i) { return duration * 1.50 + i * 50 })
+      .delay(function(d, i) { return duration * 1.50 + i * 50; })
       .duration(duration)
-      .attr('y', function(d) { return yScale(d.consideration) })
+      .attr('y', function(d) { return yScale(d.consideration); })
       .attr('width', xScale.rangeBand())
-      .attr('height', function(d) { return height - yScale(d.consideration) });
+      .attr('height', function(d) { return height - yScale(d.consideration); });
 
     preference
       .transition()
-      .delay(function(d, i) { return duration * 1.75 + i * 50 })
+      .delay(function(d, i) { return duration * 1.75 + i * 50; })
       .duration(duration)
-      .attr('y', function(d) { return yScale(d.preference) })
+      .attr('y', function(d) { return yScale(d.preference); })
       .attr('width', xScale.rangeBand())
-      .attr('height', function(d) { return height - yScale(d.preference) });
+      .attr('height', function(d) { return height - yScale(d.preference); });
 
     purchase
       .transition()
-      .delay(function(d, i) { return duration * 2.0 + i * 50 })
+      .delay(function(d, i) { return duration * 2.0 + i * 50; })
       .duration(duration)
-      .attr('y', function(d) { return yScale(d.purchase) })
+      .attr('y', function(d) { return yScale(d.purchase); })
       .attr('width', xScale.rangeBand())
-      .attr('height', function(d) { return height - yScale(d.purchase) });
+      .attr('height', function(d) { return height - yScale(d.purchase); });
 
     labels
       .transition()
@@ -280,7 +280,7 @@ function salesFunnel(selection) {
   }
 
   // End chart()
-  };
+  }
 
   //============================================================================
   // Adjust scales based on window size
@@ -299,4 +299,4 @@ function salesFunnel(selection) {
   }
 
 // End salesFunnel()
-}
+};

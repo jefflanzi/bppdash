@@ -6,7 +6,7 @@ block content
     $(document).ready( function() {
       var height = window.innerHeight - $('.navbar').height() - 50;          
       $('#chart').height(height);      
-      d3.select('#chart').call(#{model});
+      d3.select('#chart').call(charts.#{model});
       
       $(window).on('resize', function() {
         var height = window.innerHeight - $('.navbar').height() - 50;
