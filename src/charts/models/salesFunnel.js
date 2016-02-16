@@ -13,7 +13,7 @@ module.exports = function salesFunnel(selection) {
   var legendScale = d3.scale.ordinal();
 
   var dataset;
-  d3.csv('/data/salesFunnel', function(error, data) {
+  d3.csv('/data/model/salesFunnel', function(error, data) {
     dataset = data;
     scale();
     chart();

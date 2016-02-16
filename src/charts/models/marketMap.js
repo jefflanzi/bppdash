@@ -11,7 +11,7 @@ module.exports = function marketMap(selection) {
   //============================================================================
   // Load data and create chart
   //============================================================================
-  d3.json('/data/marketMap', function(error, data) {
+  d3.json('/data/model/marketMap', function(error, data) {
     // Define scales
     scale();
     var cxMax = d3.max(data.clusters, function(d) { return Number(d.cx); });

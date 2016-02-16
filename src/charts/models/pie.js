@@ -1,6 +1,6 @@
 function pie(selection) {
   // Legends - http://bl.ocks.org/ZJONSSON/3918369
-  // Global variables  
+  // Global variables
   var chart = {};
 
   // Sizing
@@ -35,7 +35,7 @@ function pie(selection) {
 
   // Load dataset
   var dataset;
-  d3.csv('/data/jobTitles.csv', type, function(error, data) {
+  d3.csv('/data/model/jobTitles.csv', type, function(error, data) {
     if (error) throw error;
 
     dataset = data;

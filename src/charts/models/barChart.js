@@ -18,7 +18,7 @@ module.exports = function barChart(selection) {
   //============================================================================
   // Load data and create chart
   //============================================================================
-  d3.csv('/data/jobTitles', function(error, data) {
+  d3.csv('/data/model/jobTitles', function(error, data) {
     // Scales
     scale();
     var xMax = d3.max(data, function(d) { return +d.Percent; });

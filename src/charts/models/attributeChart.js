@@ -29,7 +29,7 @@ module.exports = function attributeChart(selection) {
   //============================================================================
   // Load data and create chart
   //============================================================================
-  d3.csv('/data/attributes', function(error, data) {
+  d3.csv('/data/model/attributes', function(error, data) {
     scale();
     // companyNames and companyData set during chart.domain.create()
     // and used during subsequent element creation

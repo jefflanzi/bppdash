@@ -28,12 +28,6 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('./public/stylesheets/'));
 });
 
-gulp.task('lint', function() {
-  return gulp.src('./src/**/*.js')
-    .pipe(jshint())
-    .pipe(jshint.reporter(stylish));
-});
-
 gulp.task('charts', function() {
   return browserify({
     entries: './src/charts/charts.main.js',
@@ -49,4 +43,10 @@ gulp.task('charts', function() {
 gulp.task('watch', function() {
   gulp.watch('./src/**/*.scss', ['sass']);
   gulp.watch('./src/charts/**/*.js', ['charts']);
+});
+
+gulp.task('lint', function() {
+  return gulp.src('./src/**/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter(stylish));
 });

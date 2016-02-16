@@ -13,7 +13,7 @@ module.exports = function bpiChart(selection) {
   var cScale = d3.scale.ordinal();
 
   var dataset;
-  d3.csv('/data/bpi', function(error, data) {
+  d3.csv('/data/model/bpi', function(error, data) {
     dataset = data;
     chart.draw();
   });

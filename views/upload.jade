@@ -1,0 +1,11 @@
+extends header
+block body
+  p  Upload data
+  form(action="#", method="post")
+    select
+      option(value="value1") Value1
+      option(value="value2") Value2    
+    input(type="text")
+    input(type="file")
+    button(type="submit") Submit
+    

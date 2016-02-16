@@ -1,22 +1,21 @@
 extends header  
-block body
-  body.login
-    .container.float
-      div.login
-        div.logo
-          img(src="/images/bpp_logo.png")
-        hr
-        div.form
-          h1 Sign In
-          form(role='form', action='/login', method='post', id='login')
-            div
-              label(for='username') Username:
-              input(type='text', id='username', name='username', placeholder='Username')
-            div
-              label(for='password') Password:
-              input(type='password', id='password', name='password', placeholder="Password")
-            div.button        
-              button(type='submit') Submit
+block body  
+  .container.float
+    div.login
+      div.logo
+        img(src="/images/bpp_logo.png")
+      hr
+      div.form
+        h1 Sign In
+        form(role='form', action='/login', method='post', id='login')
+          div
+            label(for='username') Username:
+            input(type='text', id='username', name='username', placeholder='Username')
+          div
+            label(for='password') Password:
+            input(type='password', id='password', name='password', placeholder="Password")
+          div.button        
+            button(type='submit') Submit
   script(defer).
     $(window).on('load', function() {
       charts.loginGrid();

@@ -19,7 +19,7 @@ module.exports = function awarenessChart(selection) {
     .ticks(10, "%");
 
   // Load dataset and draw chart
-  d3.csv('/data/awareness', function(error, data) {
+  d3.csv('/data/model/awareness', function(error, data) {
     dataset = data;
     scale();
     draw();

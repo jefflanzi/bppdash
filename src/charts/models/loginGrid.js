@@ -2,6 +2,7 @@ module.exports = function loginGrid() {
   //==============================================================================
   // Login Animation script
   //==============================================================================
+  d3.select('body').attr('class', 'login');
   // Function variables
   var width;
   var height;
