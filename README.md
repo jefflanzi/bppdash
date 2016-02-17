@@ -1,5 +1,7 @@
-# Live Demo
-http://www.bppdash.com
+A reporting dashboard for the Brand Performance Platform
+
+## Live Demo
+http://www.bppdash.com  
 user/pass: demo/demo
 
 # BPP Dashboard Project Roadmap
@@ -22,7 +24,7 @@ user/pass: demo/demo
 
 ---
 ## Beta v.0.1.0 - In Development
-**New Features :** user authentication, database integration, ui refinements  
+**New Features :** user authentication, file upload, admin interface, database integration, ui refinements  
 **Purpose :** Demonstration and Presentation of BPP Reports  
 **Audience :** Clients  
 **Value Proposition :** Value Add  
