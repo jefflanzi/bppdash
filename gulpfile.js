@@ -10,10 +10,13 @@ var jshint = require('gulp-jshint');
 var cssnano = require('gulp-cssnano');
 var stylish = require('jshint-stylish');
 
-gulp.task('start', ['build'], function() {
+gulp.task('default', ['build', 'watch'], function() {
   nodemon({
-    script: './bin/www'
-  }).on('start', ['watch']);
+    script: './bin/www',
+    ext: 'js',
+    ignore: ['public/', 'src/'],
+    verbose: 'true',
+  });
 });
 
 gulp.task('build', ['sass', 'charts']);
@@ -44,6 +47,6 @@ gulp.task('charts', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('./src/**/*.scss', ['styles']);
+  gulp.watch('./src/**/*.scss', ['sass']);
   gulp.watch('./src/charts/**/*.js', ['charts']);
 });
