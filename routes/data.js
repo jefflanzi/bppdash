@@ -32,7 +32,7 @@ router.get('/model/:model', function(req, res) {
 
 // Render file upload page
 router.get('/upload', function(req, res) {
-  res.render('upload', {user: req.user});
+  res.render('admin/upload', {user: req.user});
 });
 
 // Upload file to user's data folder
