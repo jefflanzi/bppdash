@@ -1,28 +1,40 @@
 extends header
-block body    
-  ul.navigation
-    li.nav-item.menu-header
-      p Charts       
-    li.nav-item
-      a(href='/charts/barChart') Bar Chart
-    li.nav-item
-      a(href='/charts/attributeChart') Attributes
-    li.nav-item
-      a(href='/charts/salesFunnel') Sales Funnel
-    li.nav-item
-      a(href='/charts/marketMap') Market Map
-    li.nav-item
-      a(href='/charts/bpiChart') BPI
-  //- Nav Trigger    
-  input#nav-trigger(type='checkbox', class='nav-trigger')
-  label(for='nav-trigger')          
-  //- Main content area
-  div.site-wrap
-    #topbar
-      p Brand Performance Platform
-      a(href='/logout')
-        button(type='button') Logout
-    block content
-          
-          
-          
+block body
+  #site-wrapper
+    #sidebar-wrapper
+      ul
+        li.sidebar-header
+          p Charts       
+        li
+          a(href='/charts/barChart') Bar Chart
+        li
+          a(href='/charts/attributeChart') Attributes
+        li
+          a(href='/charts/salesFunnel') Sales Funnel
+        li
+          a(href='/charts/marketMap') Market Map
+        li
+          a(href='/charts/bpiChart') BPI
+    //- Menu trigger has to be outside of page-wrapper for css targetting
+    //- Also, input must be before label for css targetting
+    //- input#nav-trigger(type='checkbox', class='nav-trigger')          
+    //- label(for='nav-trigger') YO
+    //- Nav Trigger  
+    #page-wrapper
+      nav.navbar.navbar-default.navbar-static-top
+        .container-fluid
+          .navbar-header
+            a#sidebar-toggle.btn.btn-default(href="#sidebar-toggle") X
+            a.navbar-brand Brand Performance Platform
+            a.btn.btn-default(href='/logout') Logout                
+      //- Main content area
+      .container
+        .row#content
+          .col-lg-12
+            block content
+    script.
+      $("#sidebar-toggle").click(function(e) {
+        e.preventDefault();
+        $("#page-wrapper").toggleClass("pushed");
+      });
+        

@@ -2,19 +2,20 @@
 // SASS Modules
 
 // Variables
-@import 'colors';
+@import 'variables';
 
 //=============================================================================
 // CSS Partials
 
 // Responsive layout
-@import 'responsive';
+// Currently removed, depending on bootstrap
+// @import 'responsive';
 
 // Login Page
 @import 'login';
 
 // Navigation
-@import 'nav';
+@import 'nav-sidebar';
 
 // Charts
 @import './src/charts/charts.scss';
