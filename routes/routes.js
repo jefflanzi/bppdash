@@ -29,6 +29,10 @@ router.post('/register', function(req, res) {
   });
 });
 
+router.get('/admin', function(req, res) {
+  res.render('admin.jade');
+});
+
 // All routes after this will check for successful authentication
 router.all('*', function(req, res, next) {
   if (req.isAuthenticated()) { return next(); }

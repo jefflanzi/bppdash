@@ -40,6 +40,15 @@ gulp.task('charts', function() {
   .pipe(gulp.dest('./public/scripts'));
 });
 
+// gulp.task('admin', function {
+//   browserify({
+//     entries: './src/admin/admin.main.jsx',
+//     transform: '[babelify --presets [react es2015]]',
+//
+//
+//   });
+// })
+
 gulp.task('watch', function() {
   gulp.watch('./src/**/*.scss', ['sass']);
   gulp.watch('./src/charts/**/*.js', ['charts']);
