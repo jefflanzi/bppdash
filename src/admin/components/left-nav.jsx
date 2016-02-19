@@ -1,10 +1,8 @@
 import React from 'react';
 
 // Material UI components
-import AppBar from 'material-ui/lib/app-bar';
 import LeftNav from 'material-ui/lib/left-nav';
 import MenuItem from 'material-ui/lib/menus/menu-item';
-import RaisedButton from 'material-ui/lib/raised-button';
 
 export default class Layout extends React.Component {
 
@@ -18,11 +16,6 @@ export default class Layout extends React.Component {
 
   render() {
     return (
-      <div>
-        <AppBar
-          title="Title"
-          onLeftIconButtonTouchTap={this.handleToggle}
-        />
         <LeftNav
           docked={false}
           open={this.state.open}
@@ -31,7 +24,6 @@ export default class Layout extends React.Component {
           <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
           <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
         </LeftNav>
-      </div>
     );
   }
 
