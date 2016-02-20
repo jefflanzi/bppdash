@@ -1,7 +1,7 @@
 extends header
 block body
   #site-wrapper
-    #sidebar-wrapper
+    #sidebar-wrapper(role="navigation")
       ul
         li.sidebar-header
           p Charts       
@@ -20,15 +20,27 @@ block body
     //- input#nav-trigger(type='checkbox', class='nav-trigger')          
     //- label(for='nav-trigger') YO
     //- Nav Trigger  
-    #page-wrapper
-      nav.navbar.navbar-default.navbar-static-top
-        .container-fluid
-          .navbar-header
-            a#sidebar-toggle.btn.btn-default(href="#sidebar-toggle") X
-            a.navbar-brand Brand Performance Platform
-            a.btn.btn-default(href='/logout') Logout                
-      //- Main content area
-      .container
+    #page-wrapper      
+      .container-fluid
+        .row
+          .col-lg-12#topbar(role="navigation")
+            span#sidebar-toggle.glyphicon.glyphicon-menu-hamburger
+            span#menu-title Brand Performance Platform
+            .dropdown
+              button#views.btn.btn-default.dropdown-toggle(
+                type="button",
+                data-toggle="dropdown",
+                aria-haspopup="true",
+                aria-expanded="true") Views 
+                  .span.caret             
+              ul.dropdown-menu.dropdown-menu-right(aria-labelledby="views")
+                li
+                  a(href="/") Charts
+                li
+                  a(href="/Admin") Admin
+                li
+                  a(href="/logout") Logout                        
+          //- Main content area      
         .row#content
           .col-lg-12
             block content

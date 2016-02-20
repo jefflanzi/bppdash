@@ -8,14 +8,14 @@
 // CSS Partials
 
 // Responsive layout
-// Currently removed, depending on bootstrap
-// @import 'responsive';
+@import 'responsive';
 
 // Login Page
 @import 'login';
 
 // Navigation
 @import 'nav-sidebar';
+@import 'nav-topbar';
 
 // Charts
 @import './src/charts/charts.scss';
