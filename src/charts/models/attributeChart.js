@@ -354,8 +354,7 @@ module.exports = function attributeChart(selection) {
 
       // tooltips: position on mouseover
       d3.selectAll('#tooltipSelectors rect')
-        .on('mouseover', function () {
-          console.log('test');
+        .on('mouseover', function () {          
           var thisClass = '.' + d3.select(this).attr('class');
           var thisData = d3.selectAll('circle' + thisClass)
             .data()

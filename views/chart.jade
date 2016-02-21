@@ -4,12 +4,12 @@ block content
   #chart()
   script.
     $(document).ready( function() {
-      var height = window.innerHeight - $('.navbar').height() - 50;          
+      var height = $(window).height() - $('#topbar').height();          
       $('#chart').height(height);      
       d3.select('#chart').call(charts.#{model});
-      
-      $(window).on('resize', function() {
-        var height = window.innerHeight - $('.navbar').height() - 50;
-        $('#chart').height(height);
-      });
+    });
+    
+    $(window).on('resize', function() {
+      var height = $(window).height() - $('#topbar').height();
+      $('#chart').height(height);
     });
