@@ -9,41 +9,45 @@ import { Grid, Row, Col } from 'react-bootstrap';
 
 // Components
 import {AppBar, Card, LeftNav, MenuItem} from 'material-ui';
-// import AppBar from 'material-ui/lib/app-bar';
-// import LeftNav from 'material-ui/lib/left-nav';
-// import MenuItem from 'material-ui/lib/menus/menu-item';
-// import RaisedButton from 'material-ui/lib/raised-button';
 
 class Layout extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {open: true};
+    this.state = {open: false};
   }
 
   handleToggle = () => this.setState({open: !this.state.open});
+  handleClose = () => this.setState({open: false});
 
   render() {
     return (
-      <Grid fluid={true}>
-        <Row>
+      <div id="site-wrapper">
+        <LeftNav
+          open={this.state.open}
+          docked={false}
+          onRequestChange={open => this.setState({open})}
+        >
+          <MenuItem onTouchTap={this.handleClose}>Surveys</MenuItem>
+          <MenuItem onTouchTap={this.handleClose}>Data</MenuItem>
+        </LeftNav>
+        <div id="page-wrapper" style={{marginLeft: 250 + 'px'}}>
           <AppBar
             title="Title"
             onLeftIconButtonTouchTap={this.handleToggle}
           />
-        </Row>
-        <Row>
-          <Col md={4}>
-            <LeftNav open={this.state.open}>
-              <MenuItem onTouchTap={this.handleClose}>Surveys</MenuItem>
-              <MenuItem onTouchTap={this.handleClose}>Data</MenuItem>
-            </LeftNav>
-          </Col>
-          <Col md={8}>
-            Content
-          </Col>
-        </Row>
-      </Grid>
+          <Grid fluid={false}>
+            <Row>
+              <Col md={4}>
+                Content 1
+              </Col>
+              <Col md={8}>
+                Content 2
+              </Col>
+            </Row>
+          </Grid>
+        </div>
+      </div>
     );
   }
 

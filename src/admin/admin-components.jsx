@@ -23,8 +23,7 @@ export default class Layout extends React.Component {
           title="Title"
           onLeftIconButtonTouchTap={this.handleToggle}
         />
-        <LeftNav
-          docked={false}
+        <LeftNav          
           open={this.state.open}
           onRequestChange={ open => this.setState({open}) }
         >

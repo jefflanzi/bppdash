@@ -79,11 +79,6 @@
 
 	// Components
 
-	// import AppBar from 'material-ui/lib/app-bar';
-	// import LeftNav from 'material-ui/lib/left-nav';
-	// import MenuItem from 'material-ui/lib/menus/menu-item';
-	// import RaisedButton from 'material-ui/lib/raised-button';
-
 	var Layout = function (_React$Component) {
 	  _inherits(Layout, _React$Component);
 
@@ -96,49 +91,66 @@
 	      return _this.setState({ open: !_this.state.open });
 	    };
 
-	    _this.state = { open: true };
+	    _this.handleClose = function () {
+	      return _this.setState({ open: false });
+	    };
+
+	    _this.state = { open: false };
 	    return _this;
 	  }
 
 	  _createClass(Layout, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      return _react2.default.createElement(
-	        _reactBootstrap.Grid,
-	        { fluid: true },
+	        'div',
+	        { id: 'site-wrapper' },
 	        _react2.default.createElement(
-	          _reactBootstrap.Row,
-	          null,
+	          _materialUi.LeftNav,
+	          {
+	            open: this.state.open,
+	            docked: false,
+	            onRequestChange: function onRequestChange(open) {
+	              return _this2.setState({ open: open });
+	            }
+	          },
+	          _react2.default.createElement(
+	            _materialUi.MenuItem,
+	            { onTouchTap: this.handleClose },
+	            'Surveys'
+	          ),
+	          _react2.default.createElement(
+	            _materialUi.MenuItem,
+	            { onTouchTap: this.handleClose },
+	            'Data'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'page-wrapper', style: { marginLeft: 250 + 'px' } },
 	          _react2.default.createElement(_materialUi.AppBar, {
 	            title: 'Title',
 	            onLeftIconButtonTouchTap: this.handleToggle
-	          })
-	        ),
-	        _react2.default.createElement(
-	          _reactBootstrap.Row,
-	          null,
+	          }),
 	          _react2.default.createElement(
-	            _reactBootstrap.Col,
-	            { md: 4 },
+	            _reactBootstrap.Grid,
+	            { fluid: false },
 	            _react2.default.createElement(
-	              _materialUi.LeftNav,
-	              { open: this.state.open },
+	              _reactBootstrap.Row,
+	              null,
 	              _react2.default.createElement(
-	                _materialUi.MenuItem,
-	                { onTouchTap: this.handleClose },
-	                'Surveys'
+	                _reactBootstrap.Col,
+	                { md: 4 },
+	                'Content 1'
 	              ),
 	              _react2.default.createElement(
-	                _materialUi.MenuItem,
-	                { onTouchTap: this.handleClose },
-	                'Data'
+	                _reactBootstrap.Col,
+	                { md: 8 },
+	                'Content 2'
 	              )
 	            )
-	          ),
-	          _react2.default.createElement(
-	            _reactBootstrap.Col,
-	            { md: 8 },
-	            'Content'
 	          )
 	        )
 	      );
