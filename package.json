@@ -42,6 +42,7 @@
     "mongoose": "^4.3.4",
     "morgan": "~1.6.1",
     "multer": "^1.1.0",
+    "node-uuid": "^1.4.7",
     "normalize.css": "^3.0.3",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",

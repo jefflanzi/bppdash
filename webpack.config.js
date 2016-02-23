@@ -1,11 +1,17 @@
 var path = require('path');
+var webpack = require('webpack');
 
 var config = {
-  entry: path.resolve(__dirname, 'src/admin/admin.main.jsx'),
+  entry: [
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
+    path.resolve(__dirname, 'src/admin/admin.main.jsx'),
+  ],
   resolve: {
     extensions: ["", ".js", ".jsx"]
   },
   output: {
+    publicPath: "http://localhost:8080/scripts/",
     path: path.resolve(__dirname, 'public/scripts'),
     filename: 'admin.js'
   },
@@ -16,7 +22,14 @@ var config = {
       include: path.resolve(__dirname, "src/admin"),
       exclude: path.resolve(__dirname, "node_modules")
     }]
-  }
+  },
+  devServer: {
+    contentBase: 'http://localhost:3000',
+    hot:true
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
 };
 
 module.exports = config;
