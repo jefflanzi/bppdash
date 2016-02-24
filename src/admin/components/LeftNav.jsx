@@ -3,6 +3,14 @@ import React from 'react';
 // Material UI components
 import LeftNav from 'material-ui/lib/left-nav';
 import MenuItem from 'material-ui/lib/menus/menu-item';
+import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router';
+
+// Mock menu item data
+const menuItems = [
+  { id: 1, route: '/', text: 'Home' },
+  { id: 2, route: '/test', text: 'Test' },
+  { id: 3, route: '/surveys', text: 'Surveys'}
+];
 
 export default class MyLeftNav extends React.Component {
 
@@ -18,14 +26,13 @@ export default class MyLeftNav extends React.Component {
         docked={false}
         onRequestChange={this.props.menuClose}
       >
-        <h1>Menu</h1>
-        {this.props.items.map(item =>
-          <MenuItem
-            onTouchTap={this.props.menuClose}
-            key={item.id}>
-              {item.label}
-          </MenuItem>
-        )}
+        <h2 style={{paddingLeft: 0.5 + 'em'}}>Menu</h2>
+        {menuItems.map(item =>
+          <Link key={item.id} to={item.route}>
+            <MenuItem onTouchTap={this.props.menuClose}>
+              {item.text}
+            </MenuItem>
+          </Link>)}
       </LeftNav>
     );
   }
