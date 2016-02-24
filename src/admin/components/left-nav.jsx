@@ -4,26 +4,29 @@ import React from 'react';
 import LeftNav from 'material-ui/lib/left-nav';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 
-export default class Layout extends React.Component {
+export default class MyLeftNav extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {open: false};
+    this.state = {open: this.props.open};
   }
-
-  handleToggle = () => this.setState({open: !this.state.open});
-  handleClose = () => this.setState({open: false});
 
   render() {
     return (
-        <LeftNav
-          docked={false}
-          open={this.state.open}
-          onRequestChange={ open => this.setState({open}) }
-        >
-          <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
-          <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
-        </LeftNav>
+      <LeftNav
+        open={this.props.open}
+        docked={false}
+        onRequestChange={this.props.menuClose}
+      >
+        <h1>Menu</h1>
+        {this.props.items.map(item =>
+          <MenuItem
+            onTouchTap={this.props.menuClose}
+            key={item.id}>
+              {item.label}
+          </MenuItem>
+        )}
+      </LeftNav>
     );
   }
 

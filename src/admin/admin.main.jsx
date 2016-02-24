@@ -9,15 +9,16 @@ injectTapEventPlugin();
 import { Grid, Row, Col } from 'react-bootstrap';
 
 // Components
-import {AppBar, LeftNav, MenuItem, SelectField, IconButton, IconMenu, TextField, RaisedButton, Paper} from 'material-ui';
+import {AppBar, MenuItem, SelectField, IconButton, IconMenu, TextField, RaisedButton, Paper} from 'material-ui';
 import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert';
+import MyLeftNav from './components/left-nav.jsx';
 
 class Layout extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
+      menuOpen: false,
       menuItems: [
         {
           id: uuid.v4(),
@@ -51,8 +52,8 @@ class Layout extends React.Component {
 
   }
 
-  handleToggle = () => this.setState({open: !this.state.open});
-  handleClose = () => this.setState({open: false});
+  handleMenuToggle = () => this.setState({menuOpen: !this.state.menuOpen});
+  handleMenuClose = () => this.setState({menuOpen: false});
   handleChange = (event, index, value) => this.setState({value});
 
   render() {
@@ -61,24 +62,13 @@ class Layout extends React.Component {
 
     return (
       <div id="site-wrapper">
-        <LeftNav
-          open={this.state.open}
-          docked={false}
-          onRequestChange={open => this.setState({open})}
-        >
-          <h1>Menu</h1>
-          {menuItems.map(item =>
-            <MenuItem
-              onTouchTap={this.handleClose}
-              key={item.id}>
-                {item.label}
-            </MenuItem>
-          )}
-        </LeftNav>
+        <MyLeftNav items = {menuItems}
+          open = {this.state.menuOpen}
+          menuClose={this.handleMenuClose.bind(this, this.props)}/>
         <div id="page-wrapper" style={{marginLeft: 0 + 'px'}}>
           <AppBar
             title="Admin"
-            onLeftIconButtonTouchTap={this.handleToggle}
+            onLeftIconButtonTouchTap={this.handleMenuToggle}
             iconElementRight={
               <IconMenu
                 iconButtonElement={
