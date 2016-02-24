@@ -11,7 +11,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 // Components
 import {AppBar, MenuItem, SelectField, IconButton, IconMenu, TextField, RaisedButton, Paper} from 'material-ui';
 import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert';
-import LeftNav from './components/left-nav.jsx';
+import LeftNav from './components/LeftNav.jsx';
 
 class Layout extends React.Component {
 
