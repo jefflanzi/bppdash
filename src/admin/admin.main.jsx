@@ -11,7 +11,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 // Components
 import {AppBar, MenuItem, SelectField, IconButton, IconMenu, TextField, RaisedButton, Paper} from 'material-ui';
 import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert';
-import MyLeftNav from './components/left-nav.jsx';
+import LeftNav from './components/left-nav.jsx';
 
 class Layout extends React.Component {
 
@@ -62,9 +62,10 @@ class Layout extends React.Component {
 
     return (
       <div id="site-wrapper">
-        <MyLeftNav items = {menuItems}
+        <LeftNav items = {menuItems}
           open = {this.state.menuOpen}
-          menuClose={this.handleMenuClose.bind(this, this.props)}/>
+          menuClose={this.handleMenuClose}
+        />
         <div id="page-wrapper" style={{marginLeft: 0 + 'px'}}>
           <AppBar
             title="Admin"
