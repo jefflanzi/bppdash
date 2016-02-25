@@ -17,13 +17,16 @@ export default class TopBar extends React.Component {
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
           >
-            <MenuItem primaryText="Refresh" />
-            <MenuItem primaryText="Help" />
+            <MenuItem primaryText="Charts"
+              linkButtton
+              href="/"
+            />            
+            <MenuItem primaryText="Placeholder" />
             <MenuItem primaryText="Sign out" />
           </IconMenu>
         }
       />
     );
   }
-  
+
 }

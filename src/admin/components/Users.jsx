@@ -1,15 +1,19 @@
 import React from 'react';
-import { SelectField, TextField, MenuItem, RaisedButton, Paper} from 'material-ui';
+import { SelectField, TextField, MenuItem, RaisedButton, Paper, Card} from 'material-ui';
 
-// Mock user data
+// Mock data
 const users = [
   { id: 1, username: 'User 1' },
   { id: 2, username: 'User 2' },
   { id: 3, username: 'User 3' }
 ];
+const userTypes = [
+  {usertype: 'user', label: 'Basic User'},
+  {usertype: 'accountadmin', label: 'Account Admin'},
+  {usertype: 'sysadmin', label: 'System Admin'}
+];
 
-
-export default class Surveys extends React.Component {
+export default class Users extends React.Component {
 
   constructor(props) {
     super(props);
@@ -22,21 +26,26 @@ export default class Surveys extends React.Component {
 
     return (
       <Paper style={{padding: 1.5 + 'rem', margin: 1 + 'rem'}}>
-        <h2>Create new survey</h2>
+        <h2>Create a new user</h2>
         <form>
           <SelectField
             value={this.state.value}
             onChange={this.handleChange}
-            floatingLabelText="Select user:"
-          >            
-            {users.map(user =>
-              <MenuItem key={user.id} value={user.username} primaryText={user.username}/>
+            floatingLabelText="Select user type:"
+          >
+            {userTypes.map(u =>
+              <MenuItem key={u.usertype} value={u.usertype} primaryText={u.label}/>
             )}
           </SelectField>
+          <br />          
+          <TextField
+            hintText="e.g. bob"
+            floatingLabelText="User Name:"
+          />
           <br />
           <TextField
-            hintText="e.g. 2016 customer survey"
-            floatingLabelText="Survey Name:"
+            hintText="********"
+            floatingLabelText="Password:"
           />
           <br />
           <br />

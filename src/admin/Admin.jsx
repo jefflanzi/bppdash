@@ -10,8 +10,10 @@ injectTapEventPlugin();
 import LeftNav from './components/LeftNav';
 import TopBar from './components/TopBar';
 import Index from './components/Index';
-import Surveys from './components/Surveys';
 import Test from './components/Test';
+import Users from './components/Users';
+import Surveys from './components/Surveys';
+import Charts from './components/Charts';
 
 class Admin extends React.Component {
 
@@ -50,8 +52,9 @@ ReactDOM.render((
   <Router history={hashHistory}>
     <Route path="/" component={Admin}>
       <IndexRoute component={Index} />
+      <Route path="users" component={Users} />
       <Route path="surveys" component={Surveys} />
-      <Route path="test" component={Test} />
+      <Route path="charts" component={Charts} />
     </Route>
   </Router>
 ), document.getElementById('admin'));

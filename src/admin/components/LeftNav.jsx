@@ -8,8 +8,9 @@ import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router';
 // Mock menu item data
 const menuItems = [
   { id: 1, route: '/', text: 'Home' },
-  { id: 2, route: '/test', text: 'Test' },
-  { id: 3, route: '/surveys', text: 'Surveys'}
+  { id: 2, route: '/users', text: 'Users' },
+  { id: 3, route: '/surveys', text: 'Surveys'},
+  { id: 4, route: '/charts', text:'Charts'}
 ];
 
 export default class MyLeftNav extends React.Component {
@@ -28,11 +29,14 @@ export default class MyLeftNav extends React.Component {
       >
         <h2 style={{paddingLeft: 0.5 + 'em'}}>Menu</h2>
         {menuItems.map(item =>
-          <Link key={item.id} to={item.route}>
-            <MenuItem onTouchTap={this.props.menuClose}>
-              {item.text}
-            </MenuItem>
-          </Link>)}
+          <MenuItem key={item.id}
+            onTouchTap={this.props.menuClose}
+            linkbutton={true}
+            containerElement={<Link to={item.route} />}
+            primaryText={item.text}
+          />
+        )}
+
       </LeftNav>
     );
   }
