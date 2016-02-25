@@ -1,5 +1,7 @@
 import React from 'react';
 import { SelectField, TextField, MenuItem, RaisedButton, Paper, Card} from 'material-ui';
+import SelectInput from './SelectInput';
+import FileInput from './FileInput';
 
 // Mock user data
 const users = [
@@ -25,45 +27,59 @@ export default class Charts extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {value: null};
+    this.state = {
+      data: {
+        userInput: null,
+        chartInput: null,
+        fileInput: null
+      }
+    };
   }
 
-  handleChange = (event, index, value) => this.setState({value});
+  handleChange = (event, index, value) => {
+    this.setState({value});
+  }
 
   render() {
 
     return (
       <Paper style={{padding: 1.5 + 'rem', margin: 1 + 'rem'}}>
         <h2>Create a new chart</h2>
-        <form>
-          <SelectField
-            value={this.state.value}
-            onChange={this.handleChange}
+        <form>          
+          <SelectInput
+            ref="userInput"
             floatingLabelText="Select user:"
           >
             {users.map(user =>
               <MenuItem key={user.id} value={user.username} primaryText={user.username}/>
             )}
-          </SelectField>
+          </SelectInput>
           <br />
-          <SelectField
-            value={this.state.value}
-            onChange={this.handleChange}
+
+          <SelectInput
+            ref="surveyInput"
+            floatingLabelText="Select a survey:"
+          >
+            {surveys.map(survey =>
+              <MenuItem key={survey.id} value={survey.surveyname} primaryText={survey.surveyname}/>
+            )}
+          </SelectInput>
+          <br />
+
+          <SelectInput
+            ref="chartInput"
             floatingLabelText="Chart type:"
           >
             {charts.map(chart =>
               <MenuItem key={chart.type} value={chart.type} primaryText={chart.label}/>
             )}
-          </SelectField>
+          </SelectInput>
           <br />
-          <label>Upload Data File:</label>
-          <input type="file"></input>
+
+          <label htmlFor="fileInput">Upload Data File:</label>
+          <input ref="fileInput" name="fileInput" type="file"></input>
           <br />
-          <TextField
-            hintText="e.g. 2016 customer survey"
-            floatingLabelText="Survey Name:"
-          />
-          <br />
+          <FileInput label="test" />
           <br />
           <RaisedButton
             label="Create"
