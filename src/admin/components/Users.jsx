@@ -1,59 +1,66 @@
 import React from 'react';
 import { SelectField, TextField, MenuItem, RaisedButton, Paper, Card} from 'material-ui';
 
-// Mock data
-const users = [
-  { id: 1, username: 'User 1' },
-  { id: 2, username: 'User 2' },
-  { id: 3, username: 'User 3' }
-];
-const userTypes = [
-  {usertype: 'user', label: 'Basic User'},
-  {usertype: 'accountadmin', label: 'Account Admin'},
-  {usertype: 'sysadmin', label: 'System Admin'}
-];
-
 export default class Users extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {value: null};
+    this.state = {
+      data: {
+        usertype: null,
+        username: null,
+        password: null
+      }
+    };
   }
 
-  handleChange = (event, index, value) => this.setState({value});
+  handleChange = (field, event, index, value) => {
+    // material-ui Select Fieldpasses index, value in addition to the react event.
+    // field is bound manuallty to the callback in the return function
+    value = value || event.target.value
+    let data = this.state.data;
+    data[field] = value;
+    this.setState({data: data});
+  }
 
   render() {
-
     return (
       <Paper style={{padding: 1.5 + 'rem', margin: 1 + 'rem'}}>
-        <h2>Create a new user</h2>
-        <form>
+        <h2>Create User</h2>
+        <form role='form' action="/register" method="post">
           <SelectField
-            value={this.state.value}
-            onChange={this.handleChange}
             floatingLabelText="Select user type:"
-          >
-            {userTypes.map(u =>
-              <MenuItem key={u.usertype} value={u.usertype} primaryText={u.label}/>
-            )}
+            value={this.state.data.usertype}
+            onChange={this.handleChange.bind(this, 'usertype')}>
+              <MenuItem value="Basic User" primaryText="Basic User"/>
+              <MenuItem value="Account Admin" primaryText="Account Admin" />
+              <MenuItem value="Site Admin" primaryText="Site Admin" />
           </SelectField>
-          <br />          
+          <input
+            name="usertype"
+            type="text"
+            value={this.state.data.usertype}
+            style={{display: "none"}}/>
+          <br />
           <TextField
-            hintText="e.g. bob"
-            floatingLabelText="User Name:"
+            name="username"
+            floatingLabelText = "User Name:"
+            hintText= "jsmith"
           />
           <br />
           <TextField
-            hintText="********"
-            floatingLabelText="Password:"
+            name="password"
+            floatingLabelText = "Password:"
+            hintText= "********"
           />
-          <br />
           <br />
           <RaisedButton
-            label="Create"
+            label="Create User"
+            type="submit"
             primary={true}
-          />
+            style={{marginTop: 10}}/>
         </form>
+        <br />
       </Paper>
     )
   }

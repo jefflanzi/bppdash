@@ -7,7 +7,10 @@ var fs = require('fs');
 // Configure file upload middleware
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
-      var path = './datasets/' + req.user.username;
+      var path = './datasets/' + req.body.username;
+      fs.mkdir(path, function(err) {
+        if (err && err.code ==='EEXIST') return;
+      });
       cb(null, path);
   },
   filename: function(req, file, cb) {
