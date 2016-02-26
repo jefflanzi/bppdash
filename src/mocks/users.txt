@@ -1,0 +1,61 @@
+USER
+	username
+	usertype
+	SURVEYS
+	ACTIONS
+	
+usertype
+	basic user
+	account admin
+	site admin
+	
+user actions
+	users
+		login
+		logout
+		create
+		edit
+		delete
+	surveys
+		create
+		upload
+		query
+		delete
+	charts
+		view
+		create
+		edit
+		save
+		delete
+		annotate		
+		share
+		upload
+	presentations
+		view
+		create
+		edit
+		save
+		delete
+		share
+		
+privileges
+	basic user
+		login
+		logout
+		
+		surveys
+			query (all)
+		charts
+			view (their own, shared)
+			create (their own)
+			edit (their own)
+			delete (their own)
+			annotate (their own, shared)
+		
+	
+	
+	
+	
+	
+		
+		
