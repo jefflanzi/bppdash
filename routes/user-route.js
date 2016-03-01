@@ -12,7 +12,7 @@ router.get('/register', function(req, res) {
 // Get a list of Users
 router.get('/', requireAuth(), function(req, res) {
   User.find().select('-password').exec(function(err, users) {
-    if(err) return console.error(err);
+    if(err) return console.log(err);
     res.send(users);
   });
 });
@@ -26,11 +26,10 @@ router.post('/', requireAuth(['site admin']), function(req, res) {
     }),
     req.body.password,
     function(err, user) {
-      if (err) {
-        console.log(err);
-        return res.send(user);
-      }
-    });
+      if (err) console.log(err);
+      return res.send(user);
+    }
+  );
 });
 
 // Delete a user

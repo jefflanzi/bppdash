@@ -6,6 +6,7 @@ var User = new Schema({
   username: String,
   usertype: {
     type: String,
+    unique: true,
     lowercase: true,
     enum: ["basic user", "account admin", "site admin"]
 
