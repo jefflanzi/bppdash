@@ -1,5 +1,6 @@
 import React from 'react';
 import { SelectField, TextField, MenuItem, RaisedButton, Paper, Card} from 'material-ui';
+import UserList from './UserList';
 
 export default class Users extends React.Component {
 
@@ -25,43 +26,52 @@ export default class Users extends React.Component {
 
   render() {
     return (
-      <Paper style={{padding: 1.5 + 'rem', margin: 1 + 'rem'}}>
-        <h2>Create User</h2>
-        <form role='form' action="/register" method="post">
-          <SelectField
-            floatingLabelText="Select user type:"
-            value={this.state.data.usertype}
-            onChange={this.handleChange.bind(this, 'usertype')}>
-              <MenuItem value="Basic User" primaryText="Basic User"/>
-              <MenuItem value="Account Admin" primaryText="Account Admin" />
-              <MenuItem value="Site Admin" primaryText="Site Admin" />
-          </SelectField>
-          <input
-            name="usertype"
-            type="text"
-            value={this.state.data.usertype}
-            style={{display: "none"}}/>
+      <div>
+        <Paper style={{padding: 1.5 + 'rem', margin: 1 + 'rem'}}>
+          <h2>Create User</h2>
+          <form role='form' action="/user" method="post">
+            <SelectField
+              floatingLabelText="Select user type:"
+              value={this.state.data.usertype}
+              onChange={this.handleChange.bind(this, 'usertype')}>
+                <MenuItem value="Basic User" primaryText="Basic User"/>
+                <MenuItem value="Account Admin" primaryText="Account Admin" />
+                <MenuItem value="Site Admin" primaryText="Site Admin" />
+            </SelectField>
+            <input
+              name="usertype"
+              type="text"
+              value={this.state.data.usertype}
+              style={{display: "none"}}/>
+            <br />
+            <TextField
+              name="username"
+              floatingLabelText = "User Name:"
+              hintText= "jsmith"
+            />
+            <br />
+            <TextField
+              name="password"
+              type="password"
+              floatingLabelText = "Password:"
+              hintText= "********"
+            />
+            <br />
+            <RaisedButton
+              label="Create User"
+              type="submit"
+              primary={true}
+              style={{marginTop: 10}}/>
+          </form>
           <br />
-          <TextField
-            name="username"
-            floatingLabelText = "User Name:"
-            hintText= "jsmith"
-          />
-          <br />
-          <TextField
-            name="password"
-            floatingLabelText = "Password:"
-            hintText= "********"
-          />
-          <br />
-          <RaisedButton
-            label="Create User"
-            type="submit"
-            primary={true}
-            style={{marginTop: 10}}/>
-        </form>
+        </Paper>
         <br />
-      </Paper>
+        <Paper style={{padding: 1.5 + 'rem', margin: 1 + 'rem', marginTop: 0}}>
+          <h2>Current Users</h2>
+          <UserList />
+        </Paper>
+      </div>
+
     )
   }
 }

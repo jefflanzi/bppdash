@@ -69,8 +69,6 @@ passport.deserializeUser(User.deserializeUser());
 // Routes
 var routes = require('./routes/routes');
 app.use('/', routes);
-var data = require('./routes/data');
-app.use('/data', data);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

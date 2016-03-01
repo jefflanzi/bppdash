@@ -1,9 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var User = require('../models/user.js');
+var User = require('../models/user');
+var userRoute = require('./user-route');
+var adminRoute = require('./admin-route');
+var dataRoute = require('./data-route');
 
-// Authentication routes
+
+// Import routes
+router.use('/user', userRoute);
+router.use('/data', dataRoute);
+router.use('/admin', adminRoute);
+
+// Login
 router.get('/login', function(req, res) {
   res.render('login');
 });
@@ -12,31 +21,10 @@ router.post('/login',  passport.authenticate('local'),  function(req, res) {
   res.redirect('/');
 });
 
-// Need separate admin authentication to protect user registration
-router.get('/register', function(req, res) {
-  res.render('register');
-});
-
-router.post('/register', function(req, res) {
-  User.register(new User({ usertype: req.body.usertype, username: req.body.username }), req.body.password, function(err, user) {
-    if (err) {
-      return res.render('register', {user: user});
-    }
-
-    passport.authenticate('local')(req, res, function () {
-      res.redirect('/');
-    });
-  });
-});
-
-router.get('/admin', function(req, res) {
-  res.render('admin.jade');
-});
-
 // All routes after this will check for successful authentication
 router.all('*', function(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login');
+  if (req.isAuthenticated()) next();
+  else res.redirect('/login');
 });
 
 router.get('/', function(req, res) {

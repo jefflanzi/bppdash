@@ -1,0 +1,21 @@
+Notation:
+Description [Auth Reqs]
+
+Routes:
+
+User
+
+CREATE User
+Create a new user [Admin]
+
+READ User
+Get array of all user objects [Admin]
+Get information about own user [All]
+
+UPDATE User
+Update properties of any user [Admin]
+
+DELETE User
+Delete any user [Admin]
+
+charts

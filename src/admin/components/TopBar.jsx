@@ -20,9 +20,9 @@ export default class TopBar extends React.Component {
             <MenuItem primaryText="Charts"
               linkButtton
               href="/"
-            />            
+            />
             <MenuItem primaryText="Placeholder" />
-            <MenuItem primaryText="Sign out" />
+            <MenuItem primaryText="Sign out" href="/logout" />
           </IconMenu>
         }
       />
