@@ -69,6 +69,7 @@
     "chai": "^3.5.0",
     "chai-http": "^2.0.1",
     "chai-immutable": "^1.5.3",
-    "mocha": "^2.4.5"
+    "mocha": "^2.4.5",
+    "supertest": "^1.2.0"
   }
 }

@@ -26,7 +26,7 @@ router.post('/', requireAuth(['site admin']), function(req, res) {
     }),
     req.body.password,
     function(err, user) {
-      if (err) console.log(err);
+      if (err) res.send(err);
       return res.send(user);
     }
   );
@@ -35,8 +35,7 @@ router.post('/', requireAuth(['site admin']), function(req, res) {
 // Delete a user
 router.post('/:userid', requireAuth(['site admin']), function(req, res) {
   User.findOneAndRemove({_id: req.params.userid}, function(err, doc) {
-    if (err) console.error(err);
-    console.log('removed:', doc);
+    if (err) console.error(err);    
     res.send("deleted: " + doc.username);
   })
 })
