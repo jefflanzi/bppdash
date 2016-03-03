@@ -20,15 +20,20 @@ router.post('/setup', function(req, res) {
     if (result.length === 0) {
       User.register(
         new User({
-          usertype: req.body.usertype,
+          usertype: 'site admin',
           username: req.body.username
         }),
         req.body.password,
         function(err, user) {
           if (err) throw err;
-          return res.send(user);
+          req.login(user, function(err) {
+            if (err) { return next(err); }
+            return res.redirect('/admin');
+          })
         }
       );
+    } else {
+      return res.redirect('/admin');
     }
   })
 })

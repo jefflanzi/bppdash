@@ -9,16 +9,8 @@ html
       p Warning: do not lose credentials, this process cannot be repeated
       br
       form(role='form', action='/admin/setup', method='post', style='max-width: 300px;')
-        .form-group          
-          select.form-control(type='select', name='usertype', placeholder='basic')
-            option(value="Basic User") Basic User
-            option(value="Account Admin") Account Admin
-            option(value="Site Admin") Site Admin
         .form-group
-          input.form-control(type='text', name='username', placeholder='Enter Username')
+          input.form-control(type='text', name='username', placeholder='Enter Username')        
         .form-group
-          input.form-control(type='password', name='password', placeholder='Password')
+          input.form-control(type='password', name='password', placeholder='Password')        
         button(type='submit') Submit
-        |&nbsp; 
-        a(href='/')
-          button(type="button") Cancel

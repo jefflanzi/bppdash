@@ -48,8 +48,10 @@ describe('*SETUP*', function() {
       .post('/admin/setup')
       .send(testAdmin)
       .end(function(err, res) {
-        expect(res.body.username).to.equal(testAdmin.username);
-        expect(res.body.usertype).to.equal(testAdmin.usertype);
+        console.log(res.status);
+        console.log(res.text);
+        expect(res.status).to.equal(302);
+        expect(res.text).to.match(/^Found/);
         done();
       });
   });
