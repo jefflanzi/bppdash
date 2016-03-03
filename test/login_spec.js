@@ -1,67 +1,95 @@
+process.env.NODE_ENV = 'test';
 var chai = require('chai');
 var expect = chai.expect;
 var request = require('supertest');
 var app = require('../app');
+var mongoose = require('mongoose');
+var User = require('../models/user');
 
-// Set up server
-var base = 'http://localhost'
-var server;
-var testuser = {
-  username: 'admin',
+// Set up agent to hold auth credentials
+var agent = request.agent(app);
+
+// Create mock users
+var testAdmin = new User({
+  username: 'testadmin',
   usertype: 'site admin',
   password: 'admin'
-}
+});
 
-before(function() {
+var newUser = {
+  username: 'newtestuser',
+  usertype: 'site admin',
+  password: 'test'
+};
 
-  server = app.listen(0, function listening() {
-    base += ':' + server.address().port;
+
+before(function(done) {
+
+  if(mongoose.connection.readyState === 1) {
+    done();
+  } else {
+    mongoose.connection.once('open', done);
+  }
+
+});
+
+describe('*SETUP*', function() {
+
+  before(function(done) {
+    User.remove({}, function(err) {
+      if (err) throw err;
+      console.log('+User collection removed');
+      done();
+    });
+  })
+
+  it('can create an admin if none exist', function(done) {
+    request(app)
+      .post('/admin/setup')
+      .send(testAdmin)
+      .end(function(err, res) {
+        expect(res.body.username).to.equal(testAdmin.username);
+        expect(res.body.usertype).to.equal(testAdmin.usertype);
+        done();
+      });
   });
 
 });
 
-after(function() {
-  server.close();
-});
-
-describe('/login', function() {
+describe('*LOGIN*', function() {
 
   it('should not allow unauthenticated access', function(done) {
     request(app)
       .get('/user')
       .end(function(err, res) {
         if (err) throw err;
-        // console.log("res keys: ", Object.keys(res))
-        console.log("unauthenticated request: ", res.text);
         expect(res.text).to.equal('not authorized');
         done();
       })
   });
 
-  var agent = request.agent(app);
 
   it('should accept credentials on /login', function(done) {
     agent
       .post('/login')
-      .send({ username: testuser.username, password: testuser.password })
+      .send({ username: testAdmin.username, password: testAdmin.password })
       .end(function(err, res) {
         if (err) throw err;
-        // console.log("res keys: ", Object.keys(res))
-        console.log("login: ", res.text);
-        expect(res.text).to.equal('Found. Redirecting to /')
+        expect(res.headers['set-cookie']).to.exist;
+        expect(res.text).to.match(/^Found/);
         done();
       });
   });
 
-  it('should retain session cookies across requests', function(done) {
+  it('should retain session auth across requests', function(done) {
     agent
       .get('/user')
       .end(function(err, res) {
         if (err) throw err;
         // console.log("res keys: ", Object.keys(res))
-        console.log('get /user:', res.text);
         expect(res.body[0]).to.be.a('object');
         expect(res.body[0]).to.be.have.property('username');
+        expect(res.request.cookies).to.match(/connect.sid/);
         done();
       });
   });

@@ -25,7 +25,7 @@ router.post('/setup', function(req, res) {
         }),
         req.body.password,
         function(err, user) {
-          if (err) console.log(err);
+          if (err) throw err;
           return res.send(user);
         }
       );

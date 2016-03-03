@@ -26,9 +26,7 @@ describe('*USER ROUTES*', function() {
     password: 'test'
   };
 
-  before(function(done) {
-
-    console.log('mongoose ready? : ', mongoose.connection.readyState);
+  before(function(done) {    
 
     function cleanDB() {
       User.remove({}, function(err) {
