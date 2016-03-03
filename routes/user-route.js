@@ -13,7 +13,7 @@ router.get('/register', function(req, res) {
 router.get('/', requireAuth(), function(req, res) {
   User.find().select('-password').exec(function(err, users) {
     if(err) return console.log(err);
-    res.send(users);
+    res.json(users);
   });
 });
 
@@ -27,7 +27,7 @@ router.post('/', requireAuth(['site admin']), function(req, res) {
     req.body.password,
     function(err, user) {
       if (err) res.send(err);
-      return res.send(user);
+      return res.json(user);
     }
   );
 });
@@ -35,7 +35,7 @@ router.post('/', requireAuth(['site admin']), function(req, res) {
 // Delete a user
 router.post('/:userid', requireAuth(['site admin']), function(req, res) {
   User.findOneAndRemove({_id: req.params.userid}, function(err, doc) {
-    if (err) console.error(err);    
+    if (err) console.error(err);
     res.send("deleted: " + doc.username);
   })
 })

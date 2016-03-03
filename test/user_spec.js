@@ -26,7 +26,7 @@ describe('*USER ROUTES*', function() {
     password: 'test'
   };
 
-  before(function(done) {    
+  before(function(done) {
 
     function cleanDB() {
       User.remove({}, function(err) {
@@ -91,7 +91,7 @@ describe('*USER ROUTES*', function() {
     it('gets a list of users', function(done) {
       agent
         .get('/user')
-        .end(function(err, res) {
+        .end(function(err, res) {          
           expect(res.body[0]).to.have.ownProperty('_id', 'username', 'usertype');
           expect(res.body[0].username).to.equal('testadmin');
           done();
