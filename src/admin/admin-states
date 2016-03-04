@@ -1,0 +1,7 @@
+admin: {
+  currentUser: {},
+  activeView: ['home', 'users', 'surveys', 'charts']
+  users: [];
+  surveys: [];
+  charts: [];
+}
