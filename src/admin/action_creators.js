@@ -6,9 +6,11 @@ export const setView = (view) => {
   }
 
 // Shared Actions
-export const getUsers = (user) => {
+export const getUsers = () => {
   return {
     type: 'GET_USERS',
+    status: 'success',
+    response: {}
   }
 }
 

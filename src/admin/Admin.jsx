@@ -1,21 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import uuid from 'node-uuid';
-import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router';
-
-injectTapEventPlugin();
-
-// Components
 import LeftNav from './components/LeftNav';
 import TopBar from './components/TopBar';
-import Index from './components/Index';
-import Test from './components/Test';
-import Users from './components/Users';
-import Surveys from './components/Surveys';
-import Charts from './components/Charts';
 
-class Admin extends React.Component {
+export default class Admin extends React.Component {
 
   constructor(props) {
     super(props);
@@ -47,14 +34,3 @@ class Admin extends React.Component {
   }
 
 }
-
-ReactDOM.render((
-  <Router history={hashHistory}>
-    <Route path="/" component={Admin}>
-      <IndexRoute component={Index} />
-      <Route path="users" component={Users} />
-      <Route path="surveys" component={Surveys} />
-      <Route path="charts" component={Charts} />
-    </Route>
-  </Router>
-), document.getElementById('admin'));

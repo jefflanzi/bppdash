@@ -67,7 +67,7 @@ export default class Users extends React.Component {
         </Paper>
         <br />
         <Paper style={{padding: 1.5 + 'rem', margin: 1 + 'rem', marginTop: 0}}>
-          <h2>Current Users</h2>
+          <h2>Manage Users</h2>
           <UserList />
         </Paper>
       </div>
