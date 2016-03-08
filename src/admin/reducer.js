@@ -1,44 +1,28 @@
-import {*} from './actions';
+import {List, Map, fromJS} from 'immutable';
 
-const initialState = {
-  menuOpen: false,
-  users: {
-    isFetching: false,
-    items: []
-  },
-  surveys: {
-    isFetching: false,
-    items: []
-  },
-  charts: {
-    isFetching: false,
-    items: []
-  };
-};
+function createUser(state, user) {
+  // Update state using Immutable.js
+  const currentUsers = state.getIn(['users', 'list']);
+  const newUsers = currentUsers.push(fromJS(user));
+  const nextState = state.setIn(['users', 'list'], newUsers);
 
-function users(state = [], action) {
-  switch(action.type) {
-    case REQUEST_USERS:
-      return [
-        ...state,
-        {
-          users
-        }
-      ]
-  }
+  return nextState;
 }
 
+function deleteUser(state, username) {  
+  const currentUsers = state.getIn(['users', 'list']);
+  const newUsers = currentUsers.filterNot(user => user.get('username') === username);
+  const nextState = state.setIn(['users', 'list'], newUsers);
 
-export default function reducer(state = INITIAL_STATE, action) {
+  return nextState;
+}
+
+export default function reducer(state, action) {
   switch(action.type) {
-    case 'GET_USERS':
-      return getUsers();
     case 'CREATE_USER':
-      return createUser(state, action.entry);
-    case: 'CREATE_SURVEY':
-      return createSurvey(state, action.entry);
-    case: 'CREATE_CHART':
-      return createChart(state, action.data);
+      return createUser(state, action.user);
+    case 'DELETE_USER':
+      return deleteUser(state, action.username);
     default:
       return state;
   }

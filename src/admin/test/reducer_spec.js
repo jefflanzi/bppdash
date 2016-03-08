@@ -1,17 +1,39 @@
-import React from 'react';
-import { render } from 'react-dom';
-import {
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithTag
-} from 'react-addons-test-utils';
+import {List, Map, fromJS} from 'immutable';
 import { expect } from 'chai';
-import Users from '../components/Users';
+import initialState from '../admin-state.js';
+
+import reducer from '../reducer';
 
 describe('reducer', () => {
-  it('fetches user list on page load', () => {
-    expect(1).to.equal(1);
+  it('creates a new user', () => {
+    const state = fromJS(initialState);
+    const action = {
+      type: 'CREATE_USER',
+      user: {
+        id: 4,
+        username: 'newuser',
+        usertype: 'site admin',
+        password: 'pw4'
+      }
+    };
+    const nextState = reducer(state, action);
+
+    expect(nextState.getIn(['users', 'list'])).to.exist;
+    expect(nextState.getIn(['users', 'list']).count()).to.equal(4);
+
   });
-  it('should reduce things', () => {
-    expect(1).to.equal(1);
+
+  it('deletes a user by username', () => {
+    const state = fromJS(initialState);
+    const action = {
+      type: 'DELETE_USER',
+      username: 'user3'
+    }
+    const nextState = reducer(state, action);
+
+    expect(nextState.getIn(['users', 'list'])).to.exist;
+    expect(nextState.getIn(['users', 'list']).count()).to.equal(2);
+
   });
+
 });
