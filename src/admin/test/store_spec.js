@@ -7,11 +7,10 @@ const initialState = fromJS(testState);
 
 describe('store', () => {
 
-  const store = configureStore(initialState);
+  const store = configureStore();
 
-
-  it('is a Redux store configured with a reducer', () => {
-    expect(store.getState()).to.equal(initialState);
+  it('is a Redux store configured with a reducer and initial state', () => {
+    expect(store.getState()).to.equal(initialState);    
   });
 
   it('dispatches CREATE_USER', () => {
@@ -36,7 +35,7 @@ describe('store', () => {
     }
 
     store.dispatch(action);
-    expect(store.getState().getIn(['users', 'list']).count()).to.equal(3);    
+    expect(store.getState().getIn(['users', 'list']).count()).to.equal(3);
 
   });
 

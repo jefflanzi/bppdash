@@ -1,25 +1,25 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import configureStore from './store';
 import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
 
-import reducer from './reducers';
-import Admin from './Admin';
+import reducer from './reducer';
+import Admin from './components/Admin';
 import Home from './components/Home';
 import Users from './components/Users';
 import Surveys from './components/Surveys';
 import Charts from './components/Charts';
 
-let store = createStore(reducer);
+const store = configureStore();
 
 render((
   <Provider store={store}>
     <Router history={hashHistory}>
-      <Route path="/" component={Admin}>
+      <Route component={Admin}>
         <IndexRoute component={Home} />
         <Route path="users" component={Users} />
         <Route path="surveys" component={Surveys} />

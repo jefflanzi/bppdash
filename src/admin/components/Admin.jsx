@@ -1,6 +1,6 @@
 import React from 'react';
-import LeftNav from './components/LeftNav';
-import TopBar from './components/TopBar';
+import LeftNav from './LeftNav';
+import TopBar from './TopBar';
 
 export default class Admin extends React.Component {
 
