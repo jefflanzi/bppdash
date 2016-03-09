@@ -1,8 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions';
 import { SelectField, TextField, MenuItem, RaisedButton, Paper, Card} from 'material-ui';
 import UserList from './UserList';
+import initialState from '../admin-state';
 
-export default class Users extends React.Component {
+
+class Users extends React.Component {
 
   constructor(props) {
     super(props);
@@ -16,8 +20,8 @@ export default class Users extends React.Component {
   }
 
   handleChange = (field, event, index, value) => {
-    // material-ui Select Fieldpasses index, value in addition to the react event.
-    // field is bound manuallty to the callback in the return function
+    // material-ui SelectField passes index, value in addition to the react event.
+    // field is bound manuallty to the callback in the component's render method
     value = value || event.target.value
     let data = this.state.data;
     data[field] = value;
@@ -25,15 +29,16 @@ export default class Users extends React.Component {
   }
 
   render() {
+    const users = initialState.users.list;
     return (
       <div>
         <Paper style={{padding: 1.5 + 'rem', margin: 1 + 'rem'}}>
           <h2>Create User</h2>
-          <form role='form' action="/user" method="post">
+          <form role='form'>
             <SelectField
               floatingLabelText="Select user type:"
               value={this.state.data.usertype}
-              onChange={this.handleChange.bind(this, 'usertype')}>
+              onChange={this.handleChange.bind(null, 'usertype')}>
                 <MenuItem value="Basic User" primaryText="Basic User"/>
                 <MenuItem value="Account Admin" primaryText="Account Admin" />
                 <MenuItem value="Site Admin" primaryText="Site Admin" />
@@ -46,8 +51,10 @@ export default class Users extends React.Component {
             <br />
             <TextField
               name="username"
+              type="text"
               floatingLabelText = "User Name:"
               hintText= "jsmith"
+              onChange={this.handleChange.bind(null, 'username')}
             />
             <br />
             <TextField
@@ -55,23 +62,37 @@ export default class Users extends React.Component {
               type="password"
               floatingLabelText = "Password:"
               hintText= "********"
+              onChange={this.handleChange.bind(null, 'password')}
             />
             <br />
             <RaisedButton
               label="Create User"
-              type="submit"
               primary={true}
-              style={{marginTop: 10}}/>
+              style={{marginTop: 10}}
+              onTouchTap={() => this.props.createUser(this.state.data)}/>
           </form>
           <br />
         </Paper>
         <br />
         <Paper style={{padding: 1.5 + 'rem', margin: 1 + 'rem', marginTop: 0}}>
           <h2>Manage Users</h2>
-          <UserList />
+          <UserList {...this.props} />
         </Paper>
       </div>
-
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  let users = state.getIn(['users', 'list']).toJS();
+  return {
+    users: users
+  }
+}
+
+const UsersContainer = connect(
+  mapStateToProps,
+  actionCreators
+)(Users);
+
+export default UsersContainer;

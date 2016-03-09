@@ -1,4 +1,5 @@
 import {List, Map, fromJS} from 'immutable';
+import uuid from 'node-uuid';
 
 function setState(state, newState) {
   return state.merge(newState);
@@ -6,6 +7,7 @@ function setState(state, newState) {
 
 function createUser(state, user) {
   // Update state using Immutable.js
+  user.id = uuid.v4();
   const currentUsers = state.getIn(['users', 'list']);
   const newUsers = currentUsers.push(fromJS(user));
   const nextState = state.setIn(['users', 'list'], newUsers);
