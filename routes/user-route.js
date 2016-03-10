@@ -19,6 +19,7 @@ router.get('/', requireAuth(), function(req, res) {
 
 // Create a new user
 router.post('/', requireAuth(['site admin']), function(req, res) {
+  console.log('req.body: ', req.body);
   User.register(
     new User({
       usertype: req.body.usertype,
@@ -33,10 +34,10 @@ router.post('/', requireAuth(['site admin']), function(req, res) {
 });
 
 // Delete a user
-router.post('/:userid', requireAuth(['site admin']), function(req, res) {
-  User.findOneAndRemove({_id: req.params.userid}, function(err, doc) {
+router.post('/delete/:username', requireAuth(['site admin']), function(req, res) {
+  User.findOneAndRemove({username: req.params.username}, function(err, doc) {
     if (err) console.error(err);
-    res.send("deleted: " + doc.username);
+    res.json("deleted: " + doc.username);
   })
 })
 
