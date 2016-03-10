@@ -1,9 +1,21 @@
 import {List, Map, fromJS} from 'immutable';
 import uuid from 'node-uuid';
 
-function createUser(state, user) {
-  // Update state using Immutable.js
-  user.id = uuid.v4();
+function requestUsers(state) {
+  return state.setIn(['users', 'isFetching'], true)
+}
+
+function receiveUsers(state, action) {
+  return state.set('users',
+    Map({
+      isFetching: false,
+      lastUpdated: action.receivedAt,
+      list: fromJS(action.users)
+    })
+  )
+}
+
+function createUser(state, user) {  
   const currentUsers = state.getIn(['users', 'list']);
   const newUsers = currentUsers.push(fromJS(user));
   const nextState = state.setIn(['users', 'list'], newUsers);
@@ -19,39 +31,9 @@ function deleteUser(state, username) {
   return nextState;
 }
 
-function requestUsers(state) {
-  return state.setIn(['users', 'isFetching'], true)
-}
-
-function receiveUsers(state, action) {
-  return state.set('users',
-    Map({
-      isFetching: false,
-      lastUpdated: action.receivedAt,
-      list: fromJS(action.users)
-    })
-  )
-}
-
 // user reducer
 const defaultUsersState = { isFetching: false, lastUpdated: null, list: []}
-function users(state = defaultUsersState, action) {
-  switch(action.type) {
-    case 'REQUEST_USERS':
-      return state.setIn(['users', 'isFetching'], true)
-    case 'RECEIVE_USERS':
-      return state.set('users', Map({
-        isFetching: false,
-        lastUpdated: action.receivedAt,
-        list: fromJS(action.users)
-      })
-    )
-    default:
-      return state
-  }
-}
-
-export default function reducer(state, action) {
+export default function reducer(state = defaultUsersState, action) {
   switch(action.type) {
     case 'REQUEST_USERS':
       return requestUsers(state);

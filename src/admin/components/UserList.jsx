@@ -49,8 +49,8 @@ export default class UserList extends React.Component {
               <TableRowColumn>
                   <FlatButton
                     label="Delete"
-                    onTouchTap={() => this.deleteUser(user.username)}
-                    //onTouchTap={() => this.props.deleteUser(user.username)}
+                    //onTouchTap={() => this.deleteUser(user.username)}
+                    onTouchTap={() => this.props.requestDeleteUser(user.username)}
                   />
               </TableRowColumn>
             </TableRow>

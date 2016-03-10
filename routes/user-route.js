@@ -37,7 +37,7 @@ router.post('/', requireAuth(['site admin']), function(req, res) {
 router.post('/delete/:username', requireAuth(['site admin']), function(req, res) {
   User.findOneAndRemove({username: req.params.username}, function(err, doc) {
     if (err) console.error(err);
-    res.json("deleted: " + doc.username);
+    res.json({deleted : doc.username});
   })
 })
 

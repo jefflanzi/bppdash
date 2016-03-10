@@ -28,21 +28,6 @@ class Users extends React.Component {
     this.setState({data: data});
   }
 
-  createUser = (userData) => {
-    let json = JSON.stringify(userData);
-    fetch('/user', {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: json,
-      credentials: 'same-origin'
-    })
-    .then(response => response.json())
-    .then(json => console.log(json));
-  }
-
   render() {
     const users = initialState.users.list;
     return (
@@ -84,8 +69,8 @@ class Users extends React.Component {
               label="Create User"
               primary={true}
               style={{marginTop: 10}}
-              onTouchTap={() => this.createUser(this.state.data)}
-              //onTouchTap={() => this.props.createUser(this.state.data)}
+              //onTouchTap={() => this.createUser(this.state.data)}
+              onTouchTap={() => this.props.insertUser(this.state.data)}
             />
           </form>
           <br />

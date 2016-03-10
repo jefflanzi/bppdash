@@ -1,17 +1,11 @@
 import fetch from 'isomorphic-fetch';
 import {List, Map, fromJS} from 'immutable';
 
-export function setState(state) {
-  return {
-    type: 'SET_STATE',
-    state
-  }
-}
-
+// Action Creators
 export function createUser(user) {
   return {
     type: 'CREATE_USER',
-    user
+    user: user
   };
 }
 
@@ -22,8 +16,6 @@ export function deleteUser(username) {
   }
 }
 
-// ASYNC ACTIONS
-
 export function requestUsers() {
   return {
     type: 'REQUEST_USERS'
@@ -31,7 +23,6 @@ export function requestUsers() {
 }
 //
 export function receiveUsers(json) {
-  console.log(json);
   return {
     type: 'RECEIVE_USERS',
     users: json,
@@ -39,35 +30,71 @@ export function receiveUsers(json) {
   }
 }
 
-export function fetchUsers() {
-  return function (dispatch) {
+// Async actions
+
+
+// Fetch list of users
+function fetchUsers() {
+  return dispatch => {
     dispatch(requestUsers())
     return fetch('/user', {credentials: 'same-origin'})
       .then(response => response.json())
-      .then(json =>
-        dispatch(receiveUsers(json))
-      )
+      .then(json => dispatch(receiveUsers(json)))
       // TODO: catch errors
   }
 }
+
 //
-// function shouldFetchUsers(state, view) {
-//   const users = state.usersById[view]
-//   if (!users) {
-//     return true;
-//   } else if (users.isFetching) {
-//     return false;
-//   } else {
-//     return users.didInvalidate;
-//   }
-// }
-//
-// export function fetchUsersIfNeeded(view) {
-//   return (dispatch, getState) => {
-//     if (shouldFetchUsers(getState(), view)) {
-//       return dispatch(fetchUsers(view))
-//     } else {
-//       return Promise.resolve();
-//     }
-//   }
-// }
+function shouldFetchUsers(state) {
+  const users = state.getIn['users', 'list'];
+  if (!users) {
+    return true;
+  } else if (users.isFetching) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+export function fetchUsersIfNeeded() {
+  return (dispatch, getState) => {
+    if (shouldFetchUsers(getState())) {
+      return dispatch(fetchUsers())
+    } else {
+      return Promise.resolve();
+    }
+  }
+}
+
+// Create new user
+export function insertUser(user) {
+  return dispatch => {
+    return (
+      fetch('/user', {
+          method: 'post',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(user),
+          credentials: 'same-origin'
+        })
+      .then(response => response.json())
+      .then(json => dispatch(createUser(json)))
+    )
+  }
+}
+
+// delete a user
+export function requestDeleteUser(username) {
+  return dispatch => {
+    return(
+      fetch('/user/delete/' + username, {
+        method: 'post',
+        credentials: 'same-origin'
+      })
+      .then(response => response.json())
+      .then(json => dispatch(deleteUser(json.deleted)))
+    )
+  }
+}

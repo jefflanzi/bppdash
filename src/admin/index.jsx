@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store';
-import { fetchUsers } from './actions';
+import { fetchUsersIfNeeded } from './actions';
 import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 // import fetch from 'isomorphic-fetch';
@@ -18,16 +18,15 @@ import Surveys from './components/Surveys';
 import Charts from './components/Charts';
 
 const store = configureStore();
-store.dispatch(fetchUsers())
-//   .then(() =>
-//   console.log(store.getState())
-// );
+store.dispatch(fetchUsersIfNeeded()).then(() =>
+  console.log(store.getState())
+);
 
 render((
   <Provider store={store}>
     <Router history={hashHistory}>
       <Route component={Admin}>
-        <IndexRoute component={Home} />
+        <Route path="/" component={Home} />
         <Route path="users" component={Users} />
         <Route path="surveys" component={Surveys} />
         <Route path="charts" component={Charts} />

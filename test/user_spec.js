@@ -133,8 +133,8 @@ describe('*USER ROUTES*', function() {
       User.findOne({username: newUser.username}, function(err, user) {
         agent
           .post('/user/delete/' + user.username)
-          .end(function(err, res) {
-            expect(res.body).to.equal('deleted: ' + newUser.username);
+          .end(function(err, res) {            
+            expect(res.body.deleted).to.equal(newUser.username);
             done();
           });
       });
