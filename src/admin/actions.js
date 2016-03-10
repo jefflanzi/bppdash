@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import {List, Map, fromJS} from 'immutable';
 
 export function setState(state) {
   return {
@@ -21,55 +22,34 @@ export function deleteUser(username) {
   }
 }
 
+// ASYNC ACTIONS
 
+export function requestUsers() {
+  return {
+    type: 'REQUEST_USERS'
+  }
+}
+//
+export function receiveUsers(json) {
+  console.log(json);
+  return {
+    type: 'RECEIVE_USERS',
+    users: json,
+    receivedAt: Date.now()
+  }
+}
 
-// export const SELECT_VIEW = 'SELECT_VIEW'
-// export function selectView(view) {
-//   return {
-//     type: SELECT_VIEW,
-//     view
-//   }
-// }
-//
-// export const INVALIDATE_VIEW = 'INVALIDATE_VIEW'
-// export function invalidateView(view) {
-//   return {
-//     type: INVALIDATE_VIEW,
-//     view
-//   }
-// }
-//
-// // ASYNC FUNCTIONS
-//
-// export const REQUEST_USERS = 'REQUEST_USERS'
-// export function requestUsers(view) {
-//   return {
-//     type: REQUEST_USERS
-//     view
-//   }
-// }
-//
-// export const RECEIVE_USERS = 'RECEIVE_USERS'
-// export function receiveUsers(view, json) {
-//   return {
-//     type: RECEIVE_USERS,
-//     view,
-//     users: json.data.children.map(child => child.data),
-//     receivedAt: Date.now()
-//   }
-// }
-//
-// function fetchUsers(view) {
-//   return function (dispatch) {
-//     dispatch(requestUsers(view))
-//     return fetch('/users')
-//       .then(response => response.json())
-//       .then(json =>
-//         dispatch(receivePosts(view, json))
-//       )
-//       // TODO: catch errors
-//   }
-// }
+export function fetchUsers() {
+  return function (dispatch) {
+    dispatch(requestUsers())
+    return fetch('/user', {credentials: 'same-origin'})
+      .then(response => response.json())
+      .then(json =>
+        dispatch(receiveUsers(json))
+      )
+      // TODO: catch errors
+  }
+}
 //
 // function shouldFetchUsers(state, view) {
 //   const users = state.usersById[view]

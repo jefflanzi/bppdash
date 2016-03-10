@@ -12,7 +12,7 @@ export default class UserList extends React.Component {
   }
 
   render() {
-    console.log('UserList.props.users: \n', this.props.users);
+    // console.log('UserList.props.users: \n', this.props.users);
     return (
       <Table>
         <TableHeader>
@@ -26,8 +26,8 @@ export default class UserList extends React.Component {
         </TableHeader>
         <TableBody>
           {this.getUsers().map(user =>
-            <TableRow key={user.id}>
-              <TableRowColumn>{user.id}</TableRowColumn>
+            <TableRow key={user._id}>
+              <TableRowColumn>{user._id}</TableRowColumn>
               <TableRowColumn>{user.username}</TableRowColumn>
               <TableRowColumn>{user.usertype}</TableRowColumn>
               <TableRowColumn>
