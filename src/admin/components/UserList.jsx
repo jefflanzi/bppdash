@@ -11,6 +11,19 @@ export default class UserList extends React.Component {
     return this.props.users || [];
   }
 
+  deleteUser = (username) => {
+    fetch('/user/delete/' + username, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(json => console.log(json));
+  }
+
   render() {
     // console.log('UserList.props.users: \n', this.props.users);
     return (
@@ -34,7 +47,11 @@ export default class UserList extends React.Component {
                   <EditIcon style={{cursor: "pointer"}} hoverColor="#FF0000"/>
               </TableRowColumn>
               <TableRowColumn>
-                  <FlatButton label="Delete" onTouchTap={() => this.props.deleteUser(user.username)}/>
+                  <FlatButton
+                    label="Delete"
+                    onTouchTap={() => this.deleteUser(user.username)}
+                    //onTouchTap={() => this.props.deleteUser(user.username)}
+                  />
               </TableRowColumn>
             </TableRow>
           )}
