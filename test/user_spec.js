@@ -91,7 +91,7 @@ describe('*USER ROUTES*', function() {
     it('gets a list of users', function(done) {
       agent
         .get('/user')
-        .end(function(err, res) {          
+        .end(function(err, res) {
           expect(res.body[0]).to.have.ownProperty('_id', 'username', 'usertype');
           expect(res.body[0].username).to.equal('testadmin');
           done();
@@ -128,13 +128,13 @@ describe('*USER ROUTES*', function() {
 
   describe('*DELETE USER*', function() {
 
-    it('deletes a user by id', function(done) {
+    it('deletes a user by name', function(done) {
 
       User.findOne({username: newUser.username}, function(err, user) {
         agent
-          .post('/user/' + user._id)
-          .end(function(err, res) {
-            expect(res.text).to.equal('deleted: ' + newUser.username);
+          .post('/user/delete/' + user.username)
+          .end(function(err, res) {            
+            expect(res.body.deleted).to.equal(newUser.username);
             done();
           });
       });

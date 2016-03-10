@@ -5,7 +5,7 @@ var config = {
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    path.resolve(__dirname, 'src/admin/Admin.jsx'),
+    path.resolve(__dirname, 'src/admin/index.jsx'),
   ],
   resolve: {
     extensions: ["", ".js", ".jsx"]
